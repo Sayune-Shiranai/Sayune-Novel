@@ -2,9 +2,8 @@
 Hệ thống quản lý web truyện online
 
 
-## Công nghệ sử dụng
-## FE
-- React
+### Công nghệ sử dụng
+## Frontend (React)
 
-## BE
-- Express
+## Backend (Express)
+
