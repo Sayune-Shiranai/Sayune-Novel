@@ -22,7 +22,7 @@ const config = {
 app.get('/test-sql', async (req, res) => {
     try {
         const pool = await sql.connect(config);
-        const result = await pool.request().query('SELECT TOP 5 * FROM Users');
+        const result = await pool.request().query('SELECT TOP 5 * FROM users');
         res.json(result.recordset);
     } catch (err) {
         console.error(err);
