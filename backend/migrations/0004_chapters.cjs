@@ -51,34 +51,7 @@ module.exports = {
         defaultValue: Sequelize.fn('GETDATE'), // SQL Server
       },
     });
-
-
-    // await queryInterface.addConstraint('chapters', {
-    //   fields: ['item_id'],
-    //   type: 'foreign key',
-    //   name: 'FK_chapters_library',
-    //   references: {
-    //     table: 'library',
-    //     field: 'id',
-    //   },
-    //   onDelete: 'CASCADE',
-    //   onUpdate: 'CASCADE',
-    // });
-
-    // // Thêm FK cho user_id
-    // await queryInterface.addConstraint('chapters', {
-    //   fields: ['user_id'],
-    //   type: 'foreign key',
-    //   name: 'FK_chapters_users',
-    //   references: {
-    //     table: 'users',
-    //     field: 'id',
-    //   },
-    //   onDelete: 'CASCADE',
-    //   onUpdate: 'CASCADE',
-    // });
   },
-
   async down(queryInterface, Sequelize) {
     // await queryInterface.removeConstraint('chapters', 'FK_chapters_library');
     // await queryInterface.removeConstraint('chapters', 'FK_chapters_users');

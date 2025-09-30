@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('report', {
+    await queryInterface.createTable('notices', {
       id: { 
         type: Sequelize.INTEGER, 
         autoIncrement: true, 
@@ -9,7 +10,7 @@ module.exports = {
       },
       user_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'users',  // tên bảng cha
           key: 'id'
@@ -18,7 +19,7 @@ module.exports = {
       },
       item_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'library',  // tên bảng cha
           key: 'id'
@@ -27,15 +28,16 @@ module.exports = {
       },
       chapter_id: {
         type: Sequelize.INTEGER,
-        allowNull: true,
+        allowNull: false,
         references: {
           model: 'chapters',  // tên bảng cha
           key: 'id'
         },
         onUpdate: 'CASCADE',
       },
-      reason: { 
-        type: Sequelize.TEXT 
+      notice_content: { 
+        type: Sequelize.TEXT,
+        allowNull: true
       },
       createDate: { 
         type: Sequelize.DATE, 
@@ -45,6 +47,6 @@ module.exports = {
     });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('report');
+    await queryInterface.dropTable('notices');
   }
 };

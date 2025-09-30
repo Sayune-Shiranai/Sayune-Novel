@@ -1,36 +1,40 @@
-const express = require('express');
-const sql = require('mssql');
-require('dotenv').config({ path: __dirname + '/.env' });
+import express from "express";
+import sql from "mssql";
+import { Sequelize } from "sequelize";
+import connectDB from "./db/db.js";
+import dotenv from "dotenv";
+import userRouter from "./routes/userRoutes.js";
+
+
+// load biến môi trường
+dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 
 const app = express();
 const PORT = 3000;
 
-// Cấu hình kết nối SQL Server
-const config = {
-    user: process.env.DB_USER,              // username SQL Server
-    password: process.env.DB_PASSWORD,  // password SA
-    server: process.env.DB_SERVER,     // hoặc tên host Docker
-    database: process.env.DB_DATABASE,    // tên database bạn muốn kết nối
-    options: {
-        encrypt: process.env.DB_ENCRYPT === 'true',     // nếu không dùng SSL
-        trustServerCertificate: true
-    }
-};
-
+app.use("/users", userRouter);
 
 // Route test kết nối
-app.get('/test-sql', async (req, res) => {
-    try {
-        const pool = await sql.connect(config);
-        const result = await pool.request().query('SELECT TOP 5 * FROM users');
-        res.json(result.recordset);
-    } catch (err) {
-        console.error(err);
-        res.status(500).send('Lỗi kết nối SQL Server');
-    }
+app.get("/connectDB", async (req, res) => {
+  try {
+    await connectDB.authenticate(); // kiểm tra kết nối
+    res.json({ success: true, message: "✅ Kết nối thành công với SQL Server!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "❌ Kết nối thất bại", error: err.message });
+  }
 });
+
+// app.get("/users", async (req, res) => {
+//   try {
+//     const user = await users.findAll();
+//     res.json(user);
+//   } catch (err) {
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// });
 
 // Khởi chạy server
 app.listen(PORT, () => {
-    console.log(`Server chạy tại http://localhost:${PORT}`);
+  console.log(`Server chạy tại http://localhost:${PORT}`);
 });

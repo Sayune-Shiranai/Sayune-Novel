@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import sequelize from "../backend/config/config.js"; // ví dụ import kết nối
+import connectDB from "../db/db.js"; // ví dụ import kết nối
 
-const user = sequelize.define("User", {
+const userModel = connectDB.define("userModel", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -23,11 +23,20 @@ const user = sequelize.define("User", {
   },
   role: {
     type: DataTypes.STRING(50),
-    defaultValue: "member",
+    allowNull: true,
   },
+  createDate: { 
+    type: DataTypes.DATE, 
+    allowNull: false, 
+    defaultValue: DataTypes.NOW  
+  },
+  refreshToken: { 
+    type: DataTypes.TEXT, 
+    allowNull: true 
+  }
 }, {
   tableName: "users",
   timestamps: false,
 });
 
-export default user;
+export default userModel;

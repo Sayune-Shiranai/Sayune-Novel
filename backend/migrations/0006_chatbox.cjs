@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('forum', {
+    await queryInterface.createTable('chatbox', {
       id: { 
         type: Sequelize.INTEGER, 
         autoIncrement: true, 
@@ -16,10 +17,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      title: { 
-        type: Sequelize.STRING 
-      },
-      forum_content: { 
+      chatbox_content: { 
         type: Sequelize.TEXT 
       },
       createDate: { 
@@ -29,7 +27,8 @@ module.exports = {
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('forum');
+    await queryInterface.dropTable('chatbox');
   }
 };

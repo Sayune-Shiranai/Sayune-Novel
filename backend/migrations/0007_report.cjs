@@ -1,7 +1,8 @@
 'use strict';
+
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('chatbox', {
+    await queryInterface.createTable('report', {
       id: { 
         type: Sequelize.INTEGER, 
         autoIncrement: true, 
@@ -16,8 +17,27 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      chatbox_content: { 
-        type: Sequelize.TEXT 
+      item_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'library',  // tên bảng cha
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+      },
+      chapter_id: {
+        type: Sequelize.INTEGER,
+        allowNull: true,
+        references: {
+          model: 'chapters',  // tên bảng cha
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+      },
+      reason: { 
+        type: Sequelize.TEXT,
+        allowNull: false
       },
       createDate: { 
         type: Sequelize.DATE, 
@@ -26,7 +46,8 @@ module.exports = {
       }
     });
   },
+
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('chatbox');
+    await queryInterface.dropTable('report');
   }
 };
