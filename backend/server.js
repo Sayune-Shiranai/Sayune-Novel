@@ -34,10 +34,10 @@ app.use("/report", reportRoutes);
 app.get("/connectDB", async (req, res) => {
   try {
     await connectDB.authenticate(); // kiểm tra kết nối
-    res.json({ success: true, message: "✅ Kết nối thành công với SQL Server!" });
+    res.json({ success: true, message: "Kết nối thành công với SQL Server!" });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, message: "❌ Kết nối thất bại", error: err.message });
+    res.status(500).json({ success: false, message: "Kết nối thất bại", error: err.message });
   }
 });
 
