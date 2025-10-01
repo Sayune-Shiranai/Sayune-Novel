@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import connectDB from "../db/db.js"; // ví dụ import kết nối
 
-const userModel = connectDB.define("userModel", {
+const usersModel = connectDB.define("usersModel", {
   id: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -39,4 +39,4 @@ const userModel = connectDB.define("userModel", {
   timestamps: false,
 });
 
-export default userModel;
+export default usersModel;
