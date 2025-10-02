@@ -7,6 +7,11 @@ Hệ thống quản lý web truyện online
 
 ### Backend (Express)
 
+### 1.Cài đặt các gói phụ thuộc 
+```bash
+npm install
+```
+
 ### 1.Cài đặt môi trường Sequelize CLI
 ```bash
 npm install sequelize sequelize-cli --save-dev
@@ -20,15 +25,18 @@ Sau đó mở file .env và chỉnh sửa thông tin phù hợp với môi trư�
 ```
 
 ### 3.Chạy Sequelize CLI
-## Tạo database
+### Tạo database
 ```bash
-
 npx sequelize-cli db:create
+```
 
-Tạo tất cả table
+### Tạo tất cả table
+```bash
 npx sequelize-cli db:migrate
+```
 
-Tạo tất cả seeders ( Tạo tất cả dữ liệu mẫu nếu cần )
+### Tạo tất cả seeders ( Tạo tất cả dữ liệu mẫu nếu cần )
+```bash
 npx sequelize-cli db:seed:all
 ```
 
