@@ -23,10 +23,10 @@ Sau đó mở file .env và chỉnh sửa thông tin phù hợp với môi trư�
 ```bash
 Tạo database
 npx sequelize-cli db:create
-```bash
+
 Tạo tất cả table
 npx sequelize-cli db:migrate
-```bash
+
 Tạo tất cả seeders ( Tạo tất cả dữ liệu mẫu nếu cần )
 npx sequelize-cli db:seed:all
 ```
