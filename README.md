@@ -10,6 +10,8 @@ Hệ thống quản lý web truyện online
 ### 1.Cài đặt các gói phụ thuộc 
 ```bash
 npm install
+cd backend
+npm install
 ```
 
 ### 2.Cấu hình cho Sequelize CLI kết nối sql server
