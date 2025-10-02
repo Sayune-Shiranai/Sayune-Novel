@@ -20,8 +20,9 @@ Sau đó mở file .env và chỉnh sửa thông tin phù hợp với môi trư�
 ```
 
 ### 3.Chạy Sequelize CLI
+## Tạo database
 ```bash
-Tạo database
+
 npx sequelize-cli db:create
 
 Tạo tất cả table
