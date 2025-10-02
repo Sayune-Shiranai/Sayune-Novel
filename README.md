@@ -37,3 +37,8 @@ npx sequelize-cli db:migrate
 npx sequelize-cli db:seed:all
 ```
 
+### 4.Chạy server
+```bash
+node backend/server.js
+```
+
