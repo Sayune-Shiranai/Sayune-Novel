@@ -12,11 +12,6 @@ Hệ thống quản lý web truyện online
 npm install
 ```
 
-### 1.Cài đặt môi trường Sequelize CLI
-```bash
-npm install sequelize sequelize-cli --save-dev
-```
-
 ### 2.Cấu hình cho Sequelize CLI kết nối sql server
 ```bash
 Tạo file .env
