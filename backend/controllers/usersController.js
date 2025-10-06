@@ -1,5 +1,6 @@
 import usersModel from "../models/users.js";
 
+// Lấy tất cả người dùng
 export async function getAllUsers(req, res) {
   try {
     const users = await usersModel.findAll();
