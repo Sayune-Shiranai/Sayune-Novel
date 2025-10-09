@@ -1,3 +1,4 @@
+// tính năng đăng ký, đăng nhập
 import usersModel from "../models/users.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
@@ -33,10 +34,15 @@ export async function register (req, res) {
     if (checkUser)
       return res.status(400).json({ field: "username", message: "Tài khoản đã tồn tại!" });
 
-    const user = await usersModel.create({ username, email, password });
-    res.status(201).json({ message: 'Tạo user thành công!', user });
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const user = await usersModel.create({ username, email, password: hashedPassword });
+      return res.status(201).json({ 
+        message: 'Tạo user thành công!', 
+        user: { id: user.id, username: user.username, email: user.email }, 
+      });
 }
 
-export async function login (req, res) {
-    const { username, password } = req.body;
-}
+// export async function login (req, res) {
+//     const { username, password } = req.body;
+// }

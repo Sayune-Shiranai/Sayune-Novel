@@ -19,6 +19,9 @@ dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 const app = express();
 const PORT = 3000;
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use("/users", usersRoutes);
 app.use("/library", libraryRoutes);
 app.use("/category", categoryRoutes);
