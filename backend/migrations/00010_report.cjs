@@ -12,7 +12,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'users',  // tên bảng cha
+          model: 'users',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -26,11 +26,11 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      chapter_id: {
+      volume_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'chapters',
+          model: 'volume',
           key: 'id'
         },
         onUpdate: 'CASCADE',

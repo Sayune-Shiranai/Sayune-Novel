@@ -26,11 +26,11 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      chapter_id: {
+      volume_id: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
-          model: 'chapters',
+          model: 'volume',
           key: 'id'
         },
         onUpdate: 'CASCADE',

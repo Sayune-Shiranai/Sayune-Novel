@@ -25,11 +25,11 @@ const noticesModel = connectDB.define("noticesModel", {
     },
     onUpdate: 'CASCADE',
   },
-  chapter_id: {
+  volume_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'chapters',  // tên bảng cha
+      model: 'volume',  // tên bảng cha
       key: 'id'
     },
     onUpdate: 'CASCADE',
