@@ -3,15 +3,15 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('chapters', [
     {
-      item_id: 1,   // FK tới library.id (One Piece)
+      book_id: 1,
       chapter_number: 1,
       chapter_name: 'chapter name 1',
       chapter_content: 'content of chapter 1...',
-      user_id: 1,   // admin
+      user_id: 1,
       createDate: new Date(),
     },
     {
-      item_id: 1,
+      book_id: 1,
       chapter_number: 2,
       chapter_name: 'chapter name 2',
       chapter_content: 'content of chapter 2...',
@@ -19,15 +19,15 @@ export async function up(queryInterface, Sequelize) {
       createDate: new Date(),
     },
     {
-      item_id: 2,   // FK tới library.id (Naruto)
+      book_id: 2,
       chapter_number: 1,
       chapter_name: 'chapter name 1',
       chapter_content: 'content of chapter 1...',
-      user_id: 2,   // member
+      user_id: 2,
       createDate: new Date(),
     },
     {
-      item_id: 3,   // FK tới library.id (Your Name)
+      book_id: 3,
       chapter_number: 1,
       chapter_name: 'chapter name 1',
       chapter_content: 'content of chapter 1...',

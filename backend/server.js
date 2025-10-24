@@ -3,8 +3,10 @@ import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 
 import usersRoutes from "./routes/usersRoutes.js";
-import libraryRoutes from "./routes/libraryRoutes.js";
+import roleModel from "./models/role.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
+import bookRoutes from "./routes/bookRoutes.js";
+import volumeModel from "./models/volume.js";
 import chaptersRoutes from "./routes/chaptersRoutes.js";
 import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
@@ -23,7 +25,9 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/users", usersRoutes);
-app.use("/library", libraryRoutes);
+app.use("/role", roleModel);
+app.use("/book", bookRoutes);
+app.use("/volume", volumeModel);
 app.use("/category", categoryRoutes);
 app.use("/chapters", chaptersRoutes);
 app.use("/chatbox", chatboxRoutes);

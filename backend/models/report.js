@@ -16,11 +16,11 @@ const reportModel = connectDB.define("reportModel", {
     },
     onUpdate: 'CASCADE',
   },
-  item_id: {
+  book_id: {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'library',  // tên bảng cha
+      model: 'book',  // tên bảng cha
       key: 'id'
     },
     onUpdate: 'CASCADE',

@@ -23,9 +23,21 @@ module.exports = {
         allowNull: false 
       },
       role: { 
-        type: Sequelize.STRING, 
+        type: Sequelize.INTEGER, 
         allowNull: false, 
-        defaultValue: 'member' 
+        references: {
+          model: 'role',
+          key: 'id'
+        },
+        onUpdate: 'CASCADE',
+      },
+      img_avatar: { 
+        type: Sequelize.STRING, 
+        allowNull: true 
+      },
+      img_background: { 
+        type: Sequelize.STRING, 
+        allowNull: true 
       },
       createDate: { 
         type: Sequelize.DATE, 

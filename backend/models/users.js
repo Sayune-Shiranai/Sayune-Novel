@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import connectDB from "../db/db.js"; // ví dụ import kết nối
+import connectDB from "../db/db.js";
 
 const usersModel = connectDB.define("usersModel", {
   id: {
@@ -24,6 +24,14 @@ const usersModel = connectDB.define("usersModel", {
   role: {
     type: DataTypes.STRING(50),
     allowNull: true,
+  },
+  img_avatar: { 
+    type: DataTypes.STRING(255), 
+    allowNull: true 
+  },
+  img_background: { 
+    type: DataTypes.STRING(255), 
+    allowNull: true 
   },
   createDate: { 
     type: DataTypes.DATE, 

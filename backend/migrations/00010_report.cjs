@@ -17,11 +17,11 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      item_id: {
+      book_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'library',  // tên bảng cha
+          model: 'book',
           key: 'id'
         },
         onUpdate: 'CASCADE',
@@ -30,7 +30,7 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: true,
         references: {
-          model: 'chapters',  // tên bảng cha
+          model: 'chapters',
           key: 'id'
         },
         onUpdate: 'CASCADE',

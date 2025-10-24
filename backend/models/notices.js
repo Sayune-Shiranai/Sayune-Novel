@@ -20,7 +20,7 @@ const noticesModel = connectDB.define("noticesModel", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'library',  // tên bảng cha
+      model: 'book',  // tên bảng cha
       key: 'id'
     },
     onUpdate: 'CASCADE',

@@ -2,23 +2,34 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    // 1. Tạo bảng library trước, không FK
-    await queryInterface.createTable('library', {
+    await queryInterface.createTable('book', {
       id: { 
         type: Sequelize.INTEGER, 
         autoIncrement: true, 
         primaryKey: true 
       },
-      itemname: { 
+      book_number: { 
+        type: Sequelize.INTEGER, 
+        allowNull: false 
+      },
+      title: { 
         type: Sequelize.STRING, 
         allowNull: false 
+      },
+      another_name: { 
+        type: Sequelize.STRING, 
+        allowNull: true,
       },
       slug: { 
         type: Sequelize.STRING, 
         allowNull: true, 
         unique: true 
       },
-      theloai_id: { 
+      img: {
+        type: Sequelize.STRING, 
+        allowNull: true,
+      },
+      category_id: { 
         type: Sequelize.INTEGER, 
         allowNull: true,
         references: {
@@ -27,36 +38,45 @@ module.exports = {
         },
         onUpdate: 'CASCADE',
       },
-      tacgia: { 
+      author: { 
         type: Sequelize.STRING, 
         allowNull: true 
       },
-      trangthai: { 
+      artist: { 
         type: Sequelize.STRING, 
         allowNull: true 
       },
-      noidung: { 
+      status: { 
+        type: Sequelize.STRING, 
+        allowNull: true 
+      },
+      description: { 
         type: Sequelize.TEXT, 
         allowNull: true 
       },
       user_id: { 
         type: Sequelize.INTEGER, 
-        allowNull: true, // nullable để tránh lỗi khi bảng users rỗng
+        allowNull: true,
         references: {
-          model: 'users',  // tên bảng cha
+          model: 'users',
           key: 'id'
         },
         onUpdate: 'CASCADE'
       },
-      createDate: { 
+      dateUpload: { 
         type: Sequelize.DATE, 
         allowNull: true, 
         defaultValue: Sequelize.literal('GETDATE()') 
-      }
+      },
+      dateUpdate: { 
+        type: Sequelize.DATE, 
+        allowNull: true, 
+        defaultValue: Sequelize.literal('GETDATE()') 
+      },  
     });
   },
   
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('library');
+    await queryInterface.dropTable('book');
   }
 };
