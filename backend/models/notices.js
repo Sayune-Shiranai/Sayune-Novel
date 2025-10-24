@@ -16,7 +16,7 @@ const noticesModel = connectDB.define("noticesModel", {
     },
     onUpdate: 'CASCADE',
   },
-  item_id: {
+  book_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {

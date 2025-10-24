@@ -4,7 +4,7 @@ export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('report', [
     {
       user_id: 2,     // member báo cáo
-      item_id: 1,     // báo cáo truyện id=1
+      book_id: 1,     // báo cáo truyện id=1
       chapter_id: 1,  // báo cáo chương id=1
       reason: 'reason 1',
       createDate: new Date(),
