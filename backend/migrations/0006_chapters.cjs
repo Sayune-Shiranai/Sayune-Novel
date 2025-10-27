@@ -19,17 +19,13 @@ module.exports = {
       },
       volume_id: {
         type: Sequelize.INTEGER,
-        allowNull: false,
+        allowNull: true,
           references: {
           model: 'volume',
           key: 'id'
         },
         onUpdate: 'CASCADE'
       },
-      title: { 
-        type: Sequelize.STRING,
-        allowNull: true,
-      }, 
       chapter_content: {
         type: Sequelize.TEXT,
         allowNull: true,

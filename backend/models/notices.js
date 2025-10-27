@@ -11,7 +11,7 @@ const noticesModel = connectDB.define("noticesModel", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'users',  // tên bảng cha
+      model: 'users',
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -20,7 +20,7 @@ const noticesModel = connectDB.define("noticesModel", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'book',  // tên bảng cha
+      model: 'book',
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -29,7 +29,7 @@ const noticesModel = connectDB.define("noticesModel", {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-      model: 'volume',  // tên bảng cha
+      model: 'volume',
       key: 'id'
     },
     onUpdate: 'CASCADE',

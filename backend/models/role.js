@@ -8,8 +8,8 @@ const roleModel = connectDB.define("roleModel", {
       primaryKey: true
     },
     role: { 
-      type: DataTypes.STRING(100), 
-      allowNull: false 
+      type: DataTypes.STRING(50), 
+      allowNull: false,
     }
 }, {
   tableName: "role",

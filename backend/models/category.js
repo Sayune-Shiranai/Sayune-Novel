@@ -7,7 +7,7 @@ const categoryModel = connectDB.define("categoryModel", {
       autoIncrement: true, 
       primaryKey: true
     },
-    theloai: { 
+    category: { 
       type: DataTypes.STRING(100), 
       allowNull: false 
     }

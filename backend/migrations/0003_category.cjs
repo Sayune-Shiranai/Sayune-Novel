@@ -8,7 +8,7 @@ module.exports = {
         autoIncrement: true, 
         primaryKey: true
       },
-      theloai: { 
+      category: { 
         type: Sequelize.STRING, 
         allowNull: false 
       }

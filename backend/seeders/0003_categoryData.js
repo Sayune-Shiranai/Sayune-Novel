@@ -3,19 +3,19 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('category', [
     {
-      theloai: 'Hành động'
+      category: 'Hành động'
     },
     {
-      theloai: 'Tình cảm'
+      category: 'Tình cảm'
     },
     {
-      theloai: 'Phiêu lưu'
+      category: 'Phiêu lưu'
     },
     {
-      theloai: 'Kinh dị'
+      category: 'Kinh dị'
     },
     {
-      theloai: 'Hài hước'
+      category: 'Hài hước'
     },
   ], {});
 }

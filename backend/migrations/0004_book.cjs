@@ -10,11 +10,11 @@ module.exports = {
       },
       book_number: { 
         type: Sequelize.INTEGER, 
-        allowNull: false 
+        allowNull: false, 
       },
       title: { 
         type: Sequelize.STRING, 
-        allowNull: false 
+        allowNull: false,
       },
       another_name: { 
         type: Sequelize.STRING, 
@@ -33,7 +33,7 @@ module.exports = {
         type: Sequelize.INTEGER, 
         allowNull: true,
         references: {
-          model: 'category',  // tên bảng cha
+          model: 'category',
           key: 'id'
         },
         onUpdate: 'CASCADE',

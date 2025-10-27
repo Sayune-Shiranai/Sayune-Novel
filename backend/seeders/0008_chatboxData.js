@@ -3,28 +3,28 @@
 export async function up(queryInterface, Sequelize) {
   await queryInterface.bulkInsert('chatbox', [
     {
-      user_id: 1, // admin
-      chatbox_content: 'chatbox content 1',
+      user_id: 1,
+      chatbox_content: 'chatbox content 1 user 1',
       createDate: new Date(),
     },
     {
-      user_id: 2, // member
-      chatbox_content: 'chatbox content 2',
+      user_id: 2,
+      chatbox_content: 'chatbox content 1 user 2',
       createDate: new Date(),
     },
     {
-      user_id: 1, // admin
-      chatbox_content: 'chatbox content 3',
+      user_id: 1,
+      chatbox_content: 'chatbox content 2 user 1',
       createDate: new Date(),
     },
     {
-      user_id: 2, // member
-      chatbox_content: 'chatbox content 4',
+      user_id: 2,
+      chatbox_content: 'chatbox content 2 user 2',
       createDate: new Date(),
     },
     {
-      user_id: 1, // admin
-      chatbox_content: 'chatbox content 5',
+      user_id: 1,
+      chatbox_content: 'chatbox content 3 user 1',
       createDate: new Date(),
     },
   ], {});

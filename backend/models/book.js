@@ -32,7 +32,7 @@ const bookModel = connectDB.define("bookModel", {
     type: DataTypes.INTEGER, 
     allowNull: true,
     references: {
-      model: "category", // Tên bảng cha
+      model: "category",
       key: "id"
     },
     onUpdate: "CASCADE"
