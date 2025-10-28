@@ -37,12 +37,12 @@ module.exports = {
       },
       reason: { 
         type: Sequelize.TEXT,
-        allowNull: false
+        allowNull: true,
       },
       createDate: { 
         type: Sequelize.DATE, 
         allowNull: false, 
-        defaultValue: Sequelize.fn('GETDATE') 
+        defaultValue: Sequelize.literal('GETDATE()')
       }
     });
   },

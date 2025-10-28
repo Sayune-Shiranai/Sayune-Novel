@@ -10,17 +10,15 @@ module.exports = {
       },
       username: { 
         type: Sequelize.STRING, 
-        allowNull: false, 
-        unique: true 
+        allowNull: false,      
       },
       email: { 
         type: Sequelize.STRING, 
-        allowNull: false, 
-        unique: true 
+        allowNull: true, 
       },
       password: { 
         type: Sequelize.STRING, 
-        allowNull: false 
+        allowNull: false,
       },
       role: { 
         type: Sequelize.INTEGER, 
@@ -37,7 +35,7 @@ module.exports = {
       },
       img_background: { 
         type: Sequelize.STRING, 
-        allowNull: true 
+        allowNull: true,
       },
       createDate: { 
         type: Sequelize.DATE, 
@@ -46,7 +44,7 @@ module.exports = {
       },
       refreshToken: { 
         type: Sequelize.STRING, 
-        allowNull: true 
+        allowNull: true,
       }
     });
   },

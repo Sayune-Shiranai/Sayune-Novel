@@ -17,7 +17,7 @@ npx sequelize-cli db:migrate:undo --name (tên file)
 npx sequelize-cli db:migrate --to 0004_chapters.js --debug
 
 chạy tất cả seeders
-npx sequelize-cli db:seed:all
+npx sequelize-cli db:seed:all --debug
 
 xóa tất cả seeders
 npx sequelize-cli db:seed:undo:all

@@ -10,37 +10,35 @@ const usersModel = connectDB.define("usersModel", {
   username: {
     type: DataTypes.STRING(100),
     allowNull: false,
-    unique: true,
   },
   email: {
     type: DataTypes.STRING(255),
-    allowNull: false,
-    unique: true,
+    allowNull: true,
   },
   password: {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
   role: {
-    type: DataTypes.STRING(50),
+    type: DataTypes.INTEGER,
     allowNull: true,
   },
   img_avatar: { 
     type: DataTypes.STRING(255), 
-    allowNull: true 
+    allowNull: true,
   },
   img_background: { 
     type: DataTypes.STRING(255), 
-    allowNull: true 
+    allowNull: true, 
   },
   createDate: { 
     type: DataTypes.DATE, 
     allowNull: false, 
-    defaultValue: DataTypes.NOW  
+    defaultValue: DataTypes.NOW,
   },
   refreshToken: { 
     type: DataTypes.TEXT, 
-    allowNull: true 
+    allowNull: true,
   }
 }, {
   tableName: "users",

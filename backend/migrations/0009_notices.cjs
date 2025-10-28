@@ -42,7 +42,7 @@ module.exports = {
       createDate: { 
         type: Sequelize.DATE, 
         allowNull: false, 
-        defaultValue: Sequelize.fn('GETDATE') 
+        defaultValue: Sequelize.literal('GETDATE()') 
       }
     });
   },
