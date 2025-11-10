@@ -7,6 +7,7 @@ const volumeModel = connectDB.define("volumeModel", {
     autoIncrement: true,
     primaryKey: true,
   },
+  
   book_id: {
     type: DataTypes.INTEGER,
     allowNull: false,
@@ -16,14 +17,17 @@ const volumeModel = connectDB.define("volumeModel", {
     },
     onUpdate: "CASCADE",
   },
+
   volume_number: {
     type: DataTypes.INTEGER,
     allowNull: false,
   },
+
   title: {
     type: DataTypes.STRING,
     allowNull: true,
   },
+
   user_id: {
     type: DataTypes.INTEGER,
     allowNull: true,
@@ -33,6 +37,12 @@ const volumeModel = connectDB.define("volumeModel", {
     },
     onUpdate: "CASCADE",
   },
+
+  chapter_content: {
+    type: DataTypes.TEXT,
+    allowNull: true,
+  },
+
   createDate: {
     type: DataTypes.DATE,
     defaultValue: DataTypes.NOW,

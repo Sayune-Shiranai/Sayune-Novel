@@ -2,12 +2,13 @@
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('chapters', {
+    await queryInterface.createTable('volumecomment', {
       id: {
         type: Sequelize.INTEGER,
         autoIncrement: true,
         primaryKey: true,
       },
+      
       book_id: {
         type: Sequelize.INTEGER,
         allowNull: true, 
@@ -17,6 +18,7 @@ module.exports = {
         },
         onUpdate: 'CASCADE'
       },
+
       volume_id: {
         type: Sequelize.INTEGER,
         allowNull: true,
@@ -26,10 +28,22 @@ module.exports = {
         },
         onUpdate: 'CASCADE'
       },
-      chapter_content: {
+
+      user_id: {
+          type: Sequelize.INTEGER, 
+          allowNull: true,
+          references: {
+              model: 'users',
+              key: 'id'
+          },
+          onUpdate: 'CASCADE'
+      },
+
+      content: {
         type: Sequelize.TEXT,
         allowNull: true,
       },
+
       createDate: {
         type: Sequelize.DATE,
         allowNull: false,
@@ -39,7 +53,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('chapters');
+    await queryInterface.dropTable('volumecomment');
   }
 };
 

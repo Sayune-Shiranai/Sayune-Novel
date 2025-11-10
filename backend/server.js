@@ -2,12 +2,15 @@ import express from "express";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 
+import dashboardCategoryRoutes from "./routes/dashboard/dashboardCategoryRoutes.js";
+
+import homeRoutes from "./routes/homeController.js";
 import usersRoutes from "./routes/usersRoutes.js";
-import roleRoutes from "./models/roleRoutes.js";
-import categoryRoutes from "./routes/categoryRoutes.js";
+// import roleRoutes from "./routes/roleRoutes.js";
+// import categoryRoutes from "./routes/categoryRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
-import volumeRoutes from "./models/volumeRoutes.js";
-import chaptersRoutes from "./routes/chaptersRoutes.js";
+import volumeRoutes from "./routes/volumeRoutes.js";
+// import volumeCommentRoutes from "./routes/volumeCommentRoutes.js";
 import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
 import noticesRoutes from "./routes/noticesRoutes.js";
@@ -24,17 +27,20 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/users", usersRoutes);
-app.use("/role", roleRoutes);
-app.use("/book", bookRoutes);
-app.use("/volume", volumeRoutes);
-app.use("/category", categoryRoutes);
-app.use("/chapters", chaptersRoutes);
+app.use("/dashboard/category", dashboardCategoryRoutes) // dashboard/category
+
+app.use("/", homeRoutes);
+app.use("/user", usersRoutes); // /user/tên user
+// app.use("/role", roleRoutes);
+// app.use("/category", categoryRoutes);
+app.use("/book/:slug", bookRoutes); // book/:slug
+app.use("/book/:slug/:slugChapter", volumeRoutes); // book/:slug/chapter-x
+// app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
 app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);
 app.use("/notices", noticesRoutes);
 app.use("/report", reportRoutes);
-app.use("/", authRoutes);
+app.use("/", authRoutes); //cần fix
 
 
 // Route test kết nối

@@ -34,6 +34,12 @@ module.exports = {
             },
             onUpdate: 'CASCADE'
         },
+
+        chapter_content: {
+            type: Sequelize.TEXT,
+            allowNull: true,
+        
+        },
         createDate: { 
             type: Sequelize.DATE, 
             defaultValue: Sequelize.literal('GETDATE()') 

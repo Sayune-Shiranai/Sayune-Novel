@@ -25,10 +25,22 @@ const chaptersModel = connectDB.define("chaptersModel", {
     },
     onUpdate: "CASCADE",
   },
-  chapter_content: {
+
+  user_id: {
+    type: DataTypes.INTEGER,
+    allowNull: true,
+    references: {
+      model: "users",
+      key: "id",
+    },
+    onUpdate: "CASCADE",
+  },
+
+  content: {
     type: DataTypes.TEXT,
     allowNull: true,
   },
+
   createDate: {
     type: DataTypes.DATE,
     allowNull: false,
