@@ -3,10 +3,10 @@ import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 
 import usersRoutes from "./routes/usersRoutes.js";
-import roleRoutes from "./models/role.js";
+import roleRoutes from "./models/roleRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
-import volumeRoutes from "./models/volume.js";
+import volumeRoutes from "./models/volumeRoutes.js";
 import chaptersRoutes from "./routes/chaptersRoutes.js";
 import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
