@@ -15,7 +15,8 @@ import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
 import noticesRoutes from "./routes/noticesRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
-import authRoutes from "./routes/authRoutes.js";
+import registerRoutes from "./routes/registerRoutes.js";
+import loginRoutes from "./routes/loginRoutes.js"
 
 
 // load biến môi trường
@@ -40,7 +41,8 @@ app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);
 app.use("/notices", noticesRoutes);
 app.use("/report", reportRoutes);
-app.use("/", authRoutes); //cần fix
+app.use("/register", registerRoutes);
+app.use("/login", loginRoutes);
 
 
 // Route test kết nối
