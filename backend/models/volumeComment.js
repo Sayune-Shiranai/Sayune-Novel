@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
 import connectDB from "../db/db.js";
 
-const chaptersModel = connectDB.define("chaptersModel", {
+const volumeCommentModel = connectDB.define("volumeCommentModel", {
   id: {
     type: DataTypes.INTEGER,
     autoIncrement: true,
@@ -51,4 +51,4 @@ const chaptersModel = connectDB.define("chaptersModel", {
   timestamps: false,
 });
 
-export default chaptersModel;
+export default volumeCommentModel;

@@ -1,7 +1,7 @@
 'use strict';
 
 export async function up(queryInterface, Sequelize) {
-  await queryInterface.bulkInsert('chapters', [
+  await queryInterface.bulkInsert('volumecomment', [
     {
       book_id: 1,
       volume_id: 1,
@@ -27,5 +27,5 @@ export async function up(queryInterface, Sequelize) {
 }
 
 export async function down(queryInterface, Sequelize) {
-  await queryInterface.bulkDelete('chapters', null, {});
+  await queryInterface.bulkDelete('volumeComment', null, {});
 }
