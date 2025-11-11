@@ -45,7 +45,6 @@ app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 
 
-// Route test kết nối
 app.get("/connectDB", async (req, res) => {
   try {
     await connectDB.authenticate(); // kiểm tra kết nối
