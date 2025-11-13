@@ -16,7 +16,7 @@ export async function up(queryInterface, Sequelize) {
     },
     {
       id: 4,
-      role: 'Moderator' //Người kiểm duyệt nội dung và quản lý cộng đồng.(Duyệt truyện mới, Xóa comment, khóa người dùng, Cảnh cáo nhóm vi phạm)
+      role: 'Mod' //Người kiểm duyệt nội dung và quản lý cộng đồng.(Duyệt truyện mới, Xóa comment, khóa người dùng, Cảnh cáo nhóm vi phạm)
     },
     {
       id: 5,

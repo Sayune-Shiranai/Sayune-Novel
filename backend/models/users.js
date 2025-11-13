@@ -19,9 +19,13 @@ const usersModel = connectDB.define("usersModel", {
     type: DataTypes.STRING(255),
     allowNull: false,
   },
-  role: {
+  role_id: {
     type: DataTypes.INTEGER,
-    allowNull: true,
+    allowNull: false,
+    references: {
+      model: 'role',
+      key: 'id'
+    },
   },
   img_avatar: { 
     type: DataTypes.STRING(255), 

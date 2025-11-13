@@ -4,7 +4,7 @@ import dotenv from "dotenv";
 
 import dashboardCategoryRoutes from "./routes/dashboard/dashboardCategoryRoutes.js";
 
-import homeRoutes from "./routes/homeController.js";
+import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 // import roleRoutes from "./routes/roleRoutes.js";
 // import categoryRoutes from "./routes/categoryRoutes.js";

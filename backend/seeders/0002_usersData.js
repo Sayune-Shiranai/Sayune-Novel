@@ -11,7 +11,7 @@ export async function up(queryInterface, Sequelize) {
       username: 'admin',
       email: 'admin@example.com',
       password: passwordHash,
-      role: 5, // Admin
+      role_id: 5, // Admin
       img_avatar: null,
       img_background: null,
       createDate: Sequelize.literal('GETDATE()'),
@@ -21,7 +21,7 @@ export async function up(queryInterface, Sequelize) {
       username: 'leader',
       email: 'leader@example.com',
       password: passwordHash,
-      role: 3, // Leader
+      role_id: 3, // Leader
       img_avatar: null,
       img_background: null,
       createDate: Sequelize.literal('GETDATE()'),
@@ -31,7 +31,7 @@ export async function up(queryInterface, Sequelize) {
       username: 'user',
       email: 'user@example.com',
       password: passwordHash,
-      role: 1, // User
+      role_id: 1, // User
       img_avatar: null,
       img_background: null,
       createDate: Sequelize.literal('GETDATE()'),

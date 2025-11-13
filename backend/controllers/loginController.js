@@ -1,5 +1,6 @@
 import usersModel from "../models/users.js";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcrypt";
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
@@ -21,13 +22,13 @@ export async function login (req, res) {
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
       const accessToken = jwt.sign(
-        { username: user.username, role: user.role },
+        { username: user.username, role: user.role_id },
         JWT_SECRET,
         { expiresIn: "1m" }
       );
 
       const refreshToken = jwt.sign(
-        { username: user.username, role: user.role },
+        { username: user.username, role: user.role_id },
         JWT_SECRET,
         { expiresIn: "7d" }
       );
@@ -45,7 +46,8 @@ export async function login (req, res) {
         user: { 
           id: user.id, 
           username: user.username, 
-          email: user.email 
+          email: user.email,
+          role_id: user.role_id,
         }, 
         accessToken,
         refreshToken

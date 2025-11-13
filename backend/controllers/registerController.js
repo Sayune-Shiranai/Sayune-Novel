@@ -1,5 +1,6 @@
 // tính năng đăng ký
 import usersModel from "../models/users.js";
+import roleModel from "../models/role.js";
 // import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -38,14 +39,17 @@ export async function register (req, res) {
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  const role = await roleModel.findOne({ where: { role: 'Member' } });
+
   const user = await usersModel.create({ 
     username, 
     email, 
-    password: hashedPassword 
+    password: hashedPassword,
+    role_id: role.id
   });
     return res.status(201).json({ 
       message: 'Tạo user thành công!', 
-      user: { id: user.id, username: user.username, email: user.email }, 
+      user: { id: user.id, username: user.username, email: user.email, role_id: user.role_id }, 
     });
 }
 
