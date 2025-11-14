@@ -1,4 +1,5 @@
 import usersModel from "../models/users.js";
+import roleModel from "../models/role.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -14,7 +15,10 @@ export async function login (req, res) {
   if (!password)
       return res.status(400).json({ field: "password", message: "Vui lòng nhập mật khẩu!" });
 
-  const user = await usersModel.findOne({ where: { username } });
+  const user = await usersModel.findOne({ where: { username }, include: {
+      model: roleModel,
+      as: "role",
+    }, });
 
   if (user) {
       //example bcrypt.compare("123456", "$2b$10$gSY0P4HkHnNR3qDnPKhLVeFbf...vSVK/UZb4qB0E6") 
@@ -41,13 +45,14 @@ export async function login (req, res) {
       res.cookie("accessToken", accessToken, { httpOnly: true });
       res.cookie("refreshToken", refreshToken, { httpOnly: true });
 
+
       return res.status(200).json({ 
         message: "Đăng nhập thành công!", 
         user: { 
           id: user.id, 
           username: user.username, 
           email: user.email,
-          role_id: user.role_id,
+          role_id: user.role,
         }, 
         accessToken,
         refreshToken
