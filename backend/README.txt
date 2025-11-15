@@ -14,5 +14,3 @@ file dashboardCategoryRoutes.js
 router.get("/update", getAllCategory);
 
 => đường dẫn /dashboard/category/update
-
-test
