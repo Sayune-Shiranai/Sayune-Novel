@@ -26,3 +26,4 @@ npx sequelize-cli db:seed:all --debug
 xóa tất cả seeders
 npx sequelize-cli db:seed:undo:all
 
+test
