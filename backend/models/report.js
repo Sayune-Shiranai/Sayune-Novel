@@ -45,7 +45,7 @@ const reportModel = connectDB.define("reportModel", {
   }
 }, {
   tableName: "report",
-  timestamps: false,
+  timestamps: true,
 });
 
 export default reportModel;

@@ -38,14 +38,9 @@ const noticesModel = connectDB.define("noticesModel", {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  createDate: { 
-    type: DataTypes.DATE, 
-    allowNull: false, 
-    defaultValue: DataTypes.NOW
-  }
 }, {
   tableName: "notices",
-  timestamps: false,
+  timestamps: true,
 });
 
 export default noticesModel;

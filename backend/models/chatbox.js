@@ -20,14 +20,9 @@ const chatboxModel = connectDB.define("chatboxModel", {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  createDate: { 
-    type: DataTypes.DATE, 
-    allowNull: false, 
-    defaultValue: DataTypes.NOW
-  }
 }, {
   tableName: "chatbox",
-  timestamps: false,
+  timestamps: true,
 });
 
 export default chatboxModel;

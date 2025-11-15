@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import connectDB from "../db/db.js"; // Kết nối đến Sequelize instance
+import categoryModel from "./category.js";
+import volumeModel from "./volume.js";
 
 const bookModel = connectDB.define("bookModel", {
   id: { 
@@ -28,15 +30,6 @@ const bookModel = connectDB.define("bookModel", {
     type: DataTypes.STRING, 
     allowNull: true
   },
-  category_id: { 
-    type: DataTypes.INTEGER, 
-    allowNull: true,
-    references: {
-      model: "category",
-      key: "id"
-    },
-    onUpdate: "CASCADE"
-  },
   author: { 
     type: DataTypes.STRING, 
     allowNull: true 
@@ -62,19 +55,11 @@ const bookModel = connectDB.define("bookModel", {
     },
     onUpdate: "CASCADE"
   },
-  dateUpload: { 
-    type: DataTypes.DATE, 
-    allowNull: true, 
-    defaultValue: DataTypes.NOW
-  },
-  dateUpdate: { 
-    type: DataTypes.DATE, 
-    allowNull: true, 
-    defaultValue: DataTypes.NOW
-  }
 }, {
   tableName: "book",
-  timestamps: false,
+  timestamps: true,
 });
+
+bookModel.belongsToMany(categoryModel, { through: "BookCategory" });
 
 export default bookModel;
