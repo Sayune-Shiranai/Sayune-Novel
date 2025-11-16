@@ -15,8 +15,8 @@ npm install
 ```
 
 ### 2.Cấu hình cho Sequelize CLI kết nối sql server
+###Tạo file .env
 ```bash
-Tạo file .env
 cp .env.example .env
 Sau đó mở file .env và chỉnh sửa thông tin phù hợp với môi trường
 ```
