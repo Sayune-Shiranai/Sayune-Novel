@@ -3,6 +3,7 @@ import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 
 import dashboardCategoryRoutes from "./routes/dashboard/dashboardCategoryRoutes.js";
+import dashboardBookRoutes from "./routes/dashboard/dashboardBookRoutes.js";
 
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
@@ -28,6 +29,7 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+app.use("/dashboard/book", dashboardBookRoutes) // dashboard/book
 app.use("/dashboard/category", dashboardCategoryRoutes) // dashboard/category
 
 app.use("/", homeRoutes);

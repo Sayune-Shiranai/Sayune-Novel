@@ -36,18 +36,13 @@ const usersModel = connectDB.define("usersModel", {
     type: DataTypes.STRING(255), 
     allowNull: true, 
   },
-  createDate: { 
-    type: DataTypes.DATE, 
-    allowNull: false, 
-    defaultValue: DataTypes.NOW,
-  },
   refreshToken: { 
     type: DataTypes.TEXT, 
     allowNull: true,
   }
 }, {
   tableName: "users",
-  timestamps: false,
+  timestamps: true
 });
 
 usersModel.belongsTo(roleModel, { 

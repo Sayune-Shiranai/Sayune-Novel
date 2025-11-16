@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import connectDB from "../db/db.js"; // ví dụ import kết nối
+import bookModel from "./book.js";
 
 const categoryModel = connectDB.define("categoryModel", {
     id: { 
@@ -15,5 +16,8 @@ const categoryModel = connectDB.define("categoryModel", {
   tableName: "category",
   timestamps: false,
 });
+
+categoryModel.belongsToMany(bookModel, { through: "BookCategory" });
+
 
 export default categoryModel;

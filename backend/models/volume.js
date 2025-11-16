@@ -42,14 +42,27 @@ const volumeModel = connectDB.define("volumeModel", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-
-  createDate: {
-    type: DataTypes.DATE,
-    defaultValue: DataTypes.NOW,
-  },
 }, {
   tableName: "volume",
-  timestamps: false,
+  timestamps: true,
+});
+
+bookModel.hasMany(volumeModel, {
+  foreignKey: "book_id",
+  as: "volume",
+});
+
+volumeModel.belongsTo(bookModel, {
+  foreignKey: "book_id",
+});
+
+usersModel.hasMany(volumeModel, {
+  foreignKey: "user_id",
+  as: "UserVolume",
+});
+
+volumeModel.belongsTo(usersModel, {
+  foreignKey: "user_id",
 });
 
 export default volumeModel;

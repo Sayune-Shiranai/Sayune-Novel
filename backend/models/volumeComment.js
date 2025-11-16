@@ -40,15 +40,9 @@ const volumeCommentModel = connectDB.define("volumeCommentModel", {
     type: DataTypes.TEXT,
     allowNull: true,
   },
-
-  createDate: {
-    type: DataTypes.DATE,
-    allowNull: false,
-    defaultValue: DataTypes.NOW,
-  },
 }, {
   tableName: "chapters",
-  timestamps: false,
+  timestamps: true,
 });
 
 export default volumeCommentModel;

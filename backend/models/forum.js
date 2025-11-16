@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import connectDB from "../db/db.js"; // kết nối Sequelize
+import connectDB from "../db/db.js";
 
 const forumModel = connectDB.define("forumModel", {
   id: { 
@@ -11,7 +11,7 @@ const forumModel = connectDB.define("forumModel", {
     type: DataTypes.INTEGER,
     allowNull: true,
     references: {
-      model: 'users',  // tên bảng cha
+      model: 'users',
       key: 'id'
     },
     onUpdate: 'CASCADE',
@@ -31,7 +31,7 @@ const forumModel = connectDB.define("forumModel", {
   }
 }, {
   tableName: "forum",
-  timestamps: false,
+  timestamps: true,
 });
 
 export default forumModel;

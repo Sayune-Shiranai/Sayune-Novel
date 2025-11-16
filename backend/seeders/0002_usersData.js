@@ -14,7 +14,6 @@ export async function up(queryInterface, Sequelize) {
       role_id: 5, // Admin
       img_avatar: null,
       img_background: null,
-      createDate: Sequelize.literal('GETDATE()'),
       refreshToken: null
     },
     {
@@ -24,7 +23,6 @@ export async function up(queryInterface, Sequelize) {
       role_id: 3, // Leader
       img_avatar: null,
       img_background: null,
-      createDate: Sequelize.literal('GETDATE()'),
       refreshToken: null
     },
     {
@@ -34,7 +32,6 @@ export async function up(queryInterface, Sequelize) {
       role_id: 1, // User
       img_avatar: null,
       img_background: null,
-      createDate: Sequelize.literal('GETDATE()'),
       refreshToken: null
     }
   ], {});

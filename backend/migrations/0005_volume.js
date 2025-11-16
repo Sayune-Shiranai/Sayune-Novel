@@ -1,13 +1,13 @@
 'use strict';
 
-module.exports = {
-  async up(queryInterface, Sequelize) {
+export async function up(queryInterface, Sequelize) {
     await queryInterface.createTable('volume', {
         id: {
             type: Sequelize.INTEGER, 
             autoIncrement: true, 
             primaryKey: true 
         },
+
         book_id: {
             type: Sequelize.INTEGER,
             allowNull: false,
@@ -17,14 +17,17 @@ module.exports = {
             },
             onUpdate: 'CASCADE',
         },
+
         volume_number: { 
             type: Sequelize.INTEGER, 
             allowNull: false 
         },
+
         title: { 
             type: Sequelize.STRING, 
             allowNull: true,
         },
+
         user_id: {
             type: Sequelize.INTEGER, 
             allowNull: true,
@@ -40,16 +43,23 @@ module.exports = {
             allowNull: true,
         
         },
-        createDate: { 
+
+        createdAt: { 
             type: Sequelize.DATE, 
+            allowNull: false, 
+            defaultValue: Sequelize.literal('GETDATE()') 
+        },
+        
+        updatedAt: { 
+            type: Sequelize.DATE, 
+            allowNull: false, 
             defaultValue: Sequelize.literal('GETDATE()') 
         },
     });
-  },
-  async down(queryInterface, Sequelize) {
-    // Xóa FK trước khi drop table
+}
+
+export async function down (queryInterface, Sequelize) {
     await queryInterface.dropTable('volume');
-  }
-};
+}
 
 
