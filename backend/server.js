@@ -3,8 +3,8 @@ import express from "express";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 
-import dashboardCategoryRoutes from "./routes/dashboard/dashboardCategoryRoutes.js";
-import dashboardBookRoutes from "./routes/dashboard/dashboardBookRoutes.js";
+import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
+import BookRoutes from "./routes/dashboard/BookRoutes.js";
 
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
@@ -30,15 +30,17 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/dashboard/book", dashboardBookRoutes) // dashboard/book
-app.use("/dashboard/category", dashboardCategoryRoutes) // dashboard/category
+//dashboard routes
+app.use("/dashboard/book", BookRoutes) // dashboard/book
+app.use("/dashboard/category", CategoryRoutes) // dashboard/category
 
+// home routes
 app.use("/", homeRoutes);
 app.use("/user", usersRoutes); // /user/tên user
 // app.use("/role", roleRoutes);
 // app.use("/category", categoryRoutes);
-app.use("/book/:slug", bookRoutes); // book/:slug
-app.use("/book/:slug/:slugChapter", volumeRoutes); // book/:slug/chapter-x
+app.use("/book", bookRoutes); // book/
+app.use("/book/:slug", volumeRoutes); // book/:slug
 // app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
 app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);

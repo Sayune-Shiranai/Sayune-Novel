@@ -1,5 +1,5 @@
 import express from "express";
-import { getAllForum } from "../controllers/forumController.js";
+import { getAllForum } from "../controllers/ForumController.js";
 
 const router = express.Router();
 router.get("/", getAllForum);
