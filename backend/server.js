@@ -1,3 +1,4 @@
+// sửa file này phải ib
 import express from "express";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
