@@ -1,4 +1,4 @@
-import { book, category } from "../models/BookCategory.js";
+import BookCategoryModel from "../models/BookCategory.js";
 
 class BookService {
 

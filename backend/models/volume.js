@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import connectDB from "../db/db.js";
+// import bookModel from "./book.js";
 
 const volumeModel = connectDB.define("volumeModel", {
   id: {
@@ -47,22 +48,22 @@ const volumeModel = connectDB.define("volumeModel", {
   timestamps: true,
 });
 
-bookModel.hasMany(volumeModel, {
-  foreignKey: "book_id",
-  as: "volume",
-});
+// bookModel.hasMany(volumeModel, {
+//   foreignKey: "book_id",
+//   as: "volume",
+// });
 
-volumeModel.belongsTo(bookModel, {
-  foreignKey: "book_id",
-});
+// volumeModel.belongsTo(bookModel, {
+//   foreignKey: "book_id",
+// });
 
-usersModel.hasMany(volumeModel, {
-  foreignKey: "user_id",
-  as: "UserVolume",
-});
+// usersModel.hasMany(volumeModel, {
+//   foreignKey: "user_id",
+//   as: "UserVolume",
+// });
 
-volumeModel.belongsTo(usersModel, {
-  foreignKey: "user_id",
-});
+// volumeModel.belongsTo(usersModel, {
+//   foreignKey: "user_id",
+// });
 
 export default volumeModel;
