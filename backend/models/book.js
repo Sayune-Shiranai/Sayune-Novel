@@ -60,6 +60,6 @@ const bookModel = connectDB.define("bookModel", {
   timestamps: true,
 });
 
-// bookModel.belongsToMany(categoryModel, { through: "BookCategory" });
+bookModel.belongsToMany(categoryModel, { through: "BookCategory" });
 
 export default bookModel;
