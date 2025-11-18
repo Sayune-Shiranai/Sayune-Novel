@@ -1,7 +1,27 @@
 import express from "express";
-import { getAllCategory } from "../../controllers/CategoryController.js";
+import {
+    getAllCategory,
+  createCategory,
+  getCategoryById,
+  updateCategory,
+  deleteCategory,
+} from "../../controllers/categoryController.js";
 
 const router = express.Router();
+
+// Lấy danh sách tất cả category(hạng mục)
 router.get("/", getAllCategory);
+
+// Tạo mới một category
+router.post("/", createCategory);
+
+// Lấy category theo id
+router.get("/:id", getCategoryById);
+
+// Cập nhật category theo id
+router.put("/:id", updateCategory);
+
+// Xoá category theo id
+router.delete("/:id", deleteCategory);
 
 export default router;
