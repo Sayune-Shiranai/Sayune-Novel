@@ -9,7 +9,7 @@ import BookRoutes from "./routes/dashboard/BookRoutes.js";
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 // import roleRoutes from "./routes/roleRoutes.js";
-// import categoryRoutes from "./routes/categoryRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import volumeRoutes from "./routes/volumeRoutes.js";
 // import volumeCommentRoutes from "./routes/volumeCommentRoutes.js";
@@ -38,7 +38,7 @@ app.use("/dashboard/category", CategoryRoutes) // dashboard/category
 app.use("/", homeRoutes);
 app.use("/user", usersRoutes); // /user/tên user
 // app.use("/role", roleRoutes);
-// app.use("/category", categoryRoutes);
+app.use("/category", categoryRoutes); // category/
 app.use("/book", bookRoutes); // book/
 app.use("/book/:slug", volumeRoutes); // book/:slug
 // app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
