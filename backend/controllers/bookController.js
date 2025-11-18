@@ -60,26 +60,31 @@ export async function createBook(req, res) {
   }
 }
 
-// Cập nhật book
-export async function updateBook(req, res) {
+// UPDATE BOOK BY SLUG
+export async function updateBookBySlug(req, res) {
   try {
-    const { id } = req.params;
+    const { slug } = req.params;
 
-    const book = await bookModel.findByPk(id);
-    if (!book) return res.status(404).json({ error: "Book not found" });
+    const book = await bookModel.findOne({ where: { slug } });
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
 
+    // Cập nhật dữ liệu
     await book.update(req.body);
 
-    // Cập nhật category nếu có
+    // Nếu có categoryIds thì update quan hệ many-to-many
     if (Array.isArray(req.body.categoryIds)) {
       await book.setCategoryModels(req.body.categoryIds);
     }
 
     res.json({ message: "Updated", book });
+
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
+
 
 // Xóa book
 export async function deleteBook(req, res) {
