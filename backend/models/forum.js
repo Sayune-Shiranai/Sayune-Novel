@@ -24,11 +24,6 @@ const forumModel = connectDB.define("forumModel", {
     type: DataTypes.TEXT,
     allowNull: true
   },
-  createDate: { 
-    type: DataTypes.DATE, 
-    allowNull: false, 
-    defaultValue: DataTypes.NOW
-  }
 }, {
   tableName: "forum",
   timestamps: true,

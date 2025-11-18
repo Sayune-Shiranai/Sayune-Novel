@@ -47,11 +47,12 @@ const usersModel = connectDB.define("usersModel", {
 
 usersModel.belongsTo(roleModel, { 
   foreignKey: "role_id", 
-  as: "role"
+  as: "UserRole"
 });
 
 roleModel.hasMany(usersModel, {
-   foreignKey: "role_id" 
+   foreignKey: "role_id", 
+   as: "RoleUser"
 });
 
 export default usersModel;
