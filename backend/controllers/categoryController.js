@@ -13,15 +13,14 @@ export async function getAllCategory(req, res) {
 // Tạo mới một danh mục
    export async function createCategory(req, res) {
   try {
-    const { name, description } = req.body;
+    const { category } = req.body;
 
-    if (!name) {
+    if (!category) {
       return res.status(400).json({ error: "Name is required" });
     }
 
     const newCategory = await categoryModel.create({
-      name,
-      description,
+      category
     });
 
     res.status(201).json(newCategory);

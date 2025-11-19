@@ -13,7 +13,7 @@ const router = express.Router();
 router.get("/", getAllCategory);
 
 // Tạo mới một category
-router.post("/", createCategory);
+router.post("/create-category", createCategory);
 
 // Lấy category theo id
 router.get("/:id", getCategoryById);
