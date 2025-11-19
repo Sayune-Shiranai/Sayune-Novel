@@ -38,11 +38,6 @@ const reportModel = connectDB.define("reportModel", {
     type: DataTypes.TEXT,
     allowNull: false
   },
-  createDate: { 
-    type: DataTypes.DATE, 
-    allowNull: false, 
-    defaultValue: DataTypes.NOW
-  }
 }, {
   tableName: "report",
   timestamps: true,

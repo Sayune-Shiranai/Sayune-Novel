@@ -24,7 +24,6 @@ const bookModel = connectDB.define("bookModel", {
   slug: { 
     type: DataTypes.STRING, 
     allowNull: true, 
-    unique: true 
   },
   img: {
     type: DataTypes.STRING, 
@@ -60,6 +59,9 @@ const bookModel = connectDB.define("bookModel", {
   timestamps: true,
 });
 
-bookModel.belongsToMany(categoryModel, { through: "BookCategory" });
+// bookModel.belongsToMany(categoryModel, { 
+//   through: "BookCategory",
+//   foreignKey: "book_id"
+// });
 
 export default bookModel;

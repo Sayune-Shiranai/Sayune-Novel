@@ -1,6 +1,6 @@
 import express from "express";
 import {
-    getAllCategory,
+  getAllCategory,
   createCategory,
   getCategoryById,
   updateCategory,

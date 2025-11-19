@@ -2,13 +2,14 @@
 import express from "express";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
+import db from "./models/index.js";
 
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
 
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
-// import roleRoutes from "./routes/roleRoutes.js";
+import roleRoutes from "./routes/roleRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
 import volumeRoutes from "./routes/volumeRoutes.js";
@@ -37,7 +38,7 @@ app.use("/dashboard/category", CategoryRoutes) // dashboard/category
 // home routes
 app.use("/", homeRoutes);
 app.use("/user", usersRoutes); // /user/tên user
-// app.use("/role", roleRoutes);
+app.use("/role", roleRoutes);
 app.use("/category", categoryRoutes); // category/
 app.use("/book", bookRoutes); // book/
 app.use("/book/:slug", volumeRoutes); // book/:slug
@@ -57,6 +58,16 @@ app.get("/connectDB", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, message: "Kết nối thất bại", error: err.message });
+  }
+});
+
+app.get("/syncDB", async (req, res) => {
+  try {
+    await db.sequelize.sync({ alter: true }); // đồng bộ các model với database
+    res.json({ success: true, message: "Đồng bộ database thành công!" });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Đồng bộ database thất bại", error: err.message });
   }
 });
 

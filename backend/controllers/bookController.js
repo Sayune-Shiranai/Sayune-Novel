@@ -1,99 +1,103 @@
-import { book, category } from "../models/BookCategory.js";
+import bookModel from "../models/book.js";
+import categoryModel from "../models/category.js";
 
-class BookController {
-
-  // GET ALL BOOKS
-  async getAll(req, res) {
-    try {
-      const books = await book.findAll({
-        include: {
-          model: category,
-          through: { attributes: [] }
-        }
-      });
-      return res.json({ books });
-
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Lỗi server" });
-    }
-  }
-
-  // GET BOOK BY SLUG
-  async getBySlug(req, res) {
-    try {
-      const { slug } = req.params;
-
-      const result = await book.findOne({
-        where: { slug },
-        include: category
-      });
-
-      if (!result) return res.status(404).json({ message: "Không tìm thấy" });
-
-      return res.json({ book: result });
-
-    } catch (error) {
-      return res.status(500).json({ message: "Lỗi server" });
-    }
-  }
-
-  // CREATE BOOK
-  async create(req, res) {
-    try {
-      const { title, slug, description, categoryIds } = req.body;
-
-      const newBook = await book.create({ title, slug, description });
-
-      if (categoryIds && Array.isArray(categoryIds)) {
-        await newBook.setCategories(categoryIds);
+// Lấy tất cả book
+export async function getAllBooks(req, res) {
+  try {
+    const books = await bookModel.findAll({
+      include: {
+        model: categoryModel,
+        through: { attributes: [] } // Ẩn bảng trung gian
       }
+    });
 
-      return res.json({ message: "Tạo thành công", newBook });
-
-    } catch (error) {
-      console.error(error);
-      return res.status(500).json({ message: "Lỗi server" });
-    }
-  }
-
-  // UPDATE BOOK
-  async update(req, res) {
-    try {
-      const { id } = req.params;
-      const { title, slug, description, categoryIds } = req.body;
-
-      const current = await book.findByPk(id);
-      if (!current) return res.status(404).json({ message: "Không tìm thấy" });
-
-      await current.update({ title, slug, description });
-
-      if (categoryIds) {
-        await current.setCategories(categoryIds);
-      }
-
-      return res.json({ message: "Cập nhật thành công" });
-
-    } catch (error) {
-      return res.status(500).json({ message: "Lỗi server" });
-    }
-  }
-
-  // DELETE BOOK
-  async delete(req, res) {
-    try {
-      const { id } = req.params;
-
-      const current = await book.findByPk(id);
-      if (!current) return res.status(404).json({ message: "Không tìm thấy" });
-
-      await current.destroy();
-      return res.json({ message: "Xóa thành công" });
-
-    } catch (error) {
-      return res.status(500).json({ message: "Lỗi server" });
-    }
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
   }
 }
 
-export default new BookController();
+// Lấy book theo slug
+export async function getBookBySlug(req, res) {
+  try {
+    const { slug } = req.params;
+
+    const book = await bookModel.findOne({
+      where: { slug },
+      include: {
+        model: categoryModel,
+        through: { attributes: [] }
+      }
+    });
+
+    if (!book) return res.status(404).json({ error: "Book not found" });
+
+    res.json(book);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+// Tạo book
+export async function createBook(req, res) {
+  try {
+    const { title, book_number, slug, categoryIds } = req.body;
+
+    if (!title || !book_number) {
+      return res.status(400).json({ error: "Missing required fields" });
+    }
+
+    const newBook = await bookModel.create({ ...req.body });
+
+    // Gán categories nếu có
+    if (Array.isArray(categoryIds)) {
+      await newBook.setCategoryModels(categoryIds); 
+    }
+
+    res.status(201).json(newBook);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+// UPDATE BOOK BY SLUG
+export async function updateBookBySlug(req, res) {
+  try {
+    const { slug } = req.params;
+
+    const book = await bookModel.findOne({ where: { slug } });
+    if (!book) {
+      return res.status(404).json({ error: "Book not found" });
+    }
+
+    // Cập nhật dữ liệu
+    await book.update(req.body);
+
+    // Nếu có categoryIds thì update quan hệ many-to-many
+    if (Array.isArray(req.body.categoryIds)) {
+      await book.setCategoryModels(req.body.categoryIds);
+    }
+
+    res.json({ message: "Updated", book });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+
+// Xóa book
+export async function deleteBook(req, res) {
+  try {
+    const { id } = req.params;
+
+    const book = await bookModel.findByPk(id);
+    if (!book) return res.status(404).json({ error: "Book not found" });
+
+    await book.destroy();
+
+    res.json({ message: "Deleted successfully" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

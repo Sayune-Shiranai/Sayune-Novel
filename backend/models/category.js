@@ -17,7 +17,10 @@ const categoryModel = connectDB.define("categoryModel", {
   timestamps: false,
 });
 
-categoryModel.belongsToMany(bookModel, { through: "BookCategory" });
+categoryModel.belongsToMany(bookModel, {
+   through: "BookCategory",
+   foreignKey: "category_id"
+  });
 
 
 export default categoryModel;
