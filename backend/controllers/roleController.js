@@ -16,7 +16,7 @@ export async function getAllRole(req, res) {
       include: [
         {
           model: db.usersModel,
-          as: 'RoleUser', // trùng với hasMany
+          as: 'RoleUser', 
           attributes: ['id', 'username', 'email']
         }
       ]
