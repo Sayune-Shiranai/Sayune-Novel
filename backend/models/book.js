@@ -59,7 +59,8 @@ export default (sequelize, DataTypes) => {
     bookModel.belongsToMany(models.categoryModel, { 
       through: "bookCategory",
       as: "BookCategory",
-      foreignKey: "book_id"
+      foreignKey: "book_id",
+      timestamps: false, 
     });
   };
   return bookModel;
