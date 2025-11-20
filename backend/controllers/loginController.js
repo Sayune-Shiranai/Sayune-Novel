@@ -17,7 +17,7 @@ export async function login (req, res) {
 
   const user = await usersModel.findOne({ where: { username }, include: {
       model: roleModel,
-      as: "role",
+      as: "UserRole",
     }, });
 
   if (user) {

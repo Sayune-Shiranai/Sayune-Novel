@@ -1,18 +1,23 @@
-import { DataTypes } from "sequelize";
-import connectDB from "../db/db.js"; // ví dụ import kết nối
+export default (sequelize, DataTypes) => {
+  const roleModel = sequelize.define("roleModel", {
+      id: { 
+        type: DataTypes.INTEGER, 
+        primaryKey: true
+      },
+      role: { 
+        type: DataTypes.STRING, 
+        allowNull: false,
+      }
+  }, {
+    tableName: "role",
+    timestamps: false,
+  });
 
-const roleModel = connectDB.define("roleModel", {
-    id: { 
-      type: DataTypes.INTEGER, 
-      primaryKey: true
-    },
-    role: { 
-      type: DataTypes.STRING(50), 
-      allowNull: false,
-    }
-}, {
-  tableName: "role",
-  timestamps: false,
-});
-
-export default roleModel;
+  roleModel.associate = (models) => {
+    roleModel.hasMany(models.usersModel, { 
+      foreignKey: "role_id", 
+      as: "RoleUser"
+    });
+  };
+  return roleModel;
+}

@@ -13,15 +13,14 @@ export async function getAllCategory(req, res) {
 // Tạo mới một danh mục
    export async function createCategory(req, res) {
   try {
-    const { name, description } = req.body;
+    const { category } = req.body;
 
-    if (!name) {
+    if (!category) {
       return res.status(400).json({ error: "Name is required" });
     }
 
     const newCategory = await categoryModel.create({
-      name,
-      description,
+      category
     });
 
     res.status(201).json(newCategory);
@@ -46,22 +45,19 @@ export async function getCategoryById(req, res) {
   }
 }
 
-//Cập nhật danh mục theo id
+// Cập nhật danh mục theo id
 export async function updateCategory(req, res) {
   try {
     const { id } = req.params;
-    const { name, description } = req.body;
-
-    const category = await categoryModel.findByPk(id);
-
+    const { category: updateData } = req.body;
+    const category = await categoryModel.findByPk(id); // Tìm category theo ID
     if (!category) {
       return res.status(404).json({ error: "Category not found" });
     }
-
-    category.name = name || category.name;
-    category.description = description || category.description;
-    await category.save();
-
+    if (updateData) {
+      Object.assign(category, updateData);  // Cập nhật các trường được gửi
+    }
+    await category.save();  // Lưu thay đổi
     res.json(category);
   } catch (err) {
     res.status(500).json({ error: err.message });

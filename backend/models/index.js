@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath, pathToFileURL } from 'url';
-import Sequelize from 'sequelize';
+import { DataTypes, Sequelize } from 'sequelize';
 import connectDB from '../db/db.js'; // instance Sequelize
 
 const db = {};
@@ -20,19 +20,50 @@ const files = fs.readdirSync(ModelsFile)
 
 for (const file of files) {
   const fileUrl = pathToFileURL(path.join(ModelsFile, file)).href;
-  const model = await import(fileUrl);
-  const modelName =  model.default;
-  db[modelName.name] = modelName;
+  try {
+    const modelUrl = await import(fileUrl);
+
+    if (!modelUrl.default) {
+      console.error(`File "${file}" không export default.`);
+      continue;
+    }
+
+    const model = modelUrl.default(connectDB, DataTypes);
+
+    if (!model || !model.name) {
+      console.error(`Model trong file "${file}" không có name.`);
+      continue;
+    }
+
+    db[model.name] = model;
+    console.log(`Loaded model "${model.name}" from "${file}"`);
+
+  } catch (err) {
+    console.error(`Không thể load model từ file "${file}":`, err.message);
+  }
 }
 
-// Nếu có quan hệ many-to-many hoặc associations
-Object.keys(db).forEach(modelName => {
-  if (typeof db[modelName].associate === 'function') {
-    db[modelName].associate(db);
-  }
-});
+Object.values(db)
+  .filter(model => typeof model.associate === 'function')
+  .forEach(model => {
+    try {
+      model.associate(db);
+    } catch (err) {
+      console.error(`Model "${model.name}":`, err.message);
+    }
+  });
+
+  // ✅ Đồng bộ database tại đây
+connectDB.sync({ alter: true })
+  .then(() => {
+    console.log("Database synced từ models/index.js");
+  })
+  .catch((err) => {
+    console.error("Sync lỗi:", err);
+  });
 
 db.sequelize = connectDB;
 db.Sequelize = Sequelize;
+
 
 export default db;

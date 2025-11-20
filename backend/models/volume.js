@@ -1,69 +1,68 @@
-import { DataTypes } from "sequelize";
-import connectDB from "../db/db.js";
-import bookModel from "./book.js";
-
-const volumeModel = connectDB.define("volumeModel", {
-  id: {
-    type: DataTypes.INTEGER,
-    autoIncrement: true,
-    primaryKey: true,
-  },
-  
-  book_id: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-    references: {
-      model: "book",
-      key: "id",
+export default (sequelize, DataTypes) => {
+  const volumeModel = sequelize.define("volumeModel", {
+    id: {
+      type: DataTypes.INTEGER,
+      autoIncrement: true,
+      primaryKey: true,
     },
-    onUpdate: "CASCADE",
-  },
-
-  volume_number: {
-    type: DataTypes.INTEGER,
-    allowNull: false,
-  },
-
-  title: {
-    type: DataTypes.STRING,
-    allowNull: true,
-  },
-
-  user_id: {
-    type: DataTypes.INTEGER,
-    allowNull: true,
-    references: {
-      model: "users",
-      key: "id",
+    
+    book_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      references: {
+        model: "book",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
     },
-    onUpdate: "CASCADE",
-  },
 
-  chapter_content: {
-    type: DataTypes.TEXT,
-    allowNull: true,
-  },
-}, {
-  tableName: "volume",
-  timestamps: true,
-});
+    volume_number: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+    },
 
-// bookModel.hasMany(volumeModel, {
-//   foreignKey: "book_id",
-//   as: "volume",
-// });
+    title: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
 
-// volumeModel.belongsTo(bookModel, {
-//   foreignKey: "book_id",
-// });
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+      references: {
+        model: "users",
+        key: "id",
+      },
+      onUpdate: "CASCADE",
+    },
 
-// usersModel.hasMany(volumeModel, {
-//   foreignKey: "user_id",
-//   as: "UserVolume",
-// });
+    chapter_content: {
+      type: DataTypes.TEXT,
+      allowNull: true,
+    },
+  }, {
+    tableName: "volume",
+    timestamps: true,
+  });
 
-// volumeModel.belongsTo(usersModel, {
-//   foreignKey: "user_id",
-// });
+  volumeModel.associate = (models) => {
+    // bookModel.hasMany(volumeModel, {
+    //   foreignKey: "book_id",
+    //   as: "volume",
+    // });
 
-export default volumeModel;
+    // volumeModel.belongsTo(bookModel, {
+    //   foreignKey: "book_id",
+    // });
+
+    // usersModel.hasMany(volumeModel, {
+    //   foreignKey: "user_id",
+    //   as: "UserVolume",
+    // });
+
+    // volumeModel.belongsTo(usersModel, {
+    //   foreignKey: "user_id",
+    // });
+  };
+  return volumeModel;
+}; 

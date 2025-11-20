@@ -38,3 +38,5 @@ Quan hệ nhiều – nhiều, cần một bảng trung gian.
 
 Book.belongsToMany(Category, { through: "BookCategory" });
 Category.belongsToMany(Book, { through: "BookCategory" });
+
+npx sequelize-cli model:generate --name Student --attributes name:string

@@ -1,12 +1,12 @@
-import bookModel from "../models/book.js";
-import categoryModel from "../models/category.js";
+import db from '../models/index.js';
 
 // Lấy tất cả book
 export async function getAllBooks(req, res) {
   try {
-    const books = await bookModel.findAll({
+    const books = await db.bookModel.findAll({
       include: {
-        model: categoryModel,
+        model: db.categoryModel,
+        as: 'BookCategory',
         through: { attributes: [] } // Ẩn bảng trung gian
       }
     });
@@ -22,10 +22,11 @@ export async function getBookBySlug(req, res) {
   try {
     const { slug } = req.params;
 
-    const book = await bookModel.findOne({
+    const book = await db.bookModel.findOne({
       where: { slug },
       include: {
-        model: categoryModel,
+        model: db.categoryModel,
+        as: 'BookCategory',
         through: { attributes: [] }
       }
     });
@@ -47,7 +48,7 @@ export async function createBook(req, res) {
       return res.status(400).json({ error: "Missing required fields" });
     }
 
-    const newBook = await bookModel.create({ ...req.body });
+    const newBook = await db.bookModel.create({ ...req.body });
 
     // Gán categories nếu có
     if (Array.isArray(categoryIds)) {
@@ -65,7 +66,7 @@ export async function updateBookBySlug(req, res) {
   try {
     const { slug } = req.params;
 
-    const book = await bookModel.findOne({ where: { slug } });
+    const book = await db.bookModel.findOne({ where: { slug } });
     if (!book) {
       return res.status(404).json({ error: "Book not found" });
     }
@@ -91,7 +92,7 @@ export async function deleteBook(req, res) {
   try {
     const { id } = req.params;
 
-    const book = await bookModel.findByPk(id);
+    const book = await db.bookModel.findByPk(id);
     if (!book) return res.status(404).json({ error: "Book not found" });
 
     await book.destroy();
