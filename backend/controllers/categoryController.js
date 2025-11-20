@@ -45,18 +45,19 @@ export async function getCategoryById(req, res) {
   }
 }
 
-//Cập nhật danh mục theo id
+// Cập nhật danh mục theo id
 export async function updateCategory(req, res) {
   try {
     const { id } = req.params;
-    const { category } = req.body; 
-
+    const { category: updateData } = req.body;
     const category = await categoryModel.findByPk(id); // Tìm category theo ID
-
     if (!category) {
       return res.status(404).json({ error: "Category not found" });
     }
-
+    if (updateData) {
+      Object.assign(category, updateData);  // Cập nhật các trường được gửi
+    }
+    await category.save();  // Lưu thay đổi
     res.json(category);
   } catch (err) {
     res.status(500).json({ error: err.message });
