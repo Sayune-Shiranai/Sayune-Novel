@@ -80,3 +80,34 @@ export async function deleteCategory(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+// Lấy tất cả danh mục, kèm số lượng sách trong mỗi danh mục và tìm kiếm theo tên (nếu có)
+export async function getAllCategory(req, res) {
+  try {
+    const { name } = req.query; // lấy từ query ?name=xxx
+
+    // Điều kiện tìm kiếm (nếu có)
+    const whereCondition = name ? { name: { [Op.like]: `%${name}%` } } : {};
+    
+    // Lấy danh mục có đếm số lượng sách liên quan
+    const categories = await categoryModel.findAll({
+      where: whereCondition,
+      attributes: {
+        include: [
+          // Thêm trường 'booksCount' để đếm số sách trong category
+          [
+            // Subquery đếm sách có categoryId trùng với category.id
+            categoryModel.sequelize.literal(`(
+              SELECT COUNT(*) FROM books AS book WHERE book.categoryId = category.id
+            )`),
+            "booksCount",
+ ],
+        ],
+      },
+      order: [["id", "ASC"]],
+    });
+    res.json(categories);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

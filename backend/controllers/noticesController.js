@@ -1,4 +1,4 @@
-import noticesModel from "../models/notices.js";
+import db from "../models/notices.js";
 
 //Lấy tất cả notice
 export async function getAllNotices(req, res) {
