@@ -49,17 +49,13 @@ export async function getCategoryById(req, res) {
 export async function updateCategory(req, res) {
   try {
     const { id } = req.params;
-    const { name, description } = req.body;
+    const { category } = req.body; 
 
-    const category = await categoryModel.findByPk(id);
+    const category = await categoryModel.findByPk(id); // Tìm category theo ID
 
     if (!category) {
       return res.status(404).json({ error: "Category not found" });
     }
-
-    category.name = name || category.name;
-    category.description = description || category.description;
-    await category.save();
 
     res.json(category);
   } catch (err) {
