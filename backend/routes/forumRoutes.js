@@ -7,7 +7,6 @@ import {
   deleteForum 
 } from "../controllers/forumController.js";
 
-// Nếu bạn có middleware xác thực (để chặn người chưa đăng nhập), hãy import vào đây
 // import { verifyToken } from "../middlewares/auth.js"; 
 
 const router = express.Router();
