@@ -1,4 +1,5 @@
 import forumModel from "../models/forum.js";
+import db from "../models/index.js";
 
 // 1. Lấy danh sách 
 export async function getAllForum(req, res) {
@@ -21,6 +22,22 @@ export async function getForumById(req, res) {
       return res.status(404).json({ message: "Không tìm thấy bài viết này." });
     }
     res.json(forum);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+//test
+export async function ForumGetUser(req, res) {
+  try {
+    const data = await db.forumModel.findAll({
+      include: {
+        model: db.usersModel,
+        as: "ForumUser",
+        attributes: ["id", "username", "img_avatar"]
+      }
+    });
+    res.json(data);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }

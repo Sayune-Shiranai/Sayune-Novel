@@ -28,7 +28,10 @@ export default (sequelize, DataTypes) => {
   });
 
   forumModel.associate = (models) => {
-    
+    forumModel.belongsTo(models.usersModel, {
+      foreignKey: "user_id",
+      as: "ForumUser"
+    });
   };
   return forumModel;
 };

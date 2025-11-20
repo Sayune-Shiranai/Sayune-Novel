@@ -50,3 +50,17 @@ export async function getUserById(req, res) {
   }
 }
 
+export async function UserGetAllForum(req, res) {
+  try {
+    const data = await db.usersModel.findOne({
+      where: { id: 1 },
+      include: {
+        model: db.forumModel,
+        as: "UserForum"
+      }
+    });
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};

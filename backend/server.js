@@ -4,9 +4,19 @@ import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 import db from "./models/index.js";
 
+
+//dashboard routes
+import UserRoutes from "./routes/dashboard/UsersRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
+import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
+import VolumeCommentRoutes from "./routes/dashboard/VolumeCommentRoutes.js";
+import ChatboxRoutes from "./routes/dashboard/ChatboxRoutes.js";
+import ForumRoutes from "./routes/dashboard/ForumRoutes.js";
+import NoticeRoutes from "./routes/dashboard/NoticesRoutes.js";
+import ReportRoutes from "./routes/dashboard/ReportRoutes.js";
 
+//home routes
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
@@ -32,8 +42,15 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 //dashboard routes
+app.use("/dashboard/user", UserRoutes) // dashboard/user
 app.use("/dashboard/book", BookRoutes) // dashboard/book
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
+app.use("/dashboard/volume", VolumeRoutes) // dashboard/volume
+app.use("/dashboard/volumeComment", VolumeCommentRoutes) // dashboard/volumeComment
+app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox
+app.use("/dashboard/forum", ForumRoutes) // dashboard/forum
+app.use("/dashboard/notices", NoticeRoutes) // dashboard/notices
+app.use("/dashboard/report", ReportRoutes) // dashboard/report
 
 // home routes
 app.use("/", homeRoutes);

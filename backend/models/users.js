@@ -48,10 +48,10 @@ export default (sequelize, DataTypes) => {
       as: "UserRole"
     });
 
-    // models.roleModel.hasMany(usersModel, {
-    //   foreignKey: "role_id", 
-    //   as: "RoleUser"
-    // });
+    usersModel.hasMany(models.forumModel, {
+      foreignKey: "user_id",
+      as: "UserForum"
+    });
   };
 
   return usersModel;
