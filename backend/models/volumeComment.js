@@ -44,7 +44,23 @@ export default (sequelize, DataTypes) => {
   });
 
   volumeCommentModel.associate = (models) => {
-    // Define associations here if needed
+    // relationship volumeComment - users
+    volumeCommentModel.belongsTo(models.usersModel, {
+      foreignKey: "user_id",
+      as: "VolumeCommentUser"
+    });
+
+    // relationship volumeComment - book
+    volumeCommentModel.belongsTo(models.bookModel, {
+      foreignKey: "book_id",
+      as: "VolumeCommentBook"
+    });
+
+    // relationship volumeComment - volume
+    volumeCommentModel.belongsTo(models.volumeModel, {
+      foreignKey: "volume_id",
+      as: "VolumeCommentVolume"
+    });
   };
   return volumeCommentModel;
 }

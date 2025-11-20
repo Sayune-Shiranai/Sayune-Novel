@@ -13,7 +13,7 @@ import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
 import VolumeCommentRoutes from "./routes/dashboard/VolumeCommentRoutes.js";
 import ChatboxRoutes from "./routes/dashboard/ChatboxRoutes.js";
 import ForumRoutes from "./routes/dashboard/ForumRoutes.js";
-import NoticeRoutes from "./routes/dashboard/NoticesRoutes.js";
+import NoticesRoutes from "./routes/dashboard/NoticesRoutes.js";
 import ReportRoutes from "./routes/dashboard/ReportRoutes.js";
 
 //home routes
@@ -49,7 +49,7 @@ app.use("/dashboard/volume", VolumeRoutes) // dashboard/volume
 app.use("/dashboard/volumeComment", VolumeCommentRoutes) // dashboard/volumeComment
 app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox
 app.use("/dashboard/forum", ForumRoutes) // dashboard/forum
-app.use("/dashboard/notices", NoticeRoutes) // dashboard/notices
+app.use("/dashboard/notices", NoticesRoutes) // dashboard/notices
 app.use("/dashboard/report", ReportRoutes) // dashboard/report
 
 // home routes

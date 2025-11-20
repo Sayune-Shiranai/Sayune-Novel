@@ -1,5 +1,6 @@
 import express from "express";
 import {
+  getOneBook,
   createBook,
   updateBookBySlug,
   deleteBook
@@ -7,7 +8,8 @@ import {
 
 const router = express.Router();
 
-router.post("/", createBook);          // /dashboard/book
+router.get("/test-book", getOneBook);        //dashboard/book/single
+router.post("/", createBook);      //dashboard/book
 router.put("/:slug", updateBookBySlug); // /dashboard/book/:slug
 router.delete("/:id", deleteBook);     // /dashboard/book/:id
 

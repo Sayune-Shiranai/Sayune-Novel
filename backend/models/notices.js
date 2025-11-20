@@ -42,7 +42,23 @@ export default (sequelize, DataTypes) => {
   });
 
   noticesModel.associate = (models) => {
-    
+    // relationship notices - users
+    noticesModel.belongsTo(models.usersModel, {
+      foreignKey: "user_id",
+      as: "NoticeUser",
+    });
+
+    // relationship notices - book
+    noticesModel.belongsTo(models.bookModel, {
+      foreignKey: "book_id",
+      as: "NoticeBook",
+    });
+
+    // relationship notices - volume
+    noticesModel.belongsTo(models.volumeModel, {
+      foreignKey: "volume_id",
+      as: "NoticeVolume",
+    });
   };
   return noticesModel;
 };

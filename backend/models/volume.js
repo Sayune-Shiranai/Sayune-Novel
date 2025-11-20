@@ -46,23 +46,35 @@ export default (sequelize, DataTypes) => {
   });
 
   volumeModel.associate = (models) => {
-    // bookModel.hasMany(volumeModel, {
-    //   foreignKey: "book_id",
-    //   as: "volume",
-    // });
+    // relationship volume - users
+    volumeModel.belongsTo(models.usersModel, {
+      foreignKey: "user_id",
+      as: "VolumeUser"
+    });
 
-    // volumeModel.belongsTo(bookModel, {
-    //   foreignKey: "book_id",
-    // });
+    // relationship volume - book
+    volumeModel.belongsTo(models.bookModel, {
+      foreignKey: "book_id",
+      as: "VolumeBook"
+    });
 
-    // usersModel.hasMany(volumeModel, {
-    //   foreignKey: "user_id",
-    //   as: "UserVolume",
-    // });
+    // relationship volume - volumeComment
+    volumeModel.hasMany(models.volumeCommentModel, {
+      foreignKey: "volume_id",
+      as: "VolumeComments"
+    });
 
-    // volumeModel.belongsTo(usersModel, {
-    //   foreignKey: "user_id",
-    // });
+    // relationship volume - notices
+    volumeModel.hasMany(models.noticesModel, {
+      foreignKey: "volume_id",
+      as: "VolumeNotices"
+    })
+
+    // relationship volume - report
+    volumeModel.hasMany(models.reportModel, {
+      foreignKey: "volume_id",
+      as: "VolumeReport"
+    });
   };
   return volumeModel;
 }; 

@@ -50,6 +50,23 @@ export async function getUserById(req, res) {
   }
 }
 
+//test user get all book
+export async function UserGetAllBook(req, res) {
+  try {
+    const books = await db.usersModel.findOne({
+      where: { id: 1 },
+      include: {
+        model: db.bookModel,
+        as: "UserBooks"
+      }
+    });
+    res.json(books);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
+// Test lấy tất cả forum của user id=1
 export async function UserGetAllForum(req, res) {
   try {
     const data = await db.usersModel.findOne({
@@ -64,3 +81,5 @@ export async function UserGetAllForum(req, res) {
     res.status(500).json({ error: err.message });
   }
 };
+
+

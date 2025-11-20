@@ -56,11 +56,42 @@ export default (sequelize, DataTypes) => {
   });
 
   bookModel.associate = (models) => {
+    // relationship book - category
     bookModel.belongsToMany(models.categoryModel, { 
       through: "bookCategory",
       as: "BookCategory",
       foreignKey: "book_id",
       timestamps: false, 
+    });
+
+    // relationship book - users
+    bookModel.belongsTo(models.usersModel, {
+      foreignKey: "user_id",
+      as: "BookUser"
+    });
+
+    // relationship book - volume
+    bookModel.hasMany(models.volumeModel, {
+      foreignKey: "book_id",
+      as: "BookVolumes"
+    });
+
+    // relationship book - volumeComment
+    bookModel.hasMany(models.volumeCommentModel, {
+      foreignKey: "book_id",
+      as: "BookVolumeComments"
+    });
+
+    // relationship book - notices
+    bookModel.hasMany(models.noticesModel, {
+      foreignKey: "book_id",
+      as: "BookNotices"
+    });
+
+    // relationship book - report
+    bookModel.hasMany(models.reportModel, {
+      foreignKey: "book_id",
+      as: "BookReport"
     });
   };
   return bookModel;

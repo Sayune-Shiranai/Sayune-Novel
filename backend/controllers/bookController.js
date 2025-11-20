@@ -39,6 +39,23 @@ export async function getBookBySlug(req, res) {
   }
 }
 
+// Lấy 1 book (user - category - volumes)
+export async function getOneBook(req, res) {
+  try {
+    const data = await db.bookModel.findOne({
+      where: { id: 1 },
+      include: [
+        { model: db.usersModel, as: "BookUser" },
+        { model: db.categoryModel, as: "BookCategory" },
+        { model: db.volumeModel, as: "BookVolumes" }
+      ]
+    });
+    res.json(data);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 // Tạo book
 export async function createBook(req, res) {
   try {

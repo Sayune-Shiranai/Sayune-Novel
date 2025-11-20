@@ -9,7 +9,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'users',  // tên bảng cha
+        model: 'users', 
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'book',  // tên bảng cha
+        model: 'book',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.INTEGER,
       allowNull: true,
       references: {
-        model: 'volume',  // tên bảng cha
+        model: 'volume',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -42,7 +42,23 @@ export default (sequelize, DataTypes) => {
   });
 
   reportModel.associate = (models) => {
-    
+    // relationship report - users
+    reportModel.belongsTo(models.userModel, {
+      foreignKey: "user_id",
+      as: "user",
+    });
+
+    // relationship report - book
+    reportModel.belongsTo(models.bookModel, {
+      foreignKey: "book_id",
+      as: "book",
+    });
+
+    // relationship report - volume
+    reportModel.belongsTo(models.volumeModel, {
+      foreignKey: "volume_id",
+      as: "volume",
+    });
   };
   return reportModel;
 };
