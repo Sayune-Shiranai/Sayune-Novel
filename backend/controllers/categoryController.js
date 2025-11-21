@@ -1,4 +1,6 @@
+import { Model } from "sequelize";
 import categoryModel from "../models/category.js";
+import db from "../models/index.js";
 
 // Lấy tất cả danh mục
 export async function getAllCategory(req, res) {
@@ -84,29 +86,17 @@ export async function deleteCategory(req, res) {
 // Lấy tất cả danh mục, kèm số lượng sách trong mỗi danh mục và tìm kiếm theo tên (nếu có)
 export async function getAllCategory(req, res) {
   try {
-    const { name } = req.query; // lấy từ query ?name=xxx
-
-    // Điều kiện tìm kiếm (nếu có)
-    const whereCondition = name ? { name: { [Op.like]: `%${name}%` } } : {};
-    
-    // Lấy danh mục có đếm số lượng sách liên quan
     const categories = await categoryModel.findAll({
-      where: whereCondition,
-      attributes: {
         include: [
-          // Thêm trường 'booksCount' để đếm số sách trong category
-          [
-            // Subquery đếm sách có categoryId trùng với category.id
-            categoryModel.sequelize.literal(`(
-              SELECT COUNT(*) FROM books AS book WHERE book.categoryId = category.id
-            )`),
-            "booksCount",
- ],
+          {
+            model: db.categoryModel,
+            as: "CategoryItems",
+            astribute: ["id", "itemname", "slug", "trangthai", "createDate"],
+          },
         ],
-      },
-      order: [["id", "ASC"]],
-    });
-    res.json(categories);
+      });
+
+    res.json({ success: true, data: categories });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
