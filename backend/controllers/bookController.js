@@ -1,4 +1,13 @@
 import db from '../models/index.js';
+import slugify from "slugify";
+
+function createBookSlug(book_number, title) {
+  const BookSlug = `${book_number} ${title}`;
+  return slugify(BookSlug, {
+    lower: true,
+    strict: true
+  });
+}
 
 // Lấy tất cả book
 export async function getAllBooks(req, res) {
@@ -7,7 +16,7 @@ export async function getAllBooks(req, res) {
       include: {
         model: db.categoryModel,
         as: 'BookCategory',
-        through: { attributes: [] } // Ẩn bảng trung gian
+        through: { attributes: [] }
       }
     });
 
@@ -56,27 +65,72 @@ export async function getOneBook(req, res) {
   }
 }
 
-// Tạo book
+
 export async function createBook(req, res) {
   try {
-    const { title, book_number, slug, categoryIds } = req.body;
+    const {
+      book_number,
+      title,
+      another_name,
+      img,
+      author,
+      artist,
+      status,
+      description,
+      user_id,
+      categoryIds
+    } = req.body;
 
-    if (!title || !book_number) {
-      return res.status(400).json({ error: "Missing required fields" });
+    if (!book_number) {
+      return res.status(400).json({ error: "Vui lòng nhập số book!" });
     }
 
-    const newBook = await db.bookModel.create({ ...req.body });
+    if (!title) {
+      return res.status(400).json({ error: "Vui lòng nhập tên book!" });
+    }
 
-    // Gán categories nếu có
+    const slug = createBookSlug(book_number, title);
+
+    let imgPath;
+
+    if (!req.file) {
+      imgPath = "/media/books_imgages/nocover.jpg";
+    } else {
+      imgPath = "/uploads/book/" + req.file.filename;
+    }
+
+    const newBook = await req.db.bookModel.create(
+      {
+        book_number,
+        title,
+        another_name,
+        slug,
+        img: imgPath,
+        author,
+        artist,
+        status,
+        description,
+        user_id,
+      },
+    );
+
+    // nếu có category thì gán vào bảng trung gian
     if (Array.isArray(categoryIds)) {
-      await newBook.setCategoryModels(categoryIds); 
+      await newBook.addCategoryModels(categoryIds, { transaction: t });
     }
 
-    res.status(201).json(newBook);
+    await t.commit();
+    return res.status(201).json({
+      message: "Book created successfully",
+      book: newBook,
+    });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    // await t.rollback();
+    return res.status(500).json({ error: err.message });
   }
 }
+
 
 // UPDATE BOOK BY SLUG
 export async function updateBookBySlug(req, res) {
