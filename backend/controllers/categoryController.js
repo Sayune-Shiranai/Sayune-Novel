@@ -1,5 +1,3 @@
-import { Model } from "sequelize";
-import categoryModel from "../models/category.js";
 import db from "../models/index.js";
 
 // Lấy tất cả danh mục
