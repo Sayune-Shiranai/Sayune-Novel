@@ -1,22 +1,11 @@
 import db from '../models/index.js';
-// Lấy tất cả người dùng
-// export async function getAllUsers(req, res) {
-//   try {
-//     const users = await usersModel.findAll();
-//     res.json(users);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
-
-import db from "../models/index.js";
-import sequelize from "sequelize";
+import { Op } from "sequelize";
 
 //xem danh sách có phân trang
 export async function GetPaged(req, res) {
   try {
     // Lấy query params
-    let { page = 1, limit = 10, keyword = "", role_id } = req.query;
+    let { page = 1, limit = 10, keyword = "" } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
 
@@ -29,8 +18,8 @@ export async function GetPaged(req, res) {
       where = {
         ...where,
         [Op.or]: [
-          { username: { [sequelize.like]: `%${keyword}%` } },
-          { email: { [sequelize.like]: `%${keyword}%` } }
+          { username: { [Op.like]: `%${keyword}%` } },
+          { email: { [Op.like]: `%${keyword}%` } }
         ]
       };
     }
@@ -50,7 +39,7 @@ export async function GetPaged(req, res) {
       include: [
         {
           model: db.roleModel,
-          as: "UserRole"
+          as: "User_Role"
         }
       ],
       limit,
@@ -73,78 +62,136 @@ export async function GetPaged(req, res) {
   }
 }
 
-
-// Lấy tất cả user kèm role
-export async function getAllUser(req, res) {
+export async function updateRole(req, res) {
   try {
-    const users = await db.usersModel.findAll({
-      include: [
-        {
-          model: db.roleModel,
-          as: 'UserRole',
-          attributes: ['id', 'role']
-        }
-      ]
-    });
-    res.json({ success: true, data: users });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
-  }
-}
+    const { id } = req.params;
+    const { role_id } = req.body;
 
-// Lấy user theo id kèm role
-export async function getUserById(req, res) {
-  try {
-    const user = await db.usersModel.findByPk(req.params.id, {
-      include: [
-        {
-          model: db.roleModel,
-          as: 'UserRole',
-          attributes: ['id', 'role']
-        }
-      ]
-    });
-
+    const user = await db.usersModel.findByPk(id);
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-    res.json({ success: true, data: user });
+    user.role_id = role_id;
+    await user.save();
+
+    res.json({ success: true, message: 'User role updated', data: user });
   } catch (err) {
     console.error(err);
     res.status(500).json({ success: false, error: err.message });
   }
 }
 
-//test user get all book
-export async function UserGetAllBook(req, res) {
+export async function deleteUser(req, res) {
   try {
-    const books = await db.usersModel.findOne({
-      where: { id: 1 },
-      include: {
-        model: db.bookModel,
-        as: "UserBooks"
-      }
-    });
-    res.json(books);
+    const { id } = req.params;
+
+    const user = await db.usersModel.findByPk(id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+    await user.destroy();
+    res.json({ success: true, message: 'User deleted successfully' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Duyệt user (trangthai = 1)
+export async function approve(req, res) {
+  try {
+    const { id } = req.params;
+    const user = await db.usersModel.findByPk(id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+    user.trangthai = 1;
+    await user.save();
+
+    res.json({ success: true, message: 'User approved', data: user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Hủy duyệt user (trangthai = 0)
+export async function reject(req, res) {
+  try {
+    const { id } = req.params;
+    const user = await db.usersModel.findByPk(id);
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+    user.trangthai = 0;
+    await user.save();
+
+    res.json({ success: true, message: 'User rejected', data: user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Lấy tất cả người dùng
+export async function getAllUsers(req, res) {
+  try {
+    const users = await usersModel.findAll();
+    res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
 
-// Test lấy tất cả forum của user id=1
-export async function UserGetAllForum(req, res) {
-  try {
-    const data = await db.usersModel.findOne({
-      where: { id: 1 },
-      include: {
-        model: db.forumModel,
-        as: "UserForum"
-      }
-    });
-    res.json(data);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-};
+
+// // Lấy user theo id kèm role
+// export async function getUserById(req, res) {
+//   try {
+//     const user = await db.usersModel.findByPk(req.params.id, {
+//       include: [
+//         {
+//           model: db.roleModel,
+//           as: 'User_Role',
+//           attributes: ['id', 'role']
+//         }
+//       ]
+//     });
+
+//     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+
+//     res.json({ success: true, data: user });
+//   } catch (err) {
+//     console.error(err);
+//     res.status(500).json({ success: false, error: err.message });
+//   }
+// }
+
+// //test user get all book
+// export async function UserGetAllBook(req, res) {
+//   try {
+//     const books = await db.usersModel.findOne({
+//       where: { id: 1 },
+//       include: {
+//         model: db.bookModel,
+//         as: "User_Book"
+//       }
+//     });
+//     res.json(books);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// }
+
+// // Test lấy tất cả forum của user id=1
+// export async function UserGetAllForum(req, res) {
+//   try {
+//     const data = await db.usersModel.findOne({
+//       where: { id: 1 },
+//       include: {
+//         model: db.forumModel,
+//         as: "User_Forum"
+//       }
+//     });
+//     res.json(data);
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// };
 
 

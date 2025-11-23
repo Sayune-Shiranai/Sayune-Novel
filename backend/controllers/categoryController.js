@@ -84,20 +84,21 @@ export async function deleteCategory(req, res) {
 }
 
 // Lấy tất cả danh mục, kèm số lượng sách trong mỗi danh mục và tìm kiếm theo tên (nếu có)
-export async function getAllCategory(req, res) {
-  try {
-    const categories = await categoryModel.findAll({
-        include: [
-          {
-            model: db.categoryModel,
-            as: "CategoryItems",
-            astribute: ["id", "itemname", "slug", "trangthai", "createDate"],
-          },
-        ],
-      });
+// fix lại
+// export async function getAllCategory(req, res) {
+//   try {
+//     const categories = await categoryModel.findAll({
+//         include: [
+//           {
+//             model: db.categoryModel,
+//             as: "CategoryItems",
+//             astribute: ["id", "itemname", "slug", "trangthai", "createDate"],
+//           },
+//         ],
+//       });
 
-    res.json({ success: true, data: categories });
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
+//     res.json({ success: true, data: categories });
+//   } catch (err) {
+//     res.status(500).json({ error: err.message });
+//   }
+// }

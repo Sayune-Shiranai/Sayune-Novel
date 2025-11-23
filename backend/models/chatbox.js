@@ -27,7 +27,7 @@ export default (sequelize, DataTypes) => {
     // relationship chatbox - users
     chatboxModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "ChatUser"
+      as: "Chatbox_User"
     });
   };
   return chatboxModel;

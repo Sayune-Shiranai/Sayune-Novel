@@ -7,6 +7,7 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true, 
       primaryKey: true 
     },
+
     user_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -16,6 +17,7 @@ export async function up(queryInterface, Sequelize) {
       },
       onUpdate: 'CASCADE',
     },
+
     book_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -25,6 +27,7 @@ export async function up(queryInterface, Sequelize) {
       },
       onUpdate: 'CASCADE',
     },
+
     volume_id: {
       type: Sequelize.INTEGER,
       allowNull: false,
@@ -34,10 +37,17 @@ export async function up(queryInterface, Sequelize) {
       },
       onUpdate: 'CASCADE',
     },
+
     notice_content: { 
       type: Sequelize.TEXT,
       allowNull: true
     },
+
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true, 
+    },
+
     createdAt: { 
       type: Sequelize.DATE, 
       allowNull: false, 

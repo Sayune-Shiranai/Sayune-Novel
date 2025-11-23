@@ -7,10 +7,16 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true, 
       primaryKey: true
     },
+
     category: { 
       type: Sequelize.STRING, 
       allowNull: false 
-    }
+    },
+
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true, 
+    },
   });
 }
 

@@ -2,7 +2,7 @@ import db from "../models/index.js";
 
 export async function getAllVolume(req, res) {
   try {
-    const volume = await volumeModel.findAll();
+    const volume = await db.volumeModel.findAll();
     res.json(volume);
   } catch (err) {
     res.status(500).json({ error: err.message });
@@ -16,11 +16,11 @@ export async function getOneVolume(req, res) {
       include: [
         {
           model: db.bookModel,
-          as: "VolumeBook"
+          as: "Volume_Book"
         },
         {
           model: db.usersModel,
-          as: "VolumeUser"
+          as: "Volume_User"
         }
       ]
     });

@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true, 
       primaryKey: true 
     },
+    
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -14,6 +15,7 @@ export default (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
     },
+
     book_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -23,6 +25,7 @@ export default (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
     },
+
     volume_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -32,9 +35,15 @@ export default (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
     },
+
     notice_content: { 
       type: DataTypes.TEXT,
       allowNull: true
+    },
+
+    trangthai: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true, 
     },
   }, {
     tableName: "notices",
@@ -45,19 +54,19 @@ export default (sequelize, DataTypes) => {
     // relationship notices - users
     noticesModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "NoticeUser",
+      as: "Notice_User",
     });
 
     // relationship notices - book
     noticesModel.belongsTo(models.bookModel, {
       foreignKey: "book_id",
-      as: "NoticeBook",
+      as: "Notice_Book",
     });
 
     // relationship notices - volume
     noticesModel.belongsTo(models.volumeModel, {
       foreignKey: "volume_id",
-      as: "NoticeVolume",
+      as: "Notice_Volume",
     });
   };
   return noticesModel;

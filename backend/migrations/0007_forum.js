@@ -7,22 +7,30 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true, 
       primaryKey: true 
     },
+    
     user_id: {
       type: Sequelize.INTEGER,
       allowNull: true,
       references: {
-        model: 'users',  // tên bảng cha
+        model: 'users',
         key: 'id'
       },
       onUpdate: 'CASCADE',
     },
+
     title: { 
       type: Sequelize.TEXT 
     },
+
     forum_content: { 
       type: Sequelize.TEXT 
     },
-    
+
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true, 
+    },
+
     createdAt: { 
       type: Sequelize.DATE, 
       allowNull: false, 

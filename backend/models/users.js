@@ -25,14 +25,22 @@ export default (sequelize, DataTypes) => {
         key: 'id'
       },
     },
+
     img_avatar: { 
       type: DataTypes.STRING, 
       allowNull: true,
     },
+
     img_background: { 
       type: DataTypes.STRING, 
       allowNull: true, 
     },
+
+    trangthai: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true, 
+    },
+
     refreshToken: { 
       type: DataTypes.TEXT, 
       allowNull: true,
@@ -46,49 +54,49 @@ export default (sequelize, DataTypes) => {
     // relationship users - role
     usersModel.belongsTo(models.roleModel, { 
       foreignKey: "role_id", 
-      as: "UserRole"
+      as: "User_Role"
     });
 
     // relationship users - book
     usersModel.hasMany(models.bookModel, {
       foreignKey: "user_id",
-      as: "UserBooks"
+      as: "User_Book"
     });
 
     // relationship users - volume
-    usersModel.hasMany(volumeModel, {
+    usersModel.hasMany(models.volumeModel, {
       foreignKey: "user_id",
-      as: "UserVolumes"
+      as: "User_Volume"
     });
 
     //relationship users - volumeComment
     usersModel.hasMany(models.volumeCommentModel, {
       foreignKey: "user_id",
-      as: "UserVolumeComments"
+      as: "User_VolumeComment"
     });
 
     // relationship users - chatbox
     usersModel.hasMany(models.chatboxModel, {
       foreignKey: "user_id",
-      as: "UserChatbox"
+      as: "User_Chatbox"
     });
 
     // relationship users - forum
     usersModel.hasMany(models.forumModel, {
       foreignKey: "user_id",
-      as: "UserForum"
+      as: "User_Forum"
     });
 
     // relationship users - notices
     usersModel.hasMany(models.noticesModel, { 
       foreignKey: "user_id", 
-      as: "UserNotices" 
+      as: "User_Notice" 
     });
 
     // relationship users - report
     usersModel.hasMany(models.reportModel, {
       foreignKey: "user_id",
-      as: "UserReport"
+      as: "User_Report"
     });
   };
   return usersModel;

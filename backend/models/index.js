@@ -43,24 +43,14 @@ for (const file of files) {
   }
 }
 
-Object.values(db)
-  .filter(model => typeof model.associate === 'function')
-  .forEach(model => {
-    try {
-      model.associate(db);
-    } catch (err) {
-      console.error(`Model "${model.name}":`, err.message);
-    }
-  });
+Object.keys(db).forEach(modelName => {
+  if (db[modelName].associate) {
+    db[modelName].associate(db);
+  } else {
+    console.log(`Model "${modelName}" không có associate.`);
+  }
+});
 
-  // ✅ Đồng bộ database tại đây
-connectDB.sync({ alter: true })
-  .then(() => {
-    console.log("Database synced từ models/index.js");
-  })
-  .catch((err) => {
-    console.error("Sync lỗi:", err);
-  });
 
 db.sequelize = connectDB;
 db.Sequelize = Sequelize;

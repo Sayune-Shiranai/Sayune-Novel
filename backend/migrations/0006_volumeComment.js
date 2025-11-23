@@ -43,6 +43,11 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
     },
 
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true, 
+    },
+
     createdAt: { 
       type: Sequelize.DATE, 
       allowNull: false, 

@@ -15,7 +15,7 @@ export async function getAllBooks(req, res) {
     const books = await db.bookModel.findAll({
       include: {
         model: db.categoryModel,
-        as: 'BookCategory',
+        as: 'Book_Category',
         through: { attributes: [] }
       }
     });
@@ -35,7 +35,7 @@ export async function getBookBySlug(req, res) {
       where: { slug },
       include: {
         model: db.categoryModel,
-        as: 'BookCategory',
+        as: 'Book_Category',
         through: { attributes: [] }
       }
     });
@@ -54,9 +54,9 @@ export async function getOneBook(req, res) {
     const data = await db.bookModel.findOne({
       where: { id: 1 },
       include: [
-        { model: db.usersModel, as: "BookUser" },
-        { model: db.categoryModel, as: "BookCategory" },
-        { model: db.volumeModel, as: "BookVolumes" }
+        { model: db.usersModel, as: "Book_User" },
+        { model: db.categoryModel, as: "Book_Category" },
+        { model: db.volumeModel, as: "Book_Volume" }
       ]
     });
     res.json(data);

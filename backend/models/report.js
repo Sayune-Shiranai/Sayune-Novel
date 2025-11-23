@@ -43,21 +43,21 @@ export default (sequelize, DataTypes) => {
 
   reportModel.associate = (models) => {
     // relationship report - users
-    reportModel.belongsTo(models.userModel, {
+    reportModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "user",
+      as: "Report_User",
     });
 
     // relationship report - book
     reportModel.belongsTo(models.bookModel, {
       foreignKey: "book_id",
-      as: "book",
+      as: "Report_Book",
     });
 
     // relationship report - volume
     reportModel.belongsTo(models.volumeModel, {
       foreignKey: "volume_id",
-      as: "volume",
+      as: "Report_Volume",
     });
   };
   return reportModel;

@@ -6,10 +6,16 @@ export default (sequelize, DataTypes) => {
         primaryKey: true, 
         autoIncrement: true 
       },
+
       category: { 
         type: DataTypes.STRING, 
         allowNull: false
-      }
+      },
+
+    trangthai: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true, 
+    },
     },
     {
       tableName: "category",
@@ -19,8 +25,8 @@ export default (sequelize, DataTypes) => {
 
   categoryModel.associate = (models) => {
     categoryModel.belongsToMany(models.bookModel, {
-      through: "bookCategory",
-      as: "CategoryBook",
+      through: "BookCategory",
+      as: "Category_Book",
       foreignKey: "category_id",
     });
   };

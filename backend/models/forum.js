@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true, 
       primaryKey: true 
     },
+
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -14,13 +15,20 @@ export default (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
     },
+
     title: { 
       type: DataTypes.TEXT,
       allowNull: false
     },
+
     forum_content: { 
       type: DataTypes.TEXT,
       allowNull: true
+    },
+
+    trangthai: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true, 
     },
   }, {
     tableName: "forum",
@@ -30,7 +38,7 @@ export default (sequelize, DataTypes) => {
   forumModel.associate = (models) => {
     forumModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "ForumUser"
+      as: "Forum_User"
     });
   };
   return forumModel;

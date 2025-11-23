@@ -63,6 +63,11 @@ export async function up(queryInterface, Sequelize) {
       onUpdate: 'CASCADE'
     },
 
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true, 
+    },
+
     createdAt: { 
       type: Sequelize.DATE, 
       allowNull: false, 

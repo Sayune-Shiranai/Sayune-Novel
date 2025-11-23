@@ -40,6 +40,11 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.TEXT,
       allowNull: true,
     },
+
+    trangthai: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true, 
+    },
   }, {
     tableName: "volume",
     timestamps: true,
@@ -49,31 +54,31 @@ export default (sequelize, DataTypes) => {
     // relationship volume - users
     volumeModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "VolumeUser"
+      as: "Volume_User"
     });
 
     // relationship volume - book
     volumeModel.belongsTo(models.bookModel, {
       foreignKey: "book_id",
-      as: "VolumeBook"
+      as: "Volume_Book"
     });
 
     // relationship volume - volumeComment
     volumeModel.hasMany(models.volumeCommentModel, {
       foreignKey: "volume_id",
-      as: "VolumeComments"
+      as: "Volume_Comment"
     });
 
     // relationship volume - notices
     volumeModel.hasMany(models.noticesModel, {
       foreignKey: "volume_id",
-      as: "VolumeNotices"
+      as: "Volume_Notice"
     })
 
     // relationship volume - report
     volumeModel.hasMany(models.reportModel, {
       foreignKey: "volume_id",
-      as: "VolumeReport"
+      as: "Volume_Report"
     });
   };
   return volumeModel;
