@@ -9,6 +9,71 @@ import db from '../models/index.js';
 //   }
 // }
 
+import db from "../models/index.js";
+import sequelize from "sequelize";
+
+//xem danh sách có phân trang
+export async function GetPaged(req, res) {
+  try {
+    // Lấy query params
+    let { page = 1, limit = 10, keyword = "", role_id } = req.query;
+    page = parseInt(page);
+    limit = parseInt(limit);
+
+    const offset = (page - 1) * limit;
+
+    // Điều kiện where
+    let where = {};
+
+    if (keyword) {
+      where = {
+        ...where,
+        [Op.or]: [
+          { username: { [sequelize.like]: `%${keyword}%` } },
+          { email: { [sequelize.like]: `%${keyword}%` } }
+        ]
+      };
+    }
+
+    // if (role_id) {
+    //   where = {
+    //     ...where,
+    //     role_id: role_id
+    //   };
+    // }
+
+    const totalRecords = await db.usersModel.count({ where });
+
+    // Lấy danh sách users theo trang
+    const users = await db.usersModel.findAll({
+      where,
+      include: [
+        {
+          model: db.roleModel,
+          as: "UserRole"
+        }
+      ],
+      limit,
+      offset,
+      order: [["id", "DESC"]]
+    });
+
+    const totalPages = Math.ceil(totalRecords / limit);
+
+    return res.json({
+      page,
+      limit,
+      totalPages,
+      totalRecords,
+      data: users
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+
 // Lấy tất cả user kèm role
 export async function getAllUser(req, res) {
   try {
