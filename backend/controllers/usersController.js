@@ -11,7 +11,6 @@ export async function GetPaged(req, res) {
 
     const offset = (page - 1) * limit;
 
-    // Điều kiện where
     let where = {};
 
     if (keyword) {
@@ -23,13 +22,6 @@ export async function GetPaged(req, res) {
         ]
       };
     }
-
-    // if (role_id) {
-    //   where = {
-    //     ...where,
-    //     role_id: role_id
-    //   };
-    // }
 
     const totalRecords = await db.usersModel.count({ where });
 
@@ -62,23 +54,34 @@ export async function GetPaged(req, res) {
   }
 }
 
-export async function updateRole(req, res) {
+export async function updateUser(req, res) {
   try {
     const { id } = req.params;
-    const { role_id } = req.body;
+    const { username, email, role_id } = req.body;
 
     const user = await db.usersModel.findByPk(id);
-    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
+    if (!user) {
+      return res.status(404).json({ success: false, message: "User not found" });
+    }
 
-    user.role_id = role_id;
+    if (username) user.username = username;
+    if (email) user.email = email;
+    if (role_id) user.role_id = role_id;
+
     await user.save();
 
-    res.json({ success: true, message: 'User role updated', data: user });
+    return res.json({
+      success: true,
+      message: "User updated successfully",
+      data: user
+    });
+
   } catch (err) {
     console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+    return res.status(500).json({ success: false, error: err.message });
   }
 }
+
 
 export async function deleteUser(req, res) {
   try {
@@ -95,8 +98,8 @@ export async function deleteUser(req, res) {
   }
 }
 
-// Duyệt user (trangthai = 1)
-export async function approve(req, res) {
+
+export async function approveUser(req, res) {
   try {
     const { id } = req.params;
     const user = await db.usersModel.findByPk(id);
@@ -112,14 +115,13 @@ export async function approve(req, res) {
   }
 }
 
-// Hủy duyệt user (trangthai = 0)
-export async function reject(req, res) {
+export async function rejectUser(req, res) {
   try {
     const { id } = req.params;
     const user = await db.usersModel.findByPk(id);
     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
-    user.trangthai = 0;
+    user.trangthai = 2;
     await user.save();
 
     res.json({ success: true, message: 'User rejected', data: user });
