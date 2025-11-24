@@ -24,4 +24,7 @@ router.put("/:id", updateCategory);
 // Xoá category theo id
 router.delete("/:id", deleteCategory);
 
+// Lấy tất cả category kèm số lượng sách
+router.get("/with-books", getAllCategoryWithBookCount);
+
 export default router;

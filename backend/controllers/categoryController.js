@@ -1,5 +1,7 @@
 import db from "../models/index.js";
 
+const Category = db.categoryModel;
+
 // Lấy tất cả danh mục
 export async function getAllCategory(req, res) {
   try {
@@ -11,7 +13,7 @@ export async function getAllCategory(req, res) {
 }
 
 // Tạo mới một danh mục
-   export async function createCategory(req, res) {
+export async function createCategory(req, res) {
   try {
     const { category } = req.body;
 
@@ -73,7 +75,7 @@ export async function deleteCategory(req, res) {
     if (!category) {
       return res.status(404).json({ error: "Category not found" });
     }
-    
+
     await category.destroy();
     res.json({ message: "Category deleted successfully" });
   } catch (err) {
@@ -82,21 +84,28 @@ export async function deleteCategory(req, res) {
 }
 
 // Lấy tất cả danh mục, kèm số lượng sách trong mỗi danh mục và tìm kiếm theo tên (nếu có)
-// fix lại
-// export async function getAllCategory(req, res) {
-//   try {
-//     const categories = await categoryModel.findAll({
-//         include: [
-//           {
-//             model: db.categoryModel,
-//             as: "CategoryItems",
-//             astribute: ["id", "itemname", "slug", "trangthai", "createDate"],
-//           },
-//         ],
-//       });
+export async function getAllCategoryWithBookCount(req, res) {
+  try {
+    const categories = await Category.findAll({
+      include: [
+        {
+          model: db.bookModel,
+          as: "CategoryBook",
+          attributes: ["id", "bookname"],
+          through: { attributes: [] }
+        }
+      ]
+    });
 
-//     res.json({ success: true, data: categories });
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
+    const formatted = categories.map(c => ({
+      id: c.id,
+      category: c.category,
+      totalBooks: c.CategoryBook.length,
+      books: c.CategoryBook
+    }));
+
+    res.json({ success: true, data: formatted });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
