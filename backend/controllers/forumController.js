@@ -1,6 +1,11 @@
 import forumModel from "../models/forum.js";
 import db from "../models/index.js";
 
+/*Forum tạo mới để phần người dùng 
+GetPaged để cả 2
+Còn phần ForumComment sẽ update sau
+*/ 
+
 // 1. Lấy danh sách 
 export async function getAllForum(req, res) {
   try {
