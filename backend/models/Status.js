@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const ModerationStatusModel = sequelize.define("ModerationStatusModel", {
+  const StatusModel = sequelize.define("StatusModel", {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
@@ -11,20 +11,14 @@ export default (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       allowNull: false
     },
-
-    description: {
-      type: DataTypes.STRING,
-      allowNull: true
-    }
-
   }, {
-    tableName: "ModerationStatus",
+    tableName: "StatusModel",
     timestamps: false
   });
   
-  ModerationStatusModel.associate = (models) => {
+  StatusModel.associate = (models) => {
 
   }
 
-  return ModerationStatusModel;
+  return StatusModel;
 };

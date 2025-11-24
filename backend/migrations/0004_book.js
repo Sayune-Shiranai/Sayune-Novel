@@ -44,8 +44,12 @@ export async function up(queryInterface, Sequelize) {
     },
 
     status: { 
-      type: Sequelize.STRING, 
-      allowNull: true 
+      type: Sequelize.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'Status',
+        key: 'id'
+      },
     },
 
     description: { 
@@ -61,11 +65,6 @@ export async function up(queryInterface, Sequelize) {
         key: 'id'
       },
       onUpdate: 'CASCADE'
-    },
-
-    tinhtrang: { 
-      type: Sequelize.INTEGER, 
-      allowNull: true, 
     },
 
     trangthai: { 

@@ -42,8 +42,12 @@ export default (sequelize, DataTypes) => {
     },
 
     status: { 
-      type: DataTypes.STRING, 
-      allowNull: true 
+      type: DataTypes.INTEGER, 
+      allowNull: true,
+      references: {
+        model: "Status",
+        key: "id"
+      },
     },
 
     description: { 
@@ -59,11 +63,6 @@ export default (sequelize, DataTypes) => {
         key: "id"
       },
       onUpdate: "CASCADE"
-    },
-
-    tinhtrang: {
-      type: DataTypes.INTEGER, 
-      allowNull: true 
     },
 
     trangthai: { 
