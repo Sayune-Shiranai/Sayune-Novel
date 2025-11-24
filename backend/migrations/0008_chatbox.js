@@ -7,6 +7,7 @@ export async function up(queryInterface, Sequelize) {
       autoIncrement: true, 
       primaryKey: true 
     },
+    
     user_id: {
       type: Sequelize.INTEGER,
       allowNull: true,
@@ -16,9 +17,11 @@ export async function up(queryInterface, Sequelize) {
       },
       onUpdate: 'CASCADE',
     },
+
     chatbox_content: { 
       type: Sequelize.TEXT 
     },
+
     createdAt: { 
       type: Sequelize.DATE, 
       allowNull: false, 

@@ -12,10 +12,14 @@ export default (sequelize, DataTypes) => {
         allowNull: false
       },
 
-    trangthai: { 
-      type: DataTypes.INTEGER, 
-      allowNull: true, 
-    },
+      trangthai: { 
+        type: DataTypes.INTEGER, 
+        allowNull: true,
+        references: {
+          model: 'ModerationStatus',
+          key: 'id'
+        },
+      }
     },
     {
       tableName: "category",

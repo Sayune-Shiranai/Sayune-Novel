@@ -5,18 +5,22 @@ export default (sequelize, DataTypes) => {
       primaryKey: true,
       autoIncrement: true,
     },
+
     username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     email: {
       type: DataTypes.STRING,
       allowNull: true,
     },
+
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
+
     role_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
@@ -38,7 +42,11 @@ export default (sequelize, DataTypes) => {
 
     trangthai: { 
       type: DataTypes.INTEGER, 
-      allowNull: true, 
+      allowNull: true,
+      references: {
+        model: 'ModerationStatus',
+        key: 'id'
+      },
     },
 
     refreshToken: { 

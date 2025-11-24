@@ -61,9 +61,18 @@ export default (sequelize, DataTypes) => {
       onUpdate: "CASCADE"
     },
 
+    tinhtrang: {
+      type: DataTypes.INTEGER, 
+      allowNull: true 
+    },
+
     trangthai: { 
       type: DataTypes.INTEGER, 
-      allowNull: true, 
+      allowNull: true,
+      references: {
+        model: "ModerationStatus",
+        key: "id"
+      },
     },
   }, {
     tableName: "book",

@@ -63,9 +63,18 @@ export async function up(queryInterface, Sequelize) {
       onUpdate: 'CASCADE'
     },
 
-    trangthai: { 
+    tinhtrang: { 
       type: Sequelize.INTEGER, 
       allowNull: true, 
+    },
+
+    trangthai: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'ModerationStatus',
+        key: 'id'
+      },
     },
 
     createdAt: { 

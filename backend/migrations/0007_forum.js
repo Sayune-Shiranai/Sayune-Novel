@@ -28,7 +28,11 @@ export async function up(queryInterface, Sequelize) {
 
     trangthai: { 
       type: Sequelize.INTEGER, 
-      allowNull: true, 
+      allowNull: true,
+      references: {
+        model: 'ModerationStatus',
+        key: 'id'
+      },
     },
 
     createdAt: { 

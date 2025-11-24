@@ -5,6 +5,7 @@ export default (sequelize, DataTypes) => {
       autoIncrement: true, 
       primaryKey: true 
     },
+    
     user_id: {
       type: DataTypes.INTEGER,
       allowNull: true,
@@ -14,6 +15,7 @@ export default (sequelize, DataTypes) => {
       },
       onUpdate: 'CASCADE',
     },
+
     chatbox_content: { 
       type: DataTypes.TEXT,
       allowNull: true

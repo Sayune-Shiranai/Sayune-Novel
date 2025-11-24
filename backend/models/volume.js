@@ -43,7 +43,11 @@ export default (sequelize, DataTypes) => {
 
     trangthai: { 
       type: DataTypes.INTEGER, 
-      allowNull: true, 
+      allowNull: true,
+      references: {
+        model: 'ModerationStatus',
+        key: 'id'
+      },
     },
   }, {
     tableName: "volume",
