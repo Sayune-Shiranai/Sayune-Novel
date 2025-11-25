@@ -25,7 +25,7 @@ export async function up (queryInterface, Sequelize) {
 
     role_id: { 
       type: Sequelize.INTEGER, 
-      allowNull: false, 
+      allowNull: true, 
       references: {
         model: 'role',
         key: 'id'

@@ -8,7 +8,7 @@ export default (sequelize, DataTypes) => {
     
     user_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'users',
         key: 'id'
@@ -18,7 +18,7 @@ export default (sequelize, DataTypes) => {
 
     book_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'book',
         key: 'id'
@@ -28,7 +28,7 @@ export default (sequelize, DataTypes) => {
 
     volume_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'volume',
         key: 'id'

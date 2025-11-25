@@ -23,7 +23,7 @@ export default (sequelize, DataTypes) => {
 
     role_id: {
       type: DataTypes.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'role',
         key: 'id'

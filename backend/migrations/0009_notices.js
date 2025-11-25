@@ -10,9 +10,9 @@ export async function up(queryInterface, Sequelize) {
 
     user_id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
-        model: 'users',  // tên bảng cha
+        model: 'users',
         key: 'id'
       },
       onUpdate: 'CASCADE',
@@ -20,7 +20,7 @@ export async function up(queryInterface, Sequelize) {
 
     book_id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'book',
         key: 'id'
@@ -30,7 +30,7 @@ export async function up(queryInterface, Sequelize) {
 
     volume_id: {
       type: Sequelize.INTEGER,
-      allowNull: false,
+      allowNull: true,
       references: {
         model: 'volume',
         key: 'id'

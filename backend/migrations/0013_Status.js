@@ -11,7 +11,7 @@ export async function up(queryInterface, Sequelize) {
 
     name: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
     },
   });
 }

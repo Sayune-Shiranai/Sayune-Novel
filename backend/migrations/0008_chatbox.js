@@ -12,7 +12,7 @@ export async function up(queryInterface, Sequelize) {
       type: Sequelize.INTEGER,
       allowNull: true,
       references: {
-        model: 'users',  // tên bảng cha
+        model: 'users',
         key: 'id'
       },
       onUpdate: 'CASCADE',

@@ -10,7 +10,7 @@ export async function up(queryInterface, Sequelize) {
 
         book_id: {
             type: Sequelize.INTEGER,
-            allowNull: false,
+            allowNull: true,
             references: { 
                 model: 'book', 
                 key: 'id' 
@@ -20,7 +20,7 @@ export async function up(queryInterface, Sequelize) {
 
         volume_number: { 
             type: Sequelize.INTEGER, 
-            allowNull: false 
+            allowNull: true 
         },
 
         title: { 
