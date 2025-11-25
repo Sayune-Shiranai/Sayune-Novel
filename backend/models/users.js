@@ -95,6 +95,12 @@ export default (sequelize, DataTypes) => {
       as: "User_Forum"
     });
 
+    // relationship users - ForumPost
+    usersModel.hasMany(models.ForumPostModel, {
+      foreignKey: "user_id",
+      as: "User_ForumPost"
+    });
+
     // relationship users - notices
     usersModel.hasMany(models.noticesModel, { 
       foreignKey: "user_id", 
@@ -106,6 +112,8 @@ export default (sequelize, DataTypes) => {
       foreignKey: "user_id",
       as: "User_Report"
     });
+
+
   };
   return usersModel;
 };

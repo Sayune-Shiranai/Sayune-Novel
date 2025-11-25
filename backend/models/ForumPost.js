@@ -54,7 +54,29 @@ export default (sequelize, DataTypes) => {
     timestamps: true,
   });
     ForumPostModel.associate = (models) => {
+        //relationship ForumPost - users
+        ForumPostModel.belongsTo(models.usersModel, {
+            foreignKey: "user_id",
+            as: "ForumPost_User"
+        });
 
+        //relationship ForumPost - role
+        ForumPostModel.belongsTo(models.roleModel, {
+            foreignKey: "role_id",
+            as: "ForumPost_Role"
+        });
+
+        //relationship ForumPost - Forum
+        ForumPostModel.belongsTo(models.ForumModel, {
+            foreignKey: "forum_id",
+            as: "ForumPost_Forum"
+        });
+
+        //relationship ForumPost - ModerationStatus
+        ForumPostModel.belongsTo(models.ModerationStatusModel, {
+            foreignKey: "trangthai",
+            as: "ForumPost_ModerationStatus"
+        });
     };
     return ForumPostModel;
 }

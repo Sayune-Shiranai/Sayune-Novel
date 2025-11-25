@@ -1,4 +1,3 @@
-// models/category.js
 export default (sequelize, DataTypes) => {
   const categoryModel = sequelize.define("categoryModel",{
       id: { 

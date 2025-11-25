@@ -18,6 +18,16 @@ export async function up(queryInterface, Sequelize) {
       onUpdate: 'CASCADE',
     },
 
+    role_id: {
+      type: Sequelize.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'role',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE'
+    },
+
     title: { 
       type: Sequelize.TEXT 
     },

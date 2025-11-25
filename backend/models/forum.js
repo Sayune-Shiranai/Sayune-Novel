@@ -16,6 +16,16 @@ export default (sequelize, DataTypes) => {
       onUpdate: 'CASCADE',
     },
 
+    role_id: {
+      type: DataTypes.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'role',
+        key: 'id'
+      },
+      onUpdate: 'CASCADE'
+    },
+
     title: { 
       type: DataTypes.TEXT,
       allowNull: false
@@ -43,6 +53,18 @@ export default (sequelize, DataTypes) => {
     forumModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
       as: "Forum_User"
+    });
+
+    //relationship forum - role
+    forumModel.belongsTo(models.role, { 
+      foreignKey: "role_id",
+      as: "Forum_Role"
+    });
+
+    //relationship forum - ForumPost
+    forumModel.hasMany(models.ForumPostModel, {
+      foreignKey: "forum_id",
+      as: "Forum_ForumPost"
     });
   };
   return forumModel;
