@@ -1,7 +1,5 @@
 'use strict';
 
-import role from "../models/role";
-
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable('ForumPost', {
     id: {
