@@ -1,5 +1,5 @@
 export default (sequelize, DataTypes) => {
-  const volumeCommentModel = sequelize.define("volumeCommentModel", {
+  const VolumePostModel = sequelize.define("VolumePostModel", {
     id: {
       type: DataTypes.INTEGER,
       autoIncrement: true,
@@ -52,24 +52,24 @@ export default (sequelize, DataTypes) => {
     timestamps: true,
   });
 
-  volumeCommentModel.associate = (models) => {
+  VolumePostModel.associate = (models) => {
     // relationship volumeComment - users
-    volumeCommentModel.belongsTo(models.usersModel, {
+    VolumePostModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
       as: "VolumeCommen_tUser"
     });
 
     // relationship volumeComment - book
-    volumeCommentModel.belongsTo(models.bookModel, {
+    VolumePostModel.belongsTo(models.bookModel, {
       foreignKey: "book_id",
       as: "VolumeComment_Book"
     });
 
     // relationship volumeComment - volume
-    volumeCommentModel.belongsTo(models.volumeModel, {
+    VolumePostModel.belongsTo(models.volumeModel, {
       foreignKey: "volume_id",
       as: "VolumeComment_Volume"
     });
   };
-  return volumeCommentModel;
+  return VolumePostModel;
 }

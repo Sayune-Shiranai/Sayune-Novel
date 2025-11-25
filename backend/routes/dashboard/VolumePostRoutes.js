@@ -1,7 +1,7 @@
 import express from "express";
 import {
     getAllVolumeComment
- } from "../../controllers/volumeCommentController.js";
+ } from "../../controllers/volumePostController.js";
 
 const router = express.Router();
 router.get("/", getAllVolumeComment);

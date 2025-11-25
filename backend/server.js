@@ -10,7 +10,7 @@ import UserRoutes from "./routes/dashboard/UsersRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
 import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
-import VolumeCommentRoutes from "./routes/dashboard/VolumeCommentRoutes.js";
+import VolumeCommentRoutes from "./routes/dashboard/VolumePostRoutes.js";
 import ChatboxRoutes from "./routes/dashboard/ChatboxRoutes.js";
 import ForumRoutes from "./routes/dashboard/ForumRoutes.js";
 import NoticesRoutes from "./routes/dashboard/NoticesRoutes.js";
