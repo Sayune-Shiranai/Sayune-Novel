@@ -26,6 +26,16 @@ export default (sequelize, DataTypes) => {
         onUpdate: 'CASCADE'
     },
 
+    role_id: {
+        type: DataTypes.INTEGER, 
+        allowNull: true,
+        references: {
+            model: 'role',
+            key: 'id'
+        },
+        onUpdate: 'CASCADE'
+    },
+
     content: {
         type: DataTypes.TEXT,
         allowNull: true,

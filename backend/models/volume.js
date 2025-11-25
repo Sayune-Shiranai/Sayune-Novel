@@ -67,10 +67,10 @@ export default (sequelize, DataTypes) => {
       as: "Volume_Book"
     });
 
-    // relationship volume - volumeComment
-    volumeModel.hasMany(models.volumeCommentModel, {
+    // relationship volume - VolumePost
+    volumeModel.hasMany(models.VolumePostModel, {
       foreignKey: "volume_id",
-      as: "Volume_Comment"
+      as: "Volume_VolumePost"
     });
 
     // relationship volume - notices

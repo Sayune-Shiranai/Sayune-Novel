@@ -10,7 +10,7 @@ import UserRoutes from "./routes/dashboard/UsersRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
 import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
-import VolumeCommentRoutes from "./routes/dashboard/VolumePostRoutes.js";
+import VolumePostRoutes from "./routes/dashboard/VolumePostRoutes.js";
 import ChatboxRoutes from "./routes/dashboard/ChatboxRoutes.js";
 import ForumRoutes from "./routes/dashboard/ForumRoutes.js";
 import NoticesRoutes from "./routes/dashboard/NoticesRoutes.js";
@@ -46,7 +46,7 @@ app.use("/dashboard/user", UserRoutes) // dashboard/user
 app.use("/dashboard/book", BookRoutes) // dashboard/book
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
 app.use("/dashboard/volume", VolumeRoutes) // dashboard/volume
-app.use("/dashboard/volumeComment", VolumeCommentRoutes) // dashboard/volumeComment
+app.use("/dashboard/volumeComment", VolumePostRoutes) // dashboard/VolumePost
 app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox
 app.use("/dashboard/forum", ForumRoutes) // dashboard/forum
 app.use("/dashboard/notices", NoticesRoutes) // dashboard/notices

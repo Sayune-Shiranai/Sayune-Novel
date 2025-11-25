@@ -53,22 +53,22 @@ export default (sequelize, DataTypes) => {
   });
 
   VolumePostModel.associate = (models) => {
-    // relationship volumeComment - users
+    // relationship VolumePost - users
     VolumePostModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
-      as: "VolumeCommen_tUser"
+      as: "VolumePost_tUser"
     });
 
-    // relationship volumeComment - book
+    // relationship VolumePost - book
     VolumePostModel.belongsTo(models.bookModel, {
       foreignKey: "book_id",
-      as: "VolumeComment_Book"
+      as: "VolumePost_Book"
     });
 
-    // relationship volumeComment - volume
+    // relationship VolumePost - volume
     VolumePostModel.belongsTo(models.volumeModel, {
       foreignKey: "volume_id",
-      as: "VolumeComment_Volume"
+      as: "VolumePost_Volume"
     });
   };
   return VolumePostModel;

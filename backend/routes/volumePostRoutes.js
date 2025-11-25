@@ -1,9 +1,9 @@
 import express from "express";
 import {
-     getAllVolumeComment 
-    } from "../controllers/volumeCommentController.js";
+     getAllVolumePost
+    } from "../controllers/volumePostController.js";
 
 const router = express.Router();
-router.get("/", getAllVolumeComment);
+router.get("/", getAllVolumePost);
 
 export default router;

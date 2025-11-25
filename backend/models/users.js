@@ -77,10 +77,10 @@ export default (sequelize, DataTypes) => {
       as: "User_Volume"
     });
 
-    //relationship users - volumeComment
-    usersModel.hasMany(models.volumeCommentModel, {
+    //relationship users - VolumePost
+    usersModel.hasMany(models.VolumePostModel, {
       foreignKey: "user_id",
-      as: "User_VolumeComment"
+      as: "User_VolumePost"
     });
 
     // relationship users - chatbox

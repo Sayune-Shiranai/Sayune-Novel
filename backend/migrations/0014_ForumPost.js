@@ -1,5 +1,7 @@
 'use strict';
 
+import role from "../models/role";
+
 export async function up(queryInterface, Sequelize) {
   await queryInterface.createTable('ForumPost', {
     id: {
@@ -23,6 +25,16 @@ export async function up(queryInterface, Sequelize) {
         allowNull: true,
         references: {
             model: 'users',
+            key: 'id'
+        },
+        onUpdate: 'CASCADE'
+    },
+
+    role_id: {
+        type: Sequelize.INTEGER, 
+        allowNull: true, 
+        references: {
+            model: 'role',
             key: 'id'
         },
         onUpdate: 'CASCADE'

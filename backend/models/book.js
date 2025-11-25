@@ -99,10 +99,10 @@ export default (sequelize, DataTypes) => {
       as: "Book_Volume"
     });
 
-    // relationship book - volumeComment
-    bookModel.hasMany(models.volumeCommentModel, {
+    // relationship book - VolumePost
+    bookModel.hasMany(models.VolumePostModel, {
       foreignKey: "book_id",
-      as: "Book_VolumeComment"
+      as: "Book_VolumePost"
     });
 
     // relationship book - notices

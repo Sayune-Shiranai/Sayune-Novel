@@ -1,9 +1,9 @@
-import volumeCommentModel from "../models/volumeComment.js";
+import db from "../models";
 
-export async function getAllVolumeComment(req, res) {
+export async function getAllVolumePost(req, res) {
   try {
-    const volumeComment = await volumeCommentModel.findAll();
-    res.json(volumeComment);
+    const VolumePost = await db.VolumePostModel.findAll();
+    res.json(VolumePost);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
