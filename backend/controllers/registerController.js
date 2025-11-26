@@ -1,6 +1,5 @@
 // tính năng đăng ký
-import usersModel from "../models/users.js";
-import roleModel from "../models/role.js";
+import db from "../models/index.js";
 // import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -29,19 +28,19 @@ export async function register (req, res) {
   if (password !== confirmPassword)
       return res.status(400).json({ field: "confirmPassword", message: "Nhập lại mật khẩu không khớp!" });
 
-  const checkEmail = await usersModel.findOne({ where: { email } });
+  const checkEmail = await db.usersModel.findOne({ where: { email } });
   if (checkEmail)
     return res.status(400).json({ field: "email", message: "Email đã tồn tại!" });
 
-  const checkUser = await usersModel.findOne({ where: { username } });
+  const checkUser = await db.usersModel.findOne({ where: { username } });
   if (checkUser)
     return res.status(400).json({ field: "username", message: "Tài khoản đã tồn tại!" });
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const role = await roleModel.findOne({ where: { role: 'Member' } });
+  const role = await db.roleModel.findOne({ where: { role: 'Member' } });
 
-  const user = await usersModel.create({ 
+  const user = await db.usersModel.create({ 
     username, 
     email, 
     password: hashedPassword,

@@ -144,15 +144,15 @@ export async function rejectUser(req, res) {
   }
 }
 
-// // Lấy tất cả người dùng
-// export async function getAllUsers(req, res) {
-//   try {
-//     const users = await usersModel.findAll();
-//     res.json(users);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
+// Lấy tất cả người dùng
+export async function getAllUsers(req, res) {
+  try {
+    const users = await usersModel.findAll();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 
 // //test user get all book

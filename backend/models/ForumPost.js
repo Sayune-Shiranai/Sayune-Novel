@@ -67,7 +67,7 @@ export default (sequelize, DataTypes) => {
         });
 
         //relationship ForumPost - Forum
-        ForumPostModel.belongsTo(models.ForumModel, {
+        ForumPostModel.belongsTo(models.forumModel, {
             foreignKey: "forum_id",
             as: "ForumPost_Forum"
         });

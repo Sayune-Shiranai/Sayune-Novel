@@ -1,5 +1,4 @@
-import usersModel from "../models/users.js";
-import roleModel from "../models/role.js";
+import db from "../models/index.js";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcrypt";
 
@@ -15,9 +14,10 @@ export async function login (req, res) {
   if (!password)
       return res.status(400).json({ field: "password", message: "Vui lòng nhập mật khẩu!" });
 
-  const user = await usersModel.findOne({ where: { username }, include: {
-      model: roleModel,
-      as: "UserRole",
+  const user = await db.usersModel.findOne({ where: { username }, 
+    include: {
+      model: db.roleModel,
+      as: "User_Role",
     }, });
 
   if (user) {

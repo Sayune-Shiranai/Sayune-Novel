@@ -16,7 +16,9 @@ npx sequelize-cli db:migrate:undo --name (tên file)
 
 npx sequelize-cli db:migrate --to 0004_chapters.js --debug
 
-npx sequelize-cli db:seed --seed
+npx sequelize-cli db:seed --seed 0001_roleData.js
+
+npx sequelize-cli db:seed --seed 0002_ModerationStatusData.js
 
 npx sequelize-cli db:seed:undo
 

@@ -1,4 +1,4 @@
-import db from "../models";
+import db from "../models/index.js";
 
 export async function getAllVolumePost(req, res) {
   try {

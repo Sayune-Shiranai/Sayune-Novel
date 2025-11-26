@@ -1,8 +1,7 @@
-"use strict";
+'use strict';
 
-module.exports = {
-  async up(queryInterface, Sequelize) {
-    return queryInterface.bulkInsert("ModerationStatus", [
+export async function up(queryInterface, Sequelize) {
+  await queryInterface.bulkInsert('ModerationStatus', [
       {
         name: "Pending",
         description: "Chờ duyệt",
@@ -16,9 +15,8 @@ module.exports = {
         description: "Hủy duyệt",
       },
     ]);
-  },
+  }
 
-  async down(queryInterface, Sequelize) {
-    return queryInterface.bulkDelete("ModerationStatus", null, {});
-  },
-};
+export async function down(queryInterface, Sequelize) {
+  await queryInterface.bulkDelete('ModerationStatus', null, {});
+}

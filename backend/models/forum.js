@@ -56,7 +56,7 @@ export default (sequelize, DataTypes) => {
     });
 
     //relationship forum - role
-    forumModel.belongsTo(models.role, { 
+    forumModel.belongsTo(models.roleModel, { 
       foreignKey: "role_id",
       as: "Forum_Role"
     });
