@@ -3,7 +3,7 @@ import express from "express";
 import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 import db from "./models/index.js";
-
+import cors from "cors";
 
 //dashboard routes
 import UserRoutes from "./routes/dashboard/UsersRoutes.js";
@@ -40,6 +40,9 @@ const PORT = 3000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: "*", // hoặc "http://localhost:5173"
+}));
 
 //dashboard routes
 app.use("/dashboard/user", UserRoutes) // dashboard/user

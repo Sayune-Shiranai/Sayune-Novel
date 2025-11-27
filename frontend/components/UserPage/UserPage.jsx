@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
@@ -9,9 +9,9 @@ export default function UserPage() {
   const [limit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
 
-  const loadUsers = async () => {
+  const loadUsers = useCallback(async () => {
     try {
-      const res = await axios.get("http://localhost:7010/users/get-paged", {
+      const res = await axios.get("http://localhost:3000/dashboard/user", {
         params: { page, limit, keyword }
       });
 
@@ -20,15 +20,19 @@ export default function UserPage() {
     } catch (err) {
       console.error(err);
     }
-  };
+  }, [page, limit, keyword]);
+
 
   useEffect(() => {
-    loadUsers();
-  }, [page]);
+    const fetch = async () => {
+      await loadUsers();
+    };
+    fetch();
+  }, [loadUsers]);
+
 
   const handleSearch = () => {
     setPage(1);
-    loadUsers();
   };
 
   return (

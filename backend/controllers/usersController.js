@@ -67,6 +67,28 @@ export async function GetById(req, res) {
   }
 }
 
+export async function createUser(req, res) {
+  try {
+    const { username, email, password, role_id } = req.body;
+    
+    const newUser = await db.usersModel.create({
+      username,
+      email,
+      password,
+      role_id
+    });
+    
+    return res.status(201).json({
+      success: true,
+      message: "User created successfully",
+      data: newUser
+    });
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({ success: false, error: err.message });
+  }
+}
+
 export async function updateUser(req, res) {
   try {
     const { id } = req.params;
