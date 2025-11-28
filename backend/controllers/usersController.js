@@ -58,7 +58,7 @@ export async function GetById(req, res) {
   try {
     const user = await db.usersModel.findByPk(req.params.id);
 
-    if (user < 0) return res.status(404).json({ success: false, message: 'User not found' });
+    if (!user) return res.status(404).json({ success: false, message: 'User not found' });
 
     res.json({ success: true, data: user });
   } catch (err) {
@@ -169,7 +169,7 @@ export async function rejectUser(req, res) {
 // Lấy tất cả người dùng
 export async function getAllUsers(req, res) {
   try {
-    const users = await usersModel.findAll();
+    const users = await db.usersModel.findAll();
     res.json(users);
   } catch (err) {
     res.status(500).json({ error: err.message });

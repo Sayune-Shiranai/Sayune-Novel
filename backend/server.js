@@ -6,6 +6,7 @@ import db from "./models/index.js";
 import cors from "cors";
 
 //dashboard routes
+import RoleRoutes from "./routes/dashboard/RoleRoutes.js";
 import UserRoutes from "./routes/dashboard/UsersRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
@@ -45,6 +46,7 @@ app.use(cors({
 }));
 
 //dashboard routes
+app.use("/dashboard/role", RoleRoutes); // dashboard/role
 app.use("/dashboard/user", UserRoutes) // dashboard/user
 app.use("/dashboard/book", BookRoutes) // dashboard/book
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
@@ -70,6 +72,9 @@ app.use("/report", reportRoutes);
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
 
+app.get('/HelloWorld', (req, res) => {
+  res.send('Hello World!')
+})
 
 app.get("/connectDB", async (req, res) => {
   try {

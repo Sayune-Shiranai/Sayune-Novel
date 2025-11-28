@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit, FaTrash } from "react-icons/fa";
 
@@ -9,30 +9,86 @@ export default function UserPage() {
   const [limit] = useState(10);
   const [totalPages, setTotalPages] = useState(1);
 
-  const loadUsers = useCallback(async () => {
-    try {
-      const res = await axios.get("http://localhost:3000/dashboard/user", {
-        params: { page, limit, keyword }
-      });
+  const [showEdit, setShowEdit] = useState(false);
+  const [editUser, setEditUser] = useState({
+    id: "",
+    username: "",
+    email: "",
+    role_id: ""
+  });
 
-      setUsers(res.data.data);
-      setTotalPages(res.data.totalPages);
-    } catch (err) {
-      console.error(err);
-    }
-  }, [page, limit, keyword]);
+  // ⭐ Role
+  const [roles, setRoles] = useState([]);
 
-
+  // 🔥 LOAD USERS — đưa vào effect
   useEffect(() => {
-    const fetch = async () => {
-      await loadUsers();
-    };
-    fetch();
-  }, [loadUsers]);
+    const fetchUsers = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/dashboard/user", {
+          params: { page, limit, keyword }
+        });
 
+        setUsers(res.data.data);
+        setTotalPages(res.data.totalPages);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchUsers();
+  }, [page, limit, keyword]); // không cần useCallback
+
+  // 🔥 LOAD ROLES — cũng đưa vào effect
+  useEffect(() => {
+    const fetchRoles = async () => {
+      try {
+        const res = await axios.get("http://localhost:3000/dashboard/role");
+        setRoles(res.data);
+      } catch (err) {
+        console.error("Lỗi load roles:", err);
+      }
+    };
+
+    fetchRoles();
+  }, []);
 
   const handleSearch = () => {
     setPage(1);
+  };
+
+  const openEditModal = (user) => {
+    setEditUser({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      role_id: user.role_id
+    });
+    setShowEdit(true);
+  };
+
+  const updateUserSubmit = async () => {
+    try {
+      await axios.put(
+        `http://localhost:3000/dashboard/user/update/${editUser.id}`,
+        {
+          username: editUser.username,
+          email: editUser.email,
+          role_id: editUser.role_id
+        }
+      );
+
+      setShowEdit(false);
+
+      // Sau khi cập nhật → reload danh sách
+      const res = await axios.get("http://localhost:3000/dashboard/user", {
+        params: { page, limit, keyword }
+      });
+      setUsers(res.data.data);
+
+    } catch (err) {
+      console.error(err);
+      alert("Cập nhật thất bại!");
+    }
   };
 
   return (
@@ -77,11 +133,16 @@ export default function UserPage() {
                 <td>{u.username}</td>
                 <td>{u.email}</td>
                 <td>
-                  <span className="badge bg-info">{u.User_Role?.name ?? "N/A"}</span>
+                  <span className="badge bg-info">
+                    {u.User_Role?.name ?? "N/A"}
+                  </span>
                 </td>
 
                 <td>
-                  <button className="btn btn-sm btn-primary me-2">
+                  <button
+                    className="btn btn-sm btn-primary me-2"
+                    onClick={() => openEditModal(u)}
+                  >
                     <FaEdit />
                   </button>
 
@@ -124,6 +185,80 @@ export default function UserPage() {
           </ul>
         </nav>
       </div>
+
+      {/* Modal Update */}
+      {showEdit && (
+        <div
+          className="modal fade show d-block"
+          tabIndex="-1"
+          style={{ background: "rgba(0,0,0,0.5)" }}
+        >
+          <div className="modal-dialog">
+            <div className="modal-content">
+
+              <div className="modal-header">
+                <h5 className="modal-title">Cập nhật người dùng</h5>
+                <button className="btn-close" onClick={() => setShowEdit(false)} />
+              </div>
+
+              <div className="modal-body">
+                <div className="mb-3">
+                  <label className="form-label">Username</label>
+                  <input
+                    className="form-control"
+                    value={editUser.username}
+                    onChange={(e) =>
+                      setEditUser({ ...editUser, username: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Email</label>
+                  <input
+                    className="form-control"
+                    value={editUser.email}
+                    onChange={(e) =>
+                      setEditUser({ ...editUser, email: e.target.value })
+                    }
+                  />
+                </div>
+
+                <div className="mb-3">
+                  <label className="form-label">Role</label>
+                  <select
+                    className="form-select"
+                    value={editUser.role_id}
+                    onChange={(e) =>
+                      setEditUser({ ...editUser, role_id: e.target.value })
+                    }
+                  >
+                    <option value="">-- Chọn role --</option>
+
+                    {roles.map((r) => (
+                      <option key={r.id} value={r.id}>
+                        {r.role}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              </div>
+
+              <div className="modal-footer">
+                <button className="btn btn-secondary" onClick={() => setShowEdit(false)}>
+                  Hủy
+                </button>
+
+                <button className="btn btn-primary" onClick={updateUserSubmit}>
+                  Lưu lại
+                </button>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      )}
+
     </div>
   );
 }

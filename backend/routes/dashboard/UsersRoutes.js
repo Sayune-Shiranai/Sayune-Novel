@@ -1,7 +1,7 @@
 import express from "express";
 import {
     GetPaged,
-    // updateRole,
+    updateUser,
     deleteUser,
     approveUser,
     rejectUser,
@@ -11,8 +11,8 @@ import {
 
 const router = express.Router();
 router.get("/", GetPaged); // /dashboard/user
-// router.post("/:id/role", updateRole); // /dashboard/user/:id/role
-router.delete("/:id", deleteUser); // /dashboard/user/:id
+router.post("/update/:id", updateUser); // /dashboard/user/:id/role
+router.delete("delete/:id", deleteUser); // /dashboard/user/:id
 router.post("/:id/approve", approveUser); // /dashboard/user/:id/approve
 router.post("/:id/reject", rejectUser); // /dashboard/user/:id/reject
 // router.get("/user-book", UserGetAllBook); // /dashboard/book/user-book
