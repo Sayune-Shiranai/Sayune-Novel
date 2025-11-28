@@ -52,42 +52,6 @@ export async function GetPaged(req, res) {
   }
 }
 
-// // Lấy user theo id
-// export async function GetById(req, res) {
-//   try {
-//     const user = await db.usersModel.findByPk(req.params.id);
-
-//     if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-
-//     res.json({ success: true, data: user });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, error: err.message });
-//   }
-// }
-
-// export async function createUser(req, res) {
-//   try {
-//     const { username, email, password, role_id } = req.body;
-    
-//     const newUser = await db.usersModel.create({
-//       username,
-//       email,
-//       password,
-//       role_id
-//     });
-    
-//     return res.status(201).json({
-//       success: true,
-//       message: "Tạo người dùng thành công!",
-//       data: newUser
-//     });
-//   } catch (err) {
-//     console.error(err);
-//     return res.status(500).json({ success: false, error: err.message });
-//   }
-// }
-
 export async function updateUser(req, res) {
   try {
     const { id } = req.params;
@@ -165,15 +129,15 @@ export async function rejectUser(req, res) {
   }
 }
 
-// // Lấy tất cả người dùng
-// export async function getAllUsers(req, res) {
-//   try {
-//     const users = await db.usersModel.findAll();
-//     res.json(users);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
+// Lấy tất cả người dùng
+export async function getAllUsers(req, res) {
+  try {
+    const users = await db.usersModel.findAll();
+    res.json(users);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
 
 
 // //test user get all book
