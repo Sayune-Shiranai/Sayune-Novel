@@ -10,12 +10,12 @@ import {
 } from "../../controllers/usersController.js";
 
 const router = express.Router();
-router.get("/", GetPaged); // /dashboard/user
-router.post("/update/:id", updateUser); // /dashboard/user/:id/role
-router.delete("delete/:id", deleteUser); // /dashboard/user/:id
-router.post("/:id/approve", approveUser); // /dashboard/user/:id/approve
-router.post("/:id/reject", rejectUser); // /dashboard/user/:id/reject
-// router.get("/user-book", UserGetAllBook); // /dashboard/book/user-book
-// router.get("/user-forum", UserGetAllForum); // /dashboard/user/user-forum
+router.get("/", GetPaged); // dashboard/user
+router.post("/update/:id", updateUser); // dashboard/user/update/:id/
+router.delete("/delete/:id", deleteUser); // dashboard/user/delete/:id
+router.post("/approve/:id", approveUser); // dashboard/user/approve/:id
+router.post("reject/:id", rejectUser); // dashboard/user/reject/:id
+// router.get("/user-book", UserGetAllBook); // dashboard/book/user-book
+// router.get("/user-forum", UserGetAllForum); // dashboard/user/user-forum
 
 export default router;
