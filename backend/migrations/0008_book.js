@@ -33,14 +33,22 @@ export async function up(queryInterface, Sequelize) {
       allowNull: true,
     },
 
-    author: { 
-      type: Sequelize.STRING, 
-      allowNull: true 
+    author_id: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'author',
+        key: 'id'
+      },
     },
 
-    artist: { 
-      type: Sequelize.STRING, 
-      allowNull: true 
+    artist_id: { 
+      type: Sequelize.INTEGER, 
+      allowNull: true,
+      references: {
+        model: 'artist',
+        key: 'id'
+      },
     },
 
     status: { 

@@ -31,14 +31,22 @@ export default (sequelize, DataTypes) => {
       allowNull: true
     },
 
-    author: { 
-      type: DataTypes.STRING, 
-      allowNull: true 
+    author_id: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true,
+      references: {
+        model: "author",
+        key: "id"
+      }, 
     },
 
-    artist: { 
-      type: DataTypes.STRING, 
-      allowNull: true 
+    artist_id: { 
+      type: DataTypes.INTEGER, 
+      allowNull: true,
+      references: {
+        model: "artist",
+        key: "id"
+      },
     },
 
     status: { 
@@ -91,6 +99,18 @@ export default (sequelize, DataTypes) => {
     bookModel.belongsTo(models.usersModel, {
       foreignKey: "user_id",
       as: "Book_User"
+    });
+
+    // relationship book - author
+    bookModel.belongsTo(models.authorModel, {
+      foreignKey: "author_id",
+      as: "Book_Author"
+    });
+
+    // relationship book - artist
+    bookModel.belongsTo(models.artistModel, {
+      foreignKey: "artist_id",
+      as: "Book_Artist"
     });
 
     // relationship book - volume

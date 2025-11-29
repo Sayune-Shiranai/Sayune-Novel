@@ -23,7 +23,7 @@ export async function GetPaged(req, res) {
 
     const totalRecords = await db.usersModel.count({ where });
 
-    // Lấy danh sách users theo trang
+    // Lấy danh sách users + role theo trang
     const users = await db.usersModel.findAll({
       where,
       include: [

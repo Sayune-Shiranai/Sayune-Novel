@@ -134,7 +134,7 @@ export default function UserPage() {
                 <td>{u.email}</td>
                 <td>
                   <span className="badge bg-info">
-                    {u.User_Role?.name ?? "N/A"}
+                    {u.User_Role?.role ?? "N/A"}
                   </span>
                 </td>
 
