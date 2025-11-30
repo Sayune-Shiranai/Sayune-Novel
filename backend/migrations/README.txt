@@ -22,9 +22,16 @@ npx sequelize-cli db:migrate --to 0004_chapters.js --debug
 
 npx sequelize-cli db:seed --seed 0001_roleData.js
 
+npx sequelize-cli db:seed --seed 0004_usersData.js
+
 npx sequelize-cli db:seed --seed 0002_ModerationStatusData.js
 
 npx sequelize-cli db:seed --seed 0005_categoryData.js
+
+npx sequelize-cli db:seed --seed 0006_authorData.js
+
+npx sequelize-cli db:seed --seed 0007_artistData.js
+
 
 npx sequelize-cli db:seed:undo
 

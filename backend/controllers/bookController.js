@@ -104,7 +104,12 @@ export async function getBookBySlug(req, res) {
 
 export async function createBook(req, res) {
   try {
-    const {
+    // Check body exists
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "Body rỗng hoặc không hợp lệ!" });
+    }
+
+    let {
       book_number,
       title,
       another_name,
@@ -116,18 +121,33 @@ export async function createBook(req, res) {
       category_id
     } = req.body;
 
-    if (!book_number) {
+    // book_number = parseInt(book_number);
+
+    if (!book_number || isNaN(book_number)) {
       return res.status(400).json({ error: "Vui lòng nhập số book!" });
     }
 
-    if (!title) {
+    const CheckBookNumber = await db.bookModel.findOne({
+      where: { book_number }
+    });
+
+    if (CheckBookNumber) {
+      return res.status(400).json({
+        error: `Book number '${book_number}' đã tồn tại!`
+      });
+    }
+
+
+    if (!title || title.trim() === "") {
       return res.status(400).json({ error: "Vui lòng nhập tên book!" });
     }
 
     const slug = createBookSlug(book_number, title);
 
+    console.log("file info:", req.file);
+
     const imgPath = req.file
-      ? "/uploads/book/" + req.file.filename
+      ? "/media/books_images/" + req.file.filename
       : "/media/books_images/nocover.jpg";
 
     // 1. Tạo book
@@ -144,14 +164,31 @@ export async function createBook(req, res) {
       user_id,
     });
 
-    // Chỉ gán category nếu tồn tại và là mảng
-    if (Array.isArray(category_id) && category_id.length > 0) {
-      await newBook.setBook_Category(category_id);
+    console.log("category_id from req.body:", req.body.category_id);
+
+
+    const categoryIds = category_id.map(id => parseInt(id,10));
+    await newBook.setBook_Category(categoryIds);
+
+
+    // Gán category
+    if (categoryIds.length > 0) {
+      await newBook.setBook_Category(categoryIds);
     }
+
+    const Category = await db.bookModel.findOne({
+      where: { id: newBook.id },
+      include: {
+        model: db.categoryModel,
+        as: "Book_Category",
+        through: { attributes: [] }
+      }
+    });
 
     return res.status(201).json({
       message: "Book created successfully",
-      book: newBook,
+      // book: newBook,
+      Category: Category || []
     });
 
   } catch (err) {
