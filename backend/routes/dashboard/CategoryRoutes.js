@@ -1,28 +1,31 @@
 import express from "express";
 import {
-  getAllCategory,
-  createCategory,
-  getCategoryById,
-  updateCategory,
-  deleteCategory,
+  GetPaged,
+  // getAllCategory,
+  // createCategory,
+  // getCategoryById,
+  // updateCategory,
+  // deleteCategory,
 } from "../../controllers/categoryController.js";
 
 const router = express.Router();
 
 // Lấy danh sách tất cả category(hạng mục)
-router.get("/", getAllCategory);
+router.get("/", GetPaged);
 
-// Tạo mới một category
-router.post("/create-category", createCategory);
+// router.get("/getAllCategory", getAllCategory);
 
-// Lấy category theo id
-router.get("/:id", getCategoryById);
+// // Tạo mới một category
+// router.post("/create-category", createCategory);
 
-// Cập nhật category theo id
-router.put("/:id", updateCategory);
+// // Lấy category theo id
+// router.get("/:id", getCategoryById);
 
-// Xoá category theo id
-router.delete("/:id", deleteCategory);
+// // Cập nhật category theo id
+// router.put("/:id", updateCategory);
+
+// // Xoá category theo id
+// router.delete("/:id", deleteCategory);
 
 // Lấy tất cả category kèm số lượng sách
 // router.get("/with-books", getAllCategoryWithBookCount);

@@ -7,7 +7,7 @@ const storage = multer.diskStorage({
     cb(null, path.join(process.cwd(), "media/books_images"));
   },
   filename: function (req, file, cb) {
-    const ext = path.extname(file.originalname);
+    const ext = path.extname(file.originalname).toLowerCase();
     cb(null, Date.now() + ext);
   }
 });

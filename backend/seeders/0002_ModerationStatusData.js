@@ -14,8 +14,8 @@ export async function up(queryInterface, Sequelize) {
         name: "Rejected",
         description: "Hủy duyệt",
       },
-    ]);
-  }
+  ]);
+}
 
 export async function down(queryInterface, Sequelize) {
   await queryInterface.bulkDelete('ModerationStatus', null, {});

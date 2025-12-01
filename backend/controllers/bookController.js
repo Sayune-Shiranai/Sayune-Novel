@@ -84,24 +84,7 @@ export async function getBookBySlug(req, res) {
   }
 }
 
-// // Lấy 1 book (user - category - volumes)
-// export async function getOneBook(req, res) {
-//   try {
-//     const data = await db.bookModel.findOne({
-//       where: { id: 1 },
-//       include: [
-//         { model: db.usersModel, as: "Book_User" },
-//         { model: db.categoryModel, as: "Book_Category" },
-//         { model: db.volumeModel, as: "Book_Volume" }
-//       ]
-//     });
-//     res.json(data);
-//   } catch (err) {
-//     res.status(500).json({ error: err.message });
-//   }
-// }
-
-
+// create book
 export async function createBook(req, res) {
   try {
     // Check body exists
@@ -120,8 +103,6 @@ export async function createBook(req, res) {
       user_id,
       category_id
     } = req.body;
-
-    // book_number = parseInt(book_number);
 
     if (!book_number || isNaN(book_number)) {
       return res.status(400).json({ error: "Vui lòng nhập số book!" });
@@ -150,7 +131,6 @@ export async function createBook(req, res) {
       ? "/media/books_images/" + req.file.filename
       : "/media/books_images/nocover.jpg";
 
-    // 1. Tạo book
     const newBook = await db.bookModel.create({
       book_number,
       title,
@@ -164,17 +144,19 @@ export async function createBook(req, res) {
       user_id,
     });
 
-    console.log("category_id from req.body:", req.body.category_id);
 
+    let category = [];
 
-    const categoryIds = category_id.map(id => parseInt(id,10));
-    await newBook.setBook_Category(categoryIds);
-
-
-    // Gán category
-    if (categoryIds.length > 0) {
-      await newBook.setBook_Category(categoryIds);
+    if (Array.isArray(req.body.category_id)) {
+      category = req.body.category_id.map(id => parseInt(id, 10));
+    } else if (req.body.category_id) {
+      category = [parseInt(req.body.category_id, 10)];
     }
+
+    if (category.length > 0) {
+      await newBook.setBook_Category(category);
+    }
+
 
     const Category = await db.bookModel.findOne({
       where: { id: newBook.id },
@@ -186,7 +168,7 @@ export async function createBook(req, res) {
     });
 
     return res.status(201).json({
-      message: "Book created successfully",
+      message: "Tạo book thành công!",
       // book: newBook,
       Category: Category || []
     });
@@ -196,9 +178,7 @@ export async function createBook(req, res) {
   }
 }
 
-
-
-// UPDATE BOOK BY SLUG
+// update book
 export async function updateBook(req, res) {
   try {
     const { slug } = req.params;

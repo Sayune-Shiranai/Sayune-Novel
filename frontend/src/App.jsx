@@ -4,7 +4,8 @@ import { Routes, Route } from "react-router-dom";
 // import viteLogo from '/vite.svg'
 import './App.css'
 import HomePage from "../components/HomePage/HomePage.jsx";
-import UserPage from "../components/UserPage/UserPage.jsx";
+import User from "../components/User/User.jsx";
+import BookCreatePage from '../components/Book/CreateBook.jsx';
 
 function App() {
   return (
@@ -12,7 +13,8 @@ function App() {
       {/* Router */}
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/dashboard/user" element={<UserPage />} />
+        <Route path="/dashboard/user" element={<User />} />
+        <Route path="/dashboard/book/create" element={<BookCreatePage />} />
       </Routes>
     </>
   )

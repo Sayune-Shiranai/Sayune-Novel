@@ -1,5 +1,8 @@
 import express from "express";
 import upload from "../../middleware/upload.js";
+// const multer = require("multer");
+// // const storage = multer.memoryStorage();
+// const upload = multer({ dest: 'media/books_images' });
 
 import {
   // getOneBook,
