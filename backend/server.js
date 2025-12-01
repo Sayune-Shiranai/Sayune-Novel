@@ -8,6 +8,8 @@ import cors from "cors";
 //dashboard routes
 import RoleRoutes from "./routes/dashboard/RoleRoutes.js";
 import UserRoutes from "./routes/dashboard/UsersRoutes.js";
+import AuthorRoutes from "./routes/dashboard/AuthorRoutes.js";
+import ArtistRoutes from "./routes/dashboard/ArtistRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
 import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
@@ -48,8 +50,10 @@ app.use(cors({
 //dashboard routes
 app.use("/dashboard/role", RoleRoutes); // dashboard/role
 app.use("/dashboard/user", UserRoutes) // dashboard/user
-app.use("/dashboard/book", BookRoutes) // dashboard/book
+app.use("/dashboard/author", AuthorRoutes) // dashboard/author
+app.use("/dashboard/artist", ArtistRoutes) // dashboard/artist
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
+app.use("/dashboard/book", BookRoutes) // dashboard/book
 app.use("/dashboard/volume", VolumeRoutes) // dashboard/volume
 app.use("/dashboard/volumeComment", VolumePostRoutes) // dashboard/VolumePost
 app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox

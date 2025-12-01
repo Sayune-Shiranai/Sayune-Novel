@@ -21,13 +21,13 @@ export async function GetPaged(req, res) {
 
     const totalRecords = await db.bookModel.count({ where });
 
-    // Lấy danh sách book + author theo trang
-    const author = await db.bookModel.findAll({
+    // Lấy danh sách book + artist theo trang
+    const artist = await db.bookModel.findAll({
       where,
       include: [
         {
           model: db.bookModel,
-          as: "Book_Author",
+          as: "Book_Artist",
           through: { attributes: [] } 
         }
       ],
@@ -43,7 +43,7 @@ export async function GetPaged(req, res) {
       limit,
       totalPages,
       totalRecords,
-      data: author
+      data: artist
     });
 
   } catch (err) {
