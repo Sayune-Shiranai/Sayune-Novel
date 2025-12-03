@@ -87,7 +87,6 @@ export async function getBookBySlug(req, res) {
 // create book
 export async function createBook(req, res) {
   try {
-    // Check body exists
     if (!req.body || Object.keys(req.body).length === 0) {
       return res.status(400).json({ error: "Body rỗng hoặc không hợp lệ!" });
     }
@@ -141,7 +140,7 @@ export async function createBook(req, res) {
       artist_id,
       status,
       description,
-      user_id,
+      user_id, // fix tự động update theo tk
     });
 
 
@@ -178,6 +177,7 @@ export async function createBook(req, res) {
   }
 }
 
+
 // update book
 export async function updateBook(req, res) {
   try {
@@ -188,37 +188,98 @@ export async function updateBook(req, res) {
       return res.status(404).json({ error: "Không tìm thấy book!" });
     }
 
-    // update slug nếu có sửa title hoặc book_number
-    const dataToUpdate = { ...req.body };
-    if (req.body.title || req.body.book_number) {
-      const newSlug = createBookSlug(
-        req.body.book_number || book.book_number,
-        req.body.title || book.title
+    if (!req.body || Object.keys(req.body).length === 0) {
+      return res.status(400).json({ error: "Body rỗng hoặc không hợp lệ!" });
+    }
+
+    let {
+      book_number,
+      title,
+      another_name,
+      author_id,
+      artist_id,
+      status,
+      description,
+      user_id,
+      category_id
+    } = req.body;
+
+    if (!book_number || isNaN(book_number)) {
+      return res.status(400).json({ error: "Vui lòng nhập số book!" });
+    }
+
+    if(!title || title.trim() === "") {
+      return res.status(400).json({ error: "Vui lòng nhập tên book!" });
+    }
+
+    let newSlug = book.slug;
+
+    if (title || book_number) {
+      newSlug = createBookSlug(
+        book_number || book.book_number,
+        title || book.title
       );
-      dataToUpdate.slug = newSlug;
     }
 
-    await book.update(dataToUpdate);
+    const imgPath = req.file
+      ? "/media/books_images/" + req.file.filename
+      : book.img;
 
-    // update category
-    if (Array.isArray(req.body.category_id)) {
-      await book.setBook_Category(req.body.category_id);
+    await book.update({
+      book_number: book_number ?? book.book_number,
+      title: title ?? book.title,
+      another_name: another_name ?? book.another_name,
+      slug: newSlug,
+      img: imgPath,
+      author_id: author_id ?? book.author_id,
+      artist_id: artist_id ?? book.artist_id,
+      status: status ?? book.status,
+      description: description ?? book.description,
+      user_id: user_id ?? book.user_id, // fix tự động update theo tk
+    });
+
+
+    if (category_id) {
+      let categories = [];
+
+      if (Array.isArray(category_id)) {
+        categories = category_id.map(id => parseInt(id));
+      } else {
+        categories = [parseInt(category_id)];
+      }
+
+      await book.setBook_Category(categories);
     }
 
-    return res.json({ message: "Updated", book });
+    const updatedBook = await db.bookModel.findOne({
+      where: { id: book.id },
+      include: [
+        {
+          model: db.categoryModel,
+          as: "Book_Category",
+          through: { attributes: [] }
+        }
+      ]
+    });
+
+    return res.json({
+      message: "Cập nhật book thành công!",
+      updatedBook
+    });
 
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 }
 
-
-// Xóa book
+// delete book
 export async function deleteBook(req, res) {
   try {
     const { id } = req.params;
 
-    const book = await db.bookModel.findByPk(id);
+    const book = await db.bookModel.findOne({
+      where: { id }
+    });
     if (!book) return res.status(404).json({ error: "Không tìm thấy book!" });
 
     await book.destroy();
@@ -229,19 +290,38 @@ export async function deleteBook(req, res) {
   }
 }
 
-// Lấy tất cả book
-export async function getAllBooks(req, res) {
+export async function approveBook(req, res) {
   try {
-    const books = await db.bookModel.findAll({
-      include: {
-        model: db.categoryModel,
-        as: 'Book_Category',
-        through: { attributes: [] }
-      }
+    const { id } = req.params;
+    const book = await db.bookModel.findOne({
+      where: { id }
     });
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy book!' });
 
-    res.json(books);
+    book.trangthai = 1;
+    await book.save();
+
+    res.json({ success: true, message: 'Đã duyệt', data: book });
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+export async function rejectBook(req, res) {
+  try {
+    const { id } = req.params;
+    const book = await db.bookModel.findOne({
+      where: { id }
+    });
+    if (!book) return res.status(404).json({ success: false, message: 'Không tìm thấy book!' });
+
+    book.trangthai = 2;
+    await book.save();
+
+    res.json({ success: true, message: 'Hủy duyệt', data: book });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
   }
 }

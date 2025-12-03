@@ -1,53 +1,109 @@
 import db from '../models/index.js';
 
-export async function getAllRole(req, res) {
+//xem danh sách có phân trang
+export async function GetPaged(req, res) {
   try {
-    const role = await db.roleModel.findAll();
-    res.json(role);
-  } catch (err) {
-    res.status(500).json({ error: err.message });
-  }
-}
+    let { page = 1, limit = 10, keyword = "" } = req.query;
+    page = parseInt(page);
+    limit = parseInt(limit);
 
-// // Lấy tất cả role kèm users
-// export async function getAllRole(req, res) {
-//   try {
-//     const roles = await db.roleModel.findAll({
-//       include: [
-//         {
-//           model: db.usersModel,
-//           as: 'RoleUser', 
-//           attributes: ['id', 'username', 'email']
-//         }
-//       ]
-//     });
+    const offset = (page - 1) * limit;
 
-//     res.json({ success: true, data: roles });
-//   } catch (err) {
-//     console.error(err);
-//     res.status(500).json({ success: false, error: err.message });
-//   }
-// }
+    let where = {};
 
-// Lấy role theo id kèm users
-export async function getRoleById(req, res) {
-  try {
-    const role = await db.roleModel.findByPk(req.params.id, {
+    if (keyword) {
+      where = {
+        [Op.or]: [
+          { role: { [Op.like]: `%${keyword}%` } }
+        ]
+      };
+    }
+
+    const totalRecords = await db.roleModel.count({ where });
+
+    // Lấy danh sách role + user theo trang
+    const role = await db.roleModel.findAll({
+      where,
       include: [
         {
           model: db.usersModel,
-          as: 'RoleUser',
-          attributes: ['id', 'username', 'email']
+          as: "Role_Users"
         }
-      ]
+      ],
+      limit,
+      offset,
+      order: [["id", "DESC"]]
     });
 
-    if (!role) return res.status(404).json({ success: false, message: 'Role not found' });
+    const totalPages = Math.ceil(totalRecords / limit);
 
-    res.json({ success: true, data: role });
+    return res.json({
+      page,
+      limit,
+      totalPages,
+      totalRecords,
+      data: role
+    });
+
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ success: false, error: err.message });
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// create role
+export async function createRole(req, res) {
+  try {
+    const { role } = req.body;
+
+    const newRole = await db.roleModel.create({ role });
+
+    return res.status(201).json(newRole);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// update role
+export async function updateRole(req, res) {
+  try {
+    const { id } = req.params;
+    const { role } = req.body;
+
+    if (!role || role.trim() === "") {
+      return res.status(400).json({ error: "Vui lòng nhập role!" });
+    }
+
+    const CheckRole = await db.roleModel.findOne({
+      where: { id }
+    });
+    if (!CheckRole) {
+      return res.status(404).json({ error: "Không tìm thấy role" });
+    }
+
+    CheckRole.role = role;
+    await CheckRole.save();
+
+    return res.json(CheckRole);
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// delete role
+export async function deleteRole(req, res) {
+  try {
+    const { id } = req.params;
+
+    const existingRole = await db.roleModel.findByPk(id);
+    if (!existingRole) {
+      return res.status(404).json({ error: "Role not found" });
+    }
+
+    await existingRole.destroy();
+
+    return res.json({ message: "Role deleted successfully" });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
   }
 }
 

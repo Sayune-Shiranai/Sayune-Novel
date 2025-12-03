@@ -1,16 +1,17 @@
 import express from "express";
 
 import { 
-    getAllRole, 
-    getRoleById 
+    GetPaged,
+    createRole,
+    updateRole,
+    deleteRole
 } from "../../controllers/roleController.js";
 
 const router = express.Router();
 
-// Lấy danh sách tất cả role kèm users
-router.get("/", getAllRole);
-
-// Lấy role theo id kèm users
-router.get("/:id", getRoleById);
+router.get("/", GetPaged);
+router.post("/create", createRole);
+router.post("/update/:id", updateRole);
+router.delete("/delete/:id", deleteRole);
 
 export default router;

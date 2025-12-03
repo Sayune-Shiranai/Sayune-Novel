@@ -63,9 +63,9 @@ app.use("/dashboard/report", ReportRoutes) // dashboard/report
 
 // home routes
 app.use("/", homeRoutes);
-app.use("/user", usersRoutes); // /user/tên user
+app.use("/user", usersRoutes); // /user
 app.use("/role", roleRoutes);
-app.use("/category", categoryRoutes); // category/
+app.use("/category", categoryRoutes); // category
 app.use("/book", bookRoutes); // book/
 app.use("/book/:slug", volumeRoutes); // book/:slug
 // app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
@@ -100,7 +100,6 @@ app.get("/syncDB", async (req, res) => {
   }
 });
 
-// Khởi chạy server
 app.listen(PORT, () => {
   console.log(`Server chạy tại http://localhost:${PORT}`);
 });

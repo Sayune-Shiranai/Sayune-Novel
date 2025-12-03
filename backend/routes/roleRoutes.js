@@ -1,10 +1,11 @@
 // routes/roleRoutes.js
 import express from 'express';
-import { getAllRole, getRoleById } from '../controllers/roleController.js';
+import { 
+    GetPaged 
+} from '../controllers/roleController.js';
 
 const router = express.Router();
 
-router.get('/', getAllRole);
-router.get('/:id', getRoleById);
+router.get('/', GetPaged);
 
 export default router;

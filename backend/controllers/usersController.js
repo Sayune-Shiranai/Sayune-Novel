@@ -52,12 +52,17 @@ export async function GetPaged(req, res) {
   }
 }
 
+
+// Update user
 export async function updateUser(req, res) {
   try {
     const { id } = req.params;
     const { username, email, role_id } = req.body;
 
-    const user = await db.usersModel.findByPk(id);
+    const user = await db.usersModel.findOne({
+      where: { id }
+    });
+
     if (!user) {
       return res.status(404).json({ success: false, message: "Không tìm thấy user!" });
     }
@@ -85,7 +90,9 @@ export async function deleteUser(req, res) {
   try {
     const { id } = req.params;
 
-    const user = await db.usersModel.findByPk(id);
+    const user = await db.usersModel.findOne({
+      where: { id }
+    });
     if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy user!' });
 
     await user.destroy();
@@ -100,7 +107,9 @@ export async function deleteUser(req, res) {
 export async function approveUser(req, res) {
   try {
     const { id } = req.params;
-    const user = await db.usersModel.findByPk(id);
+    const user = await db.usersModel.findOne({
+      where: { id }
+    });
     if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy user!' });
 
     user.trangthai = 1;
@@ -116,7 +125,9 @@ export async function approveUser(req, res) {
 export async function rejectUser(req, res) {
   try {
     const { id } = req.params;
-    const user = await db.usersModel.findByPk(id);
+    const user = await db.usersModel.findOne({
+      where: { id }
+    });
     if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy user!' });
 
     user.trangthai = 2;
