@@ -9,15 +9,18 @@ import {
   GetPaged,
   createBook,
   updateBook,
-  deleteBook
+  deleteBook,
+  approveBook,
+  rejectBook
 } from "../../controllers/bookController.js";
 
 const router = express.Router();
 
-// router.get("/test-book", getOneBook);        //dashboard/book/single
 router.get("/", GetPaged); //dashboard/book
-router.post("/create", upload.single("img"), createBook);      //dashboard/book
+router.post("/create", upload.single("img"), createBook);      //dashboard/book/create
 router.post("/update/:slug",upload.single("img"), updateBook); // /dashboard/book/update/:slug
 router.delete("/delete/:id", deleteBook);     // /dashboard/book/delete/:id
+router.post("/approve/:id", approveBook);
+router.post("/reject/:id", rejectBook);
 
 export default router;

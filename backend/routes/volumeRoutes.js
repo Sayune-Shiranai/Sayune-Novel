@@ -1,7 +1,7 @@
 import express from "express";
-import { getAllVolume } from "../controllers/VolumeController.js";
+import { GetPaged } from "../controllers/volumeController.js";
 
 const router = express.Router();
-router.get("/", getAllVolume);
+router.get("/", GetPaged);
 
 export default router;

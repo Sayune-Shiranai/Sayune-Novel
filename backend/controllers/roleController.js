@@ -1,4 +1,5 @@
 import db from '../models/index.js';
+import { Op } from "sequelize";
 
 //xem danh sách có phân trang
 export async function GetPaged(req, res) {
