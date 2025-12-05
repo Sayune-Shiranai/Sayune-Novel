@@ -1,6 +1,8 @@
 import db from '../models/index.js';
 import { Op } from "sequelize";
 import slugify from "slugify";
+import fs from "fs";
+import path from "path";
 
 function createBookSlug(book_number, title) {
   const BookSlug = `${book_number} ${title}`;
@@ -188,10 +190,6 @@ export async function updateBook(req, res) {
       return res.status(404).json({ error: "Không tìm thấy book!" });
     }
 
-    if (!req.body || Object.keys(req.body).length === 0) {
-      return res.status(400).json({ error: "Body rỗng hoặc không hợp lệ!" });
-    }
-
     let {
       book_number,
       title,
@@ -221,9 +219,23 @@ export async function updateBook(req, res) {
       );
     }
 
-    const imgPath = req.file
-      ? "/media/books_images/" + req.file.filename
-      : book.img;
+    let imgPath = req.file;
+
+    if (req.file) {
+      const oldImgPath = path.join(process.cwd(), book.img);
+      console.log("oldImg:", oldImgPath);
+
+      // không xoá ảnh mặc định
+      if (
+        fs.existsSync(oldImgPath) &&
+        book.img !== "/media/books_images/nocover.jpg"
+      ) {
+        fs.unlinkSync(oldImgPath);
+      }
+
+      imgPath = "/media/books_images/" + req.file.filename;
+      console.log("imgPath:", imgPath);
+    }
 
     await book.update({
       book_number: book_number ?? book.book_number,
@@ -235,7 +247,7 @@ export async function updateBook(req, res) {
       artist_id: artist_id ?? book.artist_id,
       status: status ?? book.status,
       description: description ?? book.description,
-      user_id: user_id ?? book.user_id, // fix tự động update theo tk
+      user_id: user_id ?? book.user_id, // fix tự động update theo tk up book
     });
 
 
@@ -296,7 +308,7 @@ export async function approveBook(req, res) {
     const book = await db.bookModel.findOne({
       where: { id }
     });
-    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy book!' });
+    if (!book) return res.status(404).json({ success: false, message: 'Không tìm thấy book!' });
 
     book.trangthai = 1;
     await book.save();

@@ -4,6 +4,17 @@ import connectDB from "./db/db.js";
 import dotenv from "dotenv";
 import db from "./models/index.js";
 import cors from "cors";
+import path from "path";
+
+
+const app = express();
+const PORT = 3000;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors({
+  origin: "*", // hoặc "http://localhost:5173"
+}));
 
 //dashboard routes
 import RoleRoutes from "./routes/dashboard/RoleRoutes.js";
@@ -38,15 +49,6 @@ import loginRoutes from "./routes/loginRoutes.js"
 // load biến môi trường
 dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 
-const app = express();
-const PORT = 3000;
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cors({
-  origin: "*", // hoặc "http://localhost:5173"
-}));
-
 //dashboard routes
 app.use("/dashboard/role", RoleRoutes); // dashboard/role
 app.use("/dashboard/user", UserRoutes) // dashboard/user
@@ -54,7 +56,7 @@ app.use("/dashboard/author", AuthorRoutes) // dashboard/author
 app.use("/dashboard/artist", ArtistRoutes) // dashboard/artist
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
 app.use("/dashboard/book", BookRoutes) // dashboard/book
-app.use("/dashboard/volume", VolumeRoutes) // dashboard/volume
+app.use("/dashboard/book", VolumeRoutes) // dashboard/volume
 app.use("/dashboard/volumeComment", VolumePostRoutes) // dashboard/VolumePost
 app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox
 app.use("/dashboard/forum", ForumRoutes) // dashboard/forum

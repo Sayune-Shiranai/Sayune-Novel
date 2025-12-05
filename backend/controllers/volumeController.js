@@ -6,6 +6,8 @@ import { pipeline } from "stream/promises";
 
 export async function GetPaged(req, res) {
   try {
+    const book_slug = req.params.slug;
+    console.log("book_slug:", book_slug);
     let { page = 1, limit = 10, keyword = "" } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
@@ -27,7 +29,10 @@ export async function GetPaged(req, res) {
 
     const volume = await db.volumeModel.findAll({
       where,
-      include: [{ model: db.bookModel }],
+      include: [{ 
+        model: db.bookModel,
+        as: "Volume_Book"
+      }],
       limit,
       offset,
       order: [["id", "DESC"]],
@@ -53,20 +58,33 @@ export async function GetPaged(req, res) {
 // create volume
 export async function createVolume(req, res) {
   try {
-    let {
-      book_id,
-      volume_number,
-      title,
-      user_id
-    } = req.body;
+    const book_slug = req.params.slug;
+    console.log("book_slug:", book_slug);
 
-    if (!book_id) {
-      return res.status(400).json({ error: "Vui lòng nhập book!" });
+    if (!book_slug) {
+      return res.status(400).json({ error: "Vui lòng nhập slug book!" });
     }
 
-    const book = await db.bookModel.findOne({
-      where: { id: book_id }
-    });
+    const book = await db.bookModel.findOne({ where: { slug: book_slug } });
+
+    if (!book) {
+      return res.status(404).json({ error: "Book không tồn tại!" });
+    }
+    let {
+      volume_number,
+      title,
+      user_id // fix tự động update theo tk up book
+    } = req.body;
+
+
+
+    // if (!book_id) {
+    //   return res.status(400).json({ error: "Vui lòng nhập book!" });
+    // }
+
+    // const book = await db.bookModel.findOne({
+    //   where: { id: book_id }
+    // });
 
     const slug = book.slug;
 
@@ -76,7 +94,7 @@ export async function createVolume(req, res) {
 
     const CheckVolumeNumber = await db.volumeModel.findOne({
       where: { 
-        book_id,
+        book_id: book.id,
         volume_number 
       }
     });
@@ -99,24 +117,23 @@ export async function createVolume(req, res) {
       fs.mkdirSync(folderPath, { recursive: true });
     }
 
-    let imagePaths = [];
+    let imgPaths = [];
 
     for (const file of files) {
-      const ext = path.extname(file.filename);
       const fileName = file.filename;
       const filePath = path.join(folderPath, fileName);
 
       await pipeline(file.file, fs.createWriteStream(filePath));
 
-      imagePaths.push(`/media/truyen/${slug}/volume-${volume_number}/${fileName}`);
+      imgPaths.push(`/media/truyen/${slug}/volume-${volume_number}/${fileName}`);
     }
 
     const newVolume = await db.volumeModel.create({
-      book_id,
+      book_id: book.id,
       volume_number,
       title,
       user_id,
-      images: JSON.stringify(imagePaths)
+      chapter_content: JSON.stringify(imgPaths)
     });
 
     return res.json({
@@ -134,12 +151,12 @@ export async function deleteVolume(req, res) {
   try {
     const { id } = req.params;
 
-    const book = await db.volumeModel.findOne({
+    const volume = await db.volumeModel.findOne({
       where: { id }
     });
-    if (!book) return res.status(404).json({ error: "Không tìm thấy volume!" });
+    if (!volume) return res.status(404).json({ error: "Không tìm thấy volume!" });
 
-    await book.destroy();
+    await volume.destroy();
 
     res.json({ message: "Xóa volume thành công!" });
   } catch (err) {
