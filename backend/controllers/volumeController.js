@@ -3,6 +3,7 @@ import { Op } from "sequelize";
 import fs from "fs";
 import path from "path";
 import { pipeline } from "stream/promises";
+import { console } from "inspector";
 
 export async function GetPaged(req, res) {
   try {
@@ -76,15 +77,7 @@ export async function createVolume(req, res) {
       user_id // fix tự động update theo tk up book
     } = req.body;
 
-
-
-    // if (!book_id) {
-    //   return res.status(400).json({ error: "Vui lòng nhập book!" });
-    // }
-
-    // const book = await db.bookModel.findOne({
-    //   where: { id: book_id }
-    // });
+    console.log("body:", req.body)
 
     const slug = book.slug;
 
@@ -105,28 +98,35 @@ export async function createVolume(req, res) {
       });
     }
 
-    const files = await req.saveRequestFiles();
+    const files = req.files;
+    console.log("FILES:", req.files);
 
     if (!files || files.length === 0) {
       return res.status(400).json({ error: "Vui lòng upload ít nhất 1 ảnh!" });
     }
 
-    const folderPath = `./media/truyen/${slug}/volume-${volume_number}`;
 
-    if (!fs.existsSync(folderPath)) {
-      fs.mkdirSync(folderPath, { recursive: true });
-    }
 
-    let imgPaths = [];
+    const imgPaths = files.map(
+      file => `/media/truyen/${book.slug}/volume-${volume_number}/${file.filename}`
+    );
 
-    for (const file of files) {
-      const fileName = file.filename;
-      const filePath = path.join(folderPath, fileName);
+    // const folderPath = `./media/truyen/${slug}/volume-${volume_number}`;
 
-      await pipeline(file.file, fs.createWriteStream(filePath));
+    // if (!fs.existsSync(folderPath)) {
+    //   fs.mkdirSync(folderPath, { recursive: true });
+    // }
 
-      imgPaths.push(`/media/truyen/${slug}/volume-${volume_number}/${fileName}`);
-    }
+    // let imgPaths = [];
+
+    // for (const file of files) {
+    //   const fileName = file.filename;
+    //   const filePath = path.join(folderPath, fileName);
+
+    //   await fs.promises.copyFile(filePath);
+
+    //   imgPaths.push(`/media/truyen/${slug}/volume-${volume_number}/${fileName}`);
+    // }
 
     const newVolume = await db.volumeModel.create({
       book_id: book.id,
