@@ -1,9 +1,6 @@
 import db from "../models/index.js";
 import { Op } from "sequelize";
-import fs from "fs";
-import path from "path";
-import { pipeline } from "stream/promises";
-import { console } from "inspector";
+// import { console } from "inspector";
 
 export async function GetPaged(req, res) {
   try {
