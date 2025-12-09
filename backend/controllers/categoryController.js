@@ -1,5 +1,5 @@
 import db from "../models/index.js";
-import { Op, where } from "sequelize";
+import { Op } from "sequelize";
 // const Category = db.categoryModel;
 
 //xem danh sách có phân trang
