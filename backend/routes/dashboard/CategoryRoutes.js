@@ -1,11 +1,11 @@
 import express from "express";
 import {
   GetPaged,
-  // getAllCategory,
-  // createCategory,
-  // getCategoryById,
-  // updateCategory,
-  // deleteCategory,
+  getAllCategory,
+  createCategory,
+  getCategoryById,
+  updateCategory,
+  deleteCategory,
 } from "../../controllers/categoryController.js";
 
 const router = express.Router();
@@ -13,21 +13,20 @@ const router = express.Router();
 // Lấy danh sách tất cả category(hạng mục)
 router.get("/", GetPaged);
 
-// router.get("/getAllCategory", getAllCategory);
+// Route để cập nhật category
+router.put('/:id', updateCategory);
 
-// // Tạo mới một category
-// router.post("/create-category", createCategory);
+// Route để xóa category
+router.delete('/:id', deleteCategory);
 
-// // Lấy category theo id
-// router.get("/:id", getCategoryById);
+// Route để duyệt category
+router.put('/approve/:id', approveCategory);
 
-// // Cập nhật category theo id
-// router.put("/:id", updateCategory);
+// Route để hủy duyệt category
+router.put('/reject/:id', rejectCategory);
 
-// // Xoá category theo id
-// router.delete("/:id", deleteCategory);
+// Route để lấy tất cả categories
+router.get('/', getAllCategories);
 
-// Lấy tất cả category kèm số lượng sách
-// router.get("/with-books", getAllCategoryWithBookCount);
 
 export default router;
