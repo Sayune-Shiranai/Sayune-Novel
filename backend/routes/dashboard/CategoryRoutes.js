@@ -10,6 +10,9 @@ import {
 
 const router = express.Router();
 
+// Tạo mới category
+router.post("/create", createCategory);
+
 // Lấy danh sách tất cả category(hạng mục)
 router.get("/", GetPaged);
 

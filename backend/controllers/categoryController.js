@@ -138,3 +138,50 @@ export async function rejectCategory(req, res) {
     res.status(500).json({ success: false, error: err.message });
   }
 }
+
+// Tạo mới category
+export async function createCategory(req, res) {
+  try {
+    const { name, description } = req.body;
+
+    // Kiểm tra thiếu dữ liệu
+    if (!name) {
+      return res.status(400).json({
+        success: false,
+        message: "Tên category là bắt buộc!"
+      });
+    }
+
+    // Kiểm tra trùng tên category
+    const existed = await db.categoryModel.findOne({
+      where: { name }
+    });
+
+    if (existed) {
+      return res.status(400).json({
+        success: false,
+        message: "Category đã tồn tại!"
+      });
+    }
+
+    // Tạo mới category
+    const newCategory = await db.categoryModel.create({
+      name,
+      description: description || "",
+      trangthai: 0 // trạng thái mặc định (0 = chờ duyệt)
+    });
+
+    return res.json({
+      success: true,
+      message: "Tạo mới category thành công!",
+      data: newCategory
+    });
+
+  } catch (err) {
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      error: err.message
+    });
+  }
+}
