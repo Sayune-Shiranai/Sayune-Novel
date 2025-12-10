@@ -101,6 +101,14 @@ export default (sequelize, DataTypes) => {
       as: "Book_User"
     });
 
+    // relationship followbook - user
+    bookModel.belongsToMany(models.usersModel, { 
+      through: "FollowBook",
+      as: "User_Follow_Book",
+      foreignKey: "book_id",
+      timestamps: false, 
+    });
+
     // relationship book - author
     bookModel.belongsTo(models.authorModel, {
       foreignKey: "author_id",
