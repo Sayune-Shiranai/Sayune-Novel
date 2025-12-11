@@ -2,10 +2,10 @@ import React from 'react'
 
 const Footer = () => {
   return (
-    <div>
-      
-    </div>
-  )
+    <footer style={{ padding: 20, textAlign: "center" }}>
+      <p>© SayuneNovel React</p>
+    </footer>
+  );
 }
 
 export default Footer
