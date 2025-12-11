@@ -43,7 +43,7 @@ const App = () => {
 
         <div className="page-body">
           <h2>Nội dung chính</h2>
-          <p>Đây là phần RenderBody() trong Razor — nhưng React quản lý bằng component/page.</p>
+          <p>Nội dung</p>
         </div>
 
         <Footer />
