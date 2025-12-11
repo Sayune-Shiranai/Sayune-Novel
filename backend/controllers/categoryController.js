@@ -53,32 +53,6 @@ export async function GetPaged(req, res) {
   }
 }
 
-// Update category
-export async function updateCategory(req, res) {
-  try {
-    const { id } = req.params;
-    const { name, description } = req.body;
-
-    const category = await db.categoryModel.findOne({
-      where: { id }
-    });
-    if (!category) {
-      return res.status(404).json({ success: false, message: "Không tìm thấy category!" });
-    }
-    if (name) category.name = name;
-    if (description) category.description = description;
-    await category.save();
-    return res.json({
-      success: true,
-      message: "Cập nhật category thành công!",
-      data: category
-    });
-  } catch (err) {
-    console.error(err);
-    return res.status(500).json({ success: false, error: err.message });
-  }
-}
-
 // Lấy tất cả danh mục
 export async function getAllCategory(req, res) {
   try {
