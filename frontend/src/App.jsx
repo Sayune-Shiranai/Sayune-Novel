@@ -3,53 +3,28 @@ import { Routes, Route } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar'
-import Footer from './components/Footer/Footer';
+import DashboardLayout from './Layout_dashboard.jsx'
 
 // import Home from "./pages/Home/Home.jsx";
-// import User from "./pages/User/User.jsx";
-// import BookCreatePage from './pages/Book/CreateBook.jsx';
+import User from "./pages/User/User.jsx";
+import BookCreatePage from './pages/Book/CreateBook.jsx';
 
 import './App.css'
 
 
 const App = () => {
-  // return (
-  //   <>
-  //     {/* Router */}
-  //     <Routes>
-  //       <Route path="/" element={<Home />} />
-  //       <Route path="/dashboard/user" element={<User />} />
-  //       <Route path="/dashboard/book/create" element={<BookCreatePage />} />
-  //     </Routes>
-  //   </>
-  // )
   return (
-    <div className="page-wrapper compact-wrapper" id="pageWrapper">
-      {/* Loader */}
-      <div className="loader-wrapper">
-        <div className="loader">
-          <div className="loader4"></div>
-        </div>
-      </div>
+      <Routes>        
+        {/* DASHBOARD */}
+        <Route path="/dashboard" element={<DashboardLayout />}>
+          <Route path="user" element={<User />} />
+          <Route path="book/create" element={<BookCreatePage />} />
+        </Route>
+        {/* DASHBOARD ENDS*/}
 
-      {/* Header */}
-      <Header />
+        <Route path="/" element={<Home />} />
 
-      {/* Body */}
-      <div className="page-body-wrapper">
-        <Sidebar />
-
-        <div className="page-body">
-          <Outlet />
-          <h2>Nội dung chính</h2>
-          <p>Nội dung</p>
-        </div>
-
-        <Footer />
-      </div>
-    </div>
+      </Routes>
   );
 }
 
