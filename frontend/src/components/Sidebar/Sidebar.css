@@ -1,0 +1,99 @@
+/* Sidebar khung bao */
+.sidebar-wrapper {
+  width: 240px;
+  height: 100vh;
+  background: #fff;
+  position: fixed;
+  top: 80px;            /* phù hợp với Header cao 80px */
+  left: 0;
+  border-right: 1px solid #ddd;
+  overflow-y: auto;
+  z-index: 100;
+  transition: all 0.3s ease;
+}
+
+/* Container chính */
+.sidebar-main {
+  padding: 0 10px;
+}
+
+/* UL danh sách */
+.sidebar-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Tiêu đề nhóm menu */
+.sidebar-main-title {
+  padding: 15px 12px 5px 12px;
+  font-size: 12px;
+  font-weight: bold;
+  color: #999;
+  text-transform: uppercase;
+}
+
+/* Item menu */
+.sidebar-list {
+  margin-bottom: 4px;
+}
+
+/* Link menu cấp 1 */
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 6px;
+  color: #222;
+  text-decoration: none;
+  transition: all 0.25s ease;
+  position: relative;
+}
+
+/* Icon menu cấp 1 */
+.sidebar-link i {
+  width: 22px;
+  text-align: center;
+  font-size: 16px;
+}
+
+/* Hover cấp 1 */
+.sidebar-link:hover {
+  background: #eef5ff;
+  color: #0d6efd;
+}
+
+/* Menu con */
+.sidebar-submenu {
+  list-style: none;
+  padding: 5px 0 5px 42px;
+  margin: 0;
+  display: none;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Submenu item */
+.sidebar-submenu li a {
+  display: block;
+  padding: 6px 6px;
+  color: #555;
+  text-decoration: none;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+/* Hover submenu */
+.sidebar-submenu li a:hover {
+  color: #0d6efd;
+}
+
+/* Khi menu được mở */
+.sidebar-list.open > .sidebar-submenu {
+  display: block;
+}
+
+/* Animation submenu */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to   { opacity: 1; transform: translateY(0); }
+}

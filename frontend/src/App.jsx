@@ -42,6 +42,7 @@ const App = () => {
         <Sidebar />
 
         <div className="page-body">
+          <Outlet />
           <h2>Nội dung chính</h2>
           <p>Nội dung</p>
         </div>

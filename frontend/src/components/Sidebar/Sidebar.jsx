@@ -1,15 +1,147 @@
-import React from 'react'
+import React from "react";
+import { Link } from "react-router-dom";
+import "./Sidebar.css"
 
 const Sidebar = () => {
   return (
     <aside className="sidebar-wrapper">
-      <ul>
-        <li>Dashboard</li>
-        <li>Quản lý truyện</li>
-        <li>Quản lý chương</li>
-      </ul>
+
+      {/* Logo */}
+      <div className="logo-wrapper">
+        <Link to="/dashboard">
+          <img className="img-fluid" src="/202404/images/logo.png" alt="" />
+        </Link>
+        <div className="back-btn"><i className="fa fa-angle-left"></i></div>
+        <div className="toggle-sidebar">
+          <i className="status_toggle middle sidebar-toggle" data-feather="grid"></i>
+        </div>
+      </div>
+
+      <div className="logo-icon-wrapper">
+        <Link to="/dashboard">
+          <img className="img-fluid" src="/202404/images/logobe.png" alt="" />
+        </Link>
+      </div>
+
+      {/* Sidebar menu */}
+      <nav className="sidebar-main">
+        <div className="left-arrow" id="left-arrow">
+          <i data-feather="arrow-left"></i>
+        </div>
+
+        <div id="sidebar-menu">
+          <ul className="sidebar-links" id="simple-bar">
+
+            {/* Back button mobile */}
+            <li className="back-btn">
+              <Link to="/dashboard">
+                <img className="img-fluid" src="/202404/images/logo.png" alt="" />
+              </Link>
+
+              <div className="mobile-back text-end">
+                <span>Back</span>
+                <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
+              </div>
+            </li>
+
+            {/* Pinned */}
+            <li className="pin-title sidebar-main-title">
+              <div><h6>Pinned</h6></div>
+            </li>
+
+            {/* ---------------------- */}
+            {/* MENU MẪU TĨNH DƯỚI ĐÂY */}
+            {/* ---------------------- */}
+
+            {/* QUẢN LÝ HỆ THỐNG */}
+            <li className="sidebar-main-title">
+              <div><h6>Quản lý hệ thống</h6></div>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title link-nav" to="/dashboard">
+                <i className="fa fa-home"></i>
+                <span className="ms-2">Dashboard</span>
+              </Link>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title" to="#">
+                <i className="fa fa-user"></i>
+                <span className="ms-2">Người dùng</span>
+              </Link>
+
+              <ul className="sidebar-submenu">
+                <li><Link to="/users/list">Danh sách người dùng</Link></li>
+                <li><Link to="/users/create">Thêm người dùng</Link></li>
+              </ul>
+            </li>
+
+            {/* QUẢN LÝ TRUYỆN */}
+            <li className="sidebar-main-title">
+              <div><h6>Quản lý truyện</h6></div>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title link-nav" to="/books">
+                <i className="fa fa-book"></i>
+                <span className="ms-2">Danh sách truyện</span>
+              </Link>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title link-nav" to="/books/create">
+                <i className="fa fa-plus-circle"></i>
+                <span className="ms-2">Thêm truyện</span>
+              </Link>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title" to="#">
+                <i className="fa fa-list"></i>
+                <span className="ms-2">Quản lý chương</span>
+              </Link>
+
+              <ul className="sidebar-submenu">
+                <li><Link to="/chapters">Danh sách chương</Link></li>
+                <li><Link to="/chapters/create">Thêm chương</Link></li>
+              </ul>
+            </li>
+
+            {/* CÀI ĐẶT */}
+            <li className="sidebar-main-title">
+              <div><h6>Cài đặt</h6></div>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title link-nav" to="/settings/system">
+                <i className="fa fa-cog"></i>
+                <span className="ms-2">Cấu hình hệ thống</span>
+              </Link>
+            </li>
+
+            <li className="sidebar-list">
+              <i className="fa fa-thumb-tack"></i>
+              <Link className="sidebar-link sidebar-title link-nav" to="/settings/profile">
+                <i className="fa fa-id-card"></i>
+                <span className="ms-2">Thông tin tài khoản</span>
+              </Link>
+            </li>
+          </ul>
+
+          <div className="right-arrow" id="right-arrow">
+            <i data-feather="arrow-right"></i>
+          </div>
+        </div>
+      </nav>
     </aside>
   );
-}
+};
 
-export default Sidebar
+export default Sidebar;
