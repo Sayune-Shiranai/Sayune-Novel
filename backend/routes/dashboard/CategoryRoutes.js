@@ -3,9 +3,9 @@ import {
   GetPaged,
   getAllCategory,
   createCategory,
-  getCategoryById,
-  updateCategory,
+  approveCategory,
   deleteCategory,
+  rejectCategory,
 } from "../../controllers/categoryController.js";
 
 const router = express.Router();
@@ -15,9 +15,6 @@ router.post("/create", createCategory);
 
 // Lấy danh sách tất cả category(hạng mục)
 router.get("/", GetPaged);
-
-// Route để cập nhật category
-router.put('/:id', updateCategory);
 
 // Route để xóa category
 router.delete('/:id', deleteCategory);
@@ -29,7 +26,7 @@ router.put('/approve/:id', approveCategory);
 router.put('/reject/:id', rejectCategory);
 
 // Route để lấy tất cả categories
-router.get('/', getAllCategories);
+router.get('/', getAllCategory);
 
 
 export default router;
