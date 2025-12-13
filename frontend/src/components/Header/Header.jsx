@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css"
+// import logo from "/vite.svg";
 
-const Header = ({ user }) => {
+const Header = () => {
   return (
     <div className="page-header">
       <div className="header-wrapper row m-0">
 
         {/* SEARCH BAR */}
-        <form className="form-inline search-full col" action="#" method="get">
+        {/* <form className="form-inline search-full col" action="#" method="get">
           <div className="form-group w-100">
             <div className="Typeahead Typeahead--twitterUsers">
               <div className="u-posRelative">
@@ -25,15 +26,15 @@ const Header = ({ user }) => {
               <div className="Typeahead-menu"></div>
             </div>
           </div>
-        </form>
+        </form> */}
 
         {/* LOGO + TOGGLE SIDEBAR */}
-        <div className="header-logo-wrapper col-auto p-0">
+        {/* <div className="header-logo-wrapper col-auto p-0">
           <div className="logo-wrapper">
             <Link to="/dashboard">
               <img
                 className="img-fluid for-dark"
-                src="/202404/images/logo.png"
+                src={logo}
                 alt="logo-dark"
               />
             </Link>
@@ -42,7 +43,7 @@ const Header = ({ user }) => {
           <div className="toggle-sidebar">
             <i className="status_toggle middle sidebar-toggle" data-feather="align-center"></i>
           </div>
-        </div>
+        </div> */}
 
         {/* LEFT HEADER (Chào user) */}
         <div className="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
@@ -52,14 +53,14 @@ const Header = ({ user }) => {
             </a>
 
             <div className="d-flex align-items-center gap-2">
-              <h4 className="f-w-600">Xin chào {user?.name || "User"}</h4>
-              <img className="mt-0" src="/202404/images/hand.gif" alt="hand-gif" />
+              <h4 className="f-w-600">Xin chào Sayune</h4>
+              <img className="mt-0" src="" alt="hand-gif" />
             </div>
           </div>
 
           <div className="welcome-content d-xl-block d-none">
             <span className="text-truncate col-12">
-              Chúc bạn hôm nay trúng số – con số hôm nay là {user?.luckyNumber || "??"}
+              Chúc bạn hôm nay trúng số – con số hôm nay là 14
             </span>
           </div>
         </div>
@@ -81,23 +82,23 @@ const Header = ({ user }) => {
                 <img
                   className="b-r-10"
                   style={{ width: 41, height: 41 }}
-                  src={user?.avatar || "/202404/images/profile.png"}
+                  src='/media/books_images/Công-chúa-Bạch-long-muốn-biến-tôi-thành-công-chúa-thiên-bạch-ngọc..jpg'
                   alt="avatar"
                 />
 
                 <div className="media-body d-xxl-block d-none box-col-none">
                   <div className="d-flex align-items-center gap-2">
-                    <span>{user?.name || "User"}</span>
+                    <span>Sayune</span>
                     <i className="middle fa fa-angle-down"></i>
                   </div>
 
-                  <p className="mb-0 font-roboto">{user?.role || "Vai Trò"}</p>
+                  <p className="mb-0 font-roboto">admin</p>
                 </div>
               </div>
 
               <ul className="profile-dropdown onhover-show-div">
                 <li>
-                  <Link to={`/account/${user?.id || ""}`}>
+                  <Link to="/coming-soon">
                     <i data-feather="user"></i>
                     <span>Tài khoản của bạn</span>
                   </Link>

@@ -1,5 +1,4 @@
 import React from 'react'
-import { Routes, Route } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
@@ -16,8 +15,10 @@ const DashboardLayout = () => {
       {/* Body */}
       <div className="page-body-wrapper">
         <Sidebar />
+        <h1>Dashboard Page Body wrapper</h1>
         <div className="page-body">
-          <Outlet />
+          <h1>Dashboard Page Body</h1>
+          {/* <Outlet /> */}
         </div>
         <Footer />
       </div>

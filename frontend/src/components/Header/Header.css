@@ -1,118 +1,18 @@
-/* ===============================
-   HEADER - TOGGLE SIDEBAR ICON
-================================*/
-.page-header.close_icon .header-wrapper .header-logo-wrapper .toggle-sidebar svg {
-    stroke: #898989 !important;
+.page-header {
+  height: 80px;
+  background: #fff;
+  border-bottom: 1px solid #e6e9eb;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
 }
 
-/* ===============================
-   NOTIFICATION + MESSAGE LINKS
-================================*/
-.page-header .nav-right .onhover-show-div .notitications-bar a {
-    color: #051A1A;
+.page-header .form-control {
+  border-radius: 6px;
 }
 
-.page-header .nav-right .onhover-show-div .notitications-bar a:hover {
-    color: #006666;
-}
-
-/* ===============================
-   NOTIFICATION LIST / ITEMS
-================================*/
-.page-header .nav-right .onhover-show-div .notitications-bar ul {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-    align-items: center;
-    justify-content: center;
-    padding: 0 !important;
-}
-
-.page-header .nav-right .onhover-show-div .notitications-bar ul li {
-    margin: 0;
-    padding: 0;
-}
-
-.page-header .nav-right .onhover-show-div .notitications-bar ul li.notification {
-    border-bottom: 1px solid #E6E9EB;
-    padding: 15px 0;
-}
-
-.page-header .nav-right .onhover-show-div .notitications-bar ul li.notification:last-child {
-    border-bottom: none;
-}
-
-/* ===============================
-   NOTIFICATION ICON + TEXT
-================================*/
-.notification-data .product-icon {
-    height: 40px;
-    width: 40px;
-    border-radius: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.notification-data .product-icon svg {
-    width: 25px;
-    height: 25px;
-    stroke: none !important;
-}
-
-.notification-data span {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box !important;
-    -webkit-line-clamp: 1;
-    -webkit-box-orient: vertical;
-    white-space: normal;
-}
-
-/* ===============================
-   USER MESSAGE (trong dropdown)
-================================*/
-.user-message ul li {
-    padding: 19px 0 !important;
-}
-
-.user-alerts {
-    display: flex;
-    align-items: center;
-}
-
-.user-alerts .user-image {
-    height: 34px;
-    width: 34px;
-}
-
-.user-alerts .user-name {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-}
-
-.user-message ul li:hover a {
-    color: #006666;
-}
-
-/* ===============================
-   DROPDOWN BOX
-================================*/
-.onhover-show-div {
-    top: 80px;
-    position: absolute;
-    z-index: 8;
-    background: #fff;
-    transition: all 0.3s linear;
-}
-
-.onhover-show-div li a svg {
-    margin-top: 0 !important;
-}
-
-.onhover-show-div li a svg path,
-.onhover-show-div li a svg line {
-    color: #051A1A !important;
+.page-header img {
+  object-fit: cover;
 }
