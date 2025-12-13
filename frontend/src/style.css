@@ -4,7 +4,8 @@
   padding: 0;
   margin: 0;
   box-sizing: border-box;
-  font-family: Outfit;
+  font-family: Montserrat, sans-serif;
+  font-size: 14px;
 }
 
 a {
