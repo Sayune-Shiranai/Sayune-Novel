@@ -1,4 +1,5 @@
 import db from "../models/notices.js";
+import { Op } from "sequelize";
 
 //Lấy tất cả notice
 export async function getAllNotices(req, res) {
@@ -70,3 +71,66 @@ export async function deleteNotice(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+// Gửi thông báo tới user select hoặc ALL follower của truyện
+export const sendNotice = async (req, res) => {
+  try {
+    const {
+      title,
+      content,
+      userIds,
+      bookId,
+      sendAllFollower
+    } = req.body;
+
+    if (!title || !content) {
+      return res.status(400).json({
+        message: "Thiếu title hoặc content"
+      });
+    }
+
+    let targetUsers = [];
+
+    // Gửi ALL user theo dõi truyện
+    if (sendAllFollower && bookId) {
+      const follows = await db.FollowBook.findAll({
+        where: { bookId }
+      });
+
+      targetUsers = follows.map(f => f.userId);
+
+      if (targetUsers.length === 0) {
+        return res.status(400).json({
+          message: "Truyện này chưa có user theo dõi"
+        });
+      }
+    }
+    // Gửi cho user được chọn
+    else if (Array.isArray(userIds) && userIds.length > 0) {
+      targetUsers = userIds;
+    } else {
+      return res.status(400).json({
+        message: "Chưa chọn user hoặc follower"
+      });
+    }
+
+    const noticesData = targetUsers.map(userId => ({
+      title,
+      content,
+      userId,
+      isRead: false
+    }));
+
+    await db.notices.bulkCreate(noticesData);
+
+    return res.json({
+      message: "Gửi thông báo thành công",
+      total: noticesData.length
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Lỗi gửi thông báo"
+    });
+  }
+};
