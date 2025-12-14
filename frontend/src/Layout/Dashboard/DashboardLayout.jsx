@@ -2,9 +2,9 @@ import React from 'react'
 import { Outlet } from "react-router-dom";
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
-import Header from './components/Header/Header';
-import Sidebar from './components/Sidebar/Sidebar'
-import Footer from './components/Footer/Footer';
+import Header from '../../components/Dashboard/Header/Header';
+import Sidebar from '../../components/Dashboard/Sidebar/Sidebar'
+import Footer from '../../components/Dashboard/Footer/Footer';
 
 const DashboardLayout = () => {
   return (

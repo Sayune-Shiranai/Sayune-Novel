@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Header.css";
-import avt from '../../../../media/avt/jindou-hikari.jpg'
+import avt from '../../../../../media/avt/jindou-hikari.jpg'
 
 const Header = () => {
   return (

@@ -1,8 +1,8 @@
 import React, { useState } from "react";
-import Header from "../../components/Header/Header";
+import Header from "../../components/Dashboard/Header/Header";
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '../../assets/react.svg';
-import "./Home.css";
+import "./HomePage.css";
 
 const Home = () => {
     const [count, setCount] = useState(0);
