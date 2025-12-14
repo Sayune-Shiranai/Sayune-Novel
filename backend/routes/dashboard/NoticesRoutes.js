@@ -5,6 +5,7 @@ import {
   createNotice,
   updateNotice,
   deleteNotice,
+  sendNotice,
 } from "../../controllers/noticesController.js";
 
 const router = express.Router();
@@ -23,5 +24,9 @@ router.put("/:id", updateNotice);
 
 // Xóa notice theo id
 router.delete("/:id", deleteNotice);
+
+// Gửi thông báo tới user select hoặc ALL follower của truyện
+router.post("/send", sendNotice);
+
 
 export default router
