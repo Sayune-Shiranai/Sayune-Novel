@@ -13,7 +13,8 @@ const PORT = 3000;
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
-  origin: "*", // hoặc "http://localhost:5173"
+  origin: "http://localhost:5173", // hoặc "http://localhost:5173"
+  credentials: true,
 }));
 
 //dashboard routes

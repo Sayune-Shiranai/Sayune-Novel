@@ -37,13 +37,13 @@ export async function login (req, res) {
         { expiresIn: "7d" }
       );
 
-      await usersModel.update(
+      await db.usersModel.update(
         { refreshToken: refreshToken },
         { where: { id: user.id } }
       );
 
-      res.cookie("accessToken", accessToken, { httpOnly: true });
-      res.cookie("refreshToken", refreshToken, { httpOnly: true });
+      res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: "lax" });
+      res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "lax" });
 
 
       return res.status(200).json({ 
@@ -52,7 +52,7 @@ export async function login (req, res) {
           id: user.id, 
           username: user.username, 
           email: user.email,
-          role_id: user.role,
+          role_id: user.role_id,
         }, 
         accessToken,
         refreshToken

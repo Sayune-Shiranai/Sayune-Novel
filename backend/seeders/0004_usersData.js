@@ -11,16 +11,16 @@ export async function up(queryInterface, Sequelize) {
       username: 'admin',
       email: 'admin@example.com',
       password: passwordHash,
-      role_id: 5, // Admin
+      role_id: 4, // Admin
       img_avatar: null,
       img_background: null,
       refreshToken: null
     },
     {
-      username: 'leader',
-      email: 'leader@example.com',
+      username: 'Upload',
+      email: 'Upload@example.com',
       password: passwordHash,
-      role_id: 3, // Leader
+      role_id: 2, // Upload
       img_avatar: null,
       img_background: null,
       refreshToken: null
