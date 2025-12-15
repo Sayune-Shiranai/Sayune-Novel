@@ -1,157 +1,140 @@
-import React from 'react'
+import { useActionState } from "react";
+import { Link } from "react-router-dom";
+import "./Login.css";
+import logo from '../../../../media/logo/logo.png'
 
 const Login = () => {
+
+  async function loginAction(prevState, formData) {
+    const username = formData.get("username");
+    const password = formData.get("password");
+    const remember = formData.get("remember") === "on";
+
+    const errors = {};
+    if (!username) errors.username = "Vui lòng nhập tên đăng nhập";
+    if (!password) errors.password = "Vui lòng nhập mật khẩu";
+
+    if (Object.keys(errors).length > 0) {
+      return { errors };
+    }
+
+    console.log({ username, password, remember });
+
+    return { success: true };
+  }
+
+  const [state, submit, pending] = useActionState(loginAction, {
+    errors: {},
+    success: false,
+  });
+
   return (
-    <div>
-        <form>
-            <input type="email" />
-            <input type="password" />
-            <button>Đăng nhập</button>
-        </form>
-    </div>
-  )
-}
+    <form action={submit}>
+      <div className="container">
+        <div className="auth-body row justify-content-center">
+          <div className="auth-form card">
 
-export default Login
+            {/* HEADER */}
+            <div className="auth-form__header">
+              <div className="auth-form__heading">
+                <div className="auth-form__logo">
+                  <Link to="/">
+                    <img src={logo} alt="logo" />
+                  </Link>
+                  <div className="auth-form__title">SayuneNovel</div>
+                </div>
+              </div>
 
+              <span className="auth-form__notice">
+                Nếu gặp bất cứ vấn đề gì khi đăng nhập/đăng ký, vui lòng liên hệ{" "}
+                <a href="#">tại đây</a>.
+              </span>
+            </div>
 
-// import { useState } from "react";
-// import { Link } from "react-router-dom";
+            {/* FORM */}
+            <div className="auth-form__form">
 
-// const Login = () => {
-//   const [form, setForm] = useState({
-//     username: "",
-//     password: "",
-//     remember: false,
-//   });
+              {/* USERNAME */}
+              <div className="auth-form__group">
+                <input
+                  type="text"
+                  className="auth-form__input mb-3"
+                  placeholder="Tên đăng nhập"
+                  name="username"
+                />
+                {state.errors?.username && (
+                  <p className="text-center text-danger">
+                    {state.errors.username}
+                  </p>
+                )}
+              </div>
 
-//   const [errors, setErrors] = useState({});
+              {/* PASSWORD */}
+              <div className="auth-form__group">
+                <input
+                  type="password"
+                  className="auth-form__input mb-3"
+                  placeholder="Mật khẩu"
+                  name="password"
+                />
+                {state.errors?.password && (
+                  <p className="text-center text-danger">
+                    {state.errors.password}
+                  </p>
+                )}
+              </div>
+            </div>
 
-//   const handleChange = (e) => {
-//     const { name, value, type, checked } = e.target;
-//     setForm({
-//       ...form,
-//       [name]: type === "checkbox" ? checked : value,
-//     });
-//   };
+            {/* REMEMBER */}
+            <div className="mb-3 d-flex justify-content-between">
+              <div className="form-submit-checkbox">
+                <input
+                  className="form-checkbox me-1"
+                  type="checkbox"
+                  id="RememberMe"
+                  name="remember"
+                />
+                <label htmlFor="RememberMe">Tự động đăng nhập</label>
+              </div>
+              <Link className="auth-form__submit-text" to="/forgot-password">
+                Quên mật khẩu?
+              </Link>
+            </div>
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
+            {/* SUBMIT */}
+            <div className="form-submit mb-3">
+              <button
+                className="auth-form__submit btn"
+                type="submit"
+                disabled={pending}
+              >
+                <span>{pending ? "Đang đăng nhập..." : "Đăng nhập"}</span>
+              </button>
+            </div>
 
-//     // demo validate
-//     const newErrors = {};
-//     if (!form.username) newErrors.username = "Vui lòng nhập tên đăng nhập";
-//     if (!form.password) newErrors.password = "Vui lòng nhập mật khẩu";
+            {/* GOOGLE */}
+            <div className="form-submit-other text-center mb-3">
+              <a
+                href="http://localhost:3000/auth/google"
+                className="auth-form__submit btn"
+              >
+                <span>Đăng nhập với Google</span>
+              </a>
+            </div>
 
-//     if (Object.keys(newErrors).length > 0) {
-//       setErrors(newErrors);
-//       return;
-//     }
+            {/* REGISTER */}
+            <div className="auth-form__submit-another mb-3">
+              <span>
+                Chưa có tài khoản?{" "}
+                <Link to="/register">Đăng ký ngay</Link>
+              </span>
+            </div>
 
-//     console.log("LOGIN DATA:", form);
-//     // TODO: call API login
-//   };
+          </div>
+        </div>
+      </div>
+    </form>
+  );
+};
 
-//   return (
-//     <div className="container">
-//       <div className="row justify-content-center">
-//         <div className="col-md-6 col-lg-4">
-//           <div className="card shadow mt-5">
-//             <div className="card-body">
-
-//               {/* LOGO */}
-//               <div className="text-center mb-4">
-//                 <Link to="/">
-//                   <img src="/img/logo.png" alt="Logo" height="50" />
-//                 </Link>
-//                 <h4 className="mt-2">SayuneNovel</h4>
-//               </div>
-
-//               <p className="text-center text-muted small">
-//                 Nếu gặp vấn đề khi đăng nhập/đăng ký, vui lòng liên hệ{" "}
-//                 <a href="#">tại đây</a>.
-//               </p>
-
-//               <form onSubmit={handleSubmit}>
-//                 {/* USERNAME */}
-//                 <div className="mb-3">
-//                   <input
-//                     type="text"
-//                     className="form-control"
-//                     placeholder="Tên đăng nhập"
-//                     name="username"
-//                     value={form.username}
-//                     onChange={handleChange}
-//                   />
-//                   {errors.username && (
-//                     <small className="text-danger">{errors.username}</small>
-//                   )}
-//                 </div>
-
-//                 {/* PASSWORD */}
-//                 <div className="mb-3">
-//                   <input
-//                     type="password"
-//                     className="form-control"
-//                     placeholder="Mật khẩu"
-//                     name="password"
-//                     value={form.password}
-//                     onChange={handleChange}
-//                   />
-//                   {errors.password && (
-//                     <small className="text-danger">{errors.password}</small>
-//                   )}
-//                 </div>
-
-//                 {/* REMEMBER */}
-//                 <div className="d-flex justify-content-between align-items-center mb-3">
-//                   <div className="form-check">
-//                     <input
-//                       className="form-check-input"
-//                       type="checkbox"
-//                       name="remember"
-//                       id="remember"
-//                       checked={form.remember}
-//                       onChange={handleChange}
-//                     />
-//                     <label className="form-check-label" htmlFor="remember">
-//                       Ghi nhớ đăng nhập
-//                     </label>
-//                   </div>
-
-//                   <Link to="/forgot-password" className="small">
-//                     Quên mật khẩu?
-//                   </Link>
-//                 </div>
-
-//                 {/* SUBMIT */}
-//                 <button type="submit" className="btn btn-primary w-100 mb-3">
-//                   Đăng nhập
-//                 </button>
-//               </form>
-
-//               {/* GOOGLE */}
-//               <a
-//                 href="http://localhost:3000/auth/google"
-//                 className="btn btn-outline-danger w-100 mb-3"
-//               >
-//                 Đăng nhập với Google
-//               </a>
-
-//               {/* REGISTER */}
-//               <div className="text-center">
-//                 <span>
-//                   Chưa có tài khoản?{" "}
-//                   <Link to="/register">Đăng ký ngay</Link>
-//                 </span>
-//               </div>
-
-//             </div>
-//           </div>
-//         </div>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default Login;
+export default Login;
