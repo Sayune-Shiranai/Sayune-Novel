@@ -56,7 +56,13 @@ const Login = () => {
         };
       }
 
-      navigate("/");
+      const role = data.user?.role;
+
+      if (role === "Admin" || role === "Mod" || role === "Uploader") {
+        navigate("/dashboard");
+      } else {
+        navigate("/");
+      }
 
       return {
         success: true,

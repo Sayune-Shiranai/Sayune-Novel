@@ -25,6 +25,7 @@ export async function login (req, res) {
     //bcrypt sẽ hash lại "123456" theo cùng cơ chế salt và so sánh với chuỗi hash trong DB.
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
+      const role = user.User_Role.role;
       const accessToken = jwt.sign(
         { username: user.username, role: user.role_id },
         JWT_SECRET,
@@ -45,7 +46,6 @@ export async function login (req, res) {
       res.cookie("accessToken", accessToken, { httpOnly: true, sameSite: "lax" });
       res.cookie("refreshToken", refreshToken, { httpOnly: true, sameSite: "lax" });
 
-
       return res.status(200).json({ 
         message: "Đăng nhập thành công!", 
         user: { 
@@ -53,6 +53,7 @@ export async function login (req, res) {
           username: user.username, 
           email: user.email,
           role_id: user.role_id,
+          role,
         }, 
         accessToken,
         refreshToken

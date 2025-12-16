@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Header from "../../components/Dashboard/Header/Header";
 import reactLogo from '../../assets/react.svg';
 import viteLogo from '../../assets/react.svg';
 import "./HomePage.css";
@@ -9,8 +8,6 @@ const Home = () => {
 
     return (
         <div>
-            <Header />
-
             <a href="https://vite.dev" target="_blank">
                 <img src={viteLogo} className="logo" alt="Vite logo" />
             </a>

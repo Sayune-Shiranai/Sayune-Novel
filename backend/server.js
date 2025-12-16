@@ -43,9 +43,11 @@ import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
 import noticesRoutes from "./routes/noticesRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
+
+//auth routes
 import registerRoutes from "./routes/registerRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js"
-
+import logoutRoutes from "./routes/logoutRoutes.js";
 
 // load biến môi trường
 dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
@@ -76,8 +78,11 @@ app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);
 app.use("/notices", noticesRoutes);
 app.use("/report", reportRoutes);
+
+//auth routes
 app.use("/register", registerRoutes);
 app.use("/login", loginRoutes);
+app.use("/logout", logoutRoutes);
 
 app.get('/HelloWorld', (req, res) => {
   res.send('Hello World!')
