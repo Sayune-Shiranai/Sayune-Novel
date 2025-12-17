@@ -5,17 +5,21 @@ import dotenv from "dotenv";
 import db from "./models/index.js";
 import cors from "cors";
 import path from "path";
+import cookieParser from "cookie-parser";
 
 
 const app = express();
 const PORT = 3000;
 
 app.use(express.json());
+app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors({
   origin: "http://localhost:5173", // hoặc "http://localhost:5173"
   credentials: true,
 }));
+
+
 
 //dashboard routes
 import RoleRoutes from "./routes/dashboard/RoleRoutes.js";
