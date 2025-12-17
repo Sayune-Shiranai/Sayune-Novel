@@ -38,6 +38,7 @@ import ReportRoutes from "./routes/dashboard/ReportRoutes.js";
 //home routes
 import homeRoutes from "./routes/homeRoutes.js";
 import usersRoutes from "./routes/usersRoutes.js";
+import profileRoutes from "./routes/profileRoutes.js";
 import roleRoutes from "./routes/roleRoutes.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import bookRoutes from "./routes/bookRoutes.js";
@@ -73,6 +74,7 @@ app.use("/dashboard/report", ReportRoutes) // dashboard/report
 // home routes
 app.use("/", homeRoutes);
 app.use("/user", usersRoutes); // /user
+app.use("/profile", profileRoutes); // profile
 app.use("/role", roleRoutes);
 app.use("/category", categoryRoutes); // category
 app.use("/book", bookRoutes); // book/

@@ -1,4 +1,4 @@
-const logout = async () => {
+export const logout = async () => {
   const res = await fetch("http://localhost:3000/logout", {
     method: "POST",
     credentials: "include",
@@ -11,4 +11,15 @@ const logout = async () => {
   return res.json();
 };
 
-export default logout;
+export const getProfile = async () => {
+  const res = await fetch("http://localhost:3000/profile", {
+    method: "GET",
+    credentials: "include",
+  });
+
+  if (!res.ok) {
+    throw new Error("Chưa đăng nhập");
+  }
+
+  return res.json();
+};

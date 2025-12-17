@@ -1,11 +1,27 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import logout from "../../../services/AuthService";
+import { logout, getProfile } from "../../../services/AuthService";
 import "./Header.css";
 import avt from '../../../../../media/avt/jindou-hikari.jpg'
 
 const Header = () => {
   const navigate = useNavigate();
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const fetchProfile = async () => {
+      try {
+        const res = await getProfile();
+        setUser(res.user); // ⚠ backend trả { user }
+      } catch (err) {
+        console.error(err);
+        setUser(null);
+      }
+    };
+
+    fetchProfile();
+  }, []);
+
 
   const handleLogout = async () => {
     try {
@@ -53,8 +69,8 @@ const Header = () => {
                 />
 
                 <div className="profile-info d-none d-md-block">
-                  <span>Sayune</span>
-                  <small>Admin</small>
+                  <span>{user?.username}</span>
+                  <small>{user?.role}</small>
                 </div>
 
                 <i className="fa fa-angle-down ms-2"></i>
