@@ -27,13 +27,21 @@ export async function login (req, res) {
     if (checkPassword) {
       const role = user.User_Role.role;
       const accessToken = jwt.sign(
-        { username: user.username, role: user.role_id },
+        { 
+          id: user.id, 
+          username: user.username, 
+          role: user.role_id 
+        },
         JWT_SECRET,
         { expiresIn: "1m" }
       );
 
       const refreshToken = jwt.sign(
-        { username: user.username, role: user.role_id },
+        { 
+          id: user.id, 
+          username: user.username, 
+          role: user.role_id 
+        },
         JWT_SECRET,
         { expiresIn: "7d" }
       );

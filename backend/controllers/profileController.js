@@ -17,9 +17,11 @@ export async function getProfile(req, res) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
     }
 
-    return res.status(200).json({
-      user
-    });
+    console.log("req.user trong getProfile:", req.user);
+
+    return res.json({ user });
+
+    
 
   } catch (err) {
     console.error("Get profile error:", err);

@@ -1,5 +1,3 @@
-//fixx
-
 import db from "../models/index.js";
 import jwt from "jsonwebtoken";
 
@@ -19,15 +17,16 @@ export async function verifyToken(req, res, next) {
       );
       req.user = decoded;
       console.log(decoded);
-      return next()
+      return next();
     } catch (error) {
-      console.log("AccessToken hết hạn:", error.message);
+      console.log({ message: "Token không hợp lệ" });
     }
   }
 
   // Nếu token không hợp lệ, kiểm tra refreshToken
   const currentUrl = req.url;
   console.log("Giá trị của currentUrl:", currentUrl);
+
   if (req.cookies.refreshToken) {
     console.log("Giá trị của refreshToken:", req.cookies.refreshToken);
     try {
@@ -50,24 +49,37 @@ export async function verifyToken(req, res, next) {
       if (!storedUser) {
         res.clearCookie("accessToken");
         res.clearCookie("refreshToken");
+        return res.status(401).send({ message: "User không tồn tại" });
       }
       
       console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
+      console.log("Giá trị của storedUser.refreshToken cũ:", storedUser.refreshToken);
+      console.log("Giá trị của storedUser:", storedUser);
       // Kiểm tra nếu refresh token hợp lệ
       if (storedUser && storedUser.refreshToken === req.cookies.refreshToken) {
-        console.log("Giá trị của refreshToken:", storedUser);
 
         // Tạo Access Token mới
         const newToken = jwt.sign(
-          { username: storedUser.username, role: storedUser.role },
+          { 
+            id: storedUser.id, 
+            username: storedUser.username, 
+            role: storedUser.role_id 
+          },
+          JWT_SECRET,
           { expiresIn: "1m" }
         );
-        // console.log("Giá trị của user.username:", storedUser.username);
-        // console.log("Giá trị của user.role:", storedUser.role);
+
+        console.log("Giá trị của storedUser.username:", storedUser.username);
+        console.log("Giá trị của storedUser.role:", storedUser.role_id);
 
         // Tạo Refresh Token mới
         const newRefreshToken = jwt.sign(
-          { username: storedUser.username, role: storedUser.role },
+          { 
+            id: storedUser.id, 
+            username: storedUser.username, 
+            role: storedUser.role_id 
+          },
+          JWT_SECRET,
           { expiresIn: "7d" }
         );
 
@@ -77,26 +89,27 @@ export async function verifyToken(req, res, next) {
         );
 
         // Gửi Access Token và Refresh Token mới về client
-        res.setCookie("accessToken", newToken, { 
+        res.cookie("accessToken", newToken, { 
             httpOnly: true,
             sameSite: "lax",
             path: "/",
         });
         console.log("Giá trị của newToken:", newToken);
 
-        res.setCookie("refreshToken", newRefreshToken, {
+        res.cookie("refreshToken", newRefreshToken, {
             httpOnly: true,
             sameSite: "lax",
             path: "/",
         });
-        console.log("Giá trị của newRefreshToken:", newRefreshToken);
+        console.log("Giá trị của newRefreshToken mới:", newRefreshToken);
 
         // Lưu thông tin người dùng vào request
         req.user = {
           id: storedUser.id,
           username: storedUser.username,
-          role: storedUser.role,
+          role: storedUser.role_id,
         };
+        
         console.log("Giá trị của currentUrl:", currentUrl);
         // return reply.redirect(currentUrl);
       } else {
@@ -113,6 +126,8 @@ export async function verifyToken(req, res, next) {
             message: "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
         });
     }
+  } else {
+    return res.status(401).send({ message: "Chưa đăng nhập" });
   }
 }
 
