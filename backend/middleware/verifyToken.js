@@ -1,133 +1,139 @@
 import db from "../models/index.js";
 import jwt from "jsonwebtoken";
+import AsyncLock from 'async-lock';
+const lock = new AsyncLock();
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
 export async function verifyToken(req, res, next) {
-  // console.log("Cookie accessToken:", req.cookies.accessToken);
-  // console.log("Cookie refreshToken:", req.cookies.refreshToken);
+  console.log("Cookie accessToken:", req.cookies.accessToken);
+  console.log("Cookie refreshToken:", req.cookies.refreshToken);
 
-  // Kiểm tra xem có token không
   if (req.cookies && req.cookies.accessToken) {
     req.user = null;
+    const currentUrl = req.url;
     try {
-      const decoded = jwt.verify(
+      // Xác thực token
+      const CheckAccessToken = await jwt.verify(
         req.cookies.accessToken,
         JWT_SECRET
       );
-      req.user = decoded;
-      console.log(decoded);
+      req.user = CheckAccessToken;
+      console.log("AccessToken hợp lệ:", CheckAccessToken);
+
+      console.log("Giá trị của currentUrl:", currentUrl);
       return next();
     } catch (error) {
-      console.log({ message: "Token không hợp lệ" });
-    }
-  }
+      console.log("Giá trị của currentUrl:", currentUrl);
 
-  // Nếu token không hợp lệ, kiểm tra refreshToken
-  const currentUrl = req.url;
-  console.log("Giá trị của currentUrl:", currentUrl);
+      //kiểm tra refresh token
+      if (req.cookies.refreshToken) {
+        console.log("Giá trị của cookie refreshToken:", req.cookies.refreshToken);
+        try {
+          const CheckRefreshToken = jwt.verify(
+            req.cookies.refreshToken,
+            JWT_SECRET
+          );
+          req.user = CheckRefreshToken;
+          console.log(CheckRefreshToken);
+          await lock.acquire(`refresh_lock_${CheckRefreshToken.id}`, async () => {
+            console.log("Xác thực refresh token thành công!")
 
-  if (req.cookies.refreshToken) {
-    console.log("Giá trị của refreshToken:", req.cookies.refreshToken);
-    try {
-      const decodedRefresh = jwt.verify(
-        req.cookies.refreshToken,
-        JWT_SECRET
-      );
-      req.user = decodedRefresh;
-      console.log(decodedRefresh);
+            const User = await db.usersModel.findOne({
+              where: { id: CheckRefreshToken.id },
+            });
 
-      const storedUser = await db.usersModel.findOne({
-        where: { id: decodedRefresh.id },
-      });
-      console.log("Giá trị của storedUser:", storedUser);
-      console.log(
-        "Giá trị của storedUser.refreshToken:",
-        storedUser.refreshToken
-      );
+            if (!User) {
+              res.clearCookie("accessToken");
+              res.clearCookie("refreshToken");
+              return res.status(401).send({ message: "User không tồn tại" });
+            }
+            
+            console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
+            console.log("Giá trị của User.refreshToken:", User.refreshToken);
 
-      if (!storedUser) {
-        res.clearCookie("accessToken");
-        res.clearCookie("refreshToken");
-        return res.status(401).send({ message: "User không tồn tại" });
-      }
-      
-      console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
-      console.log("Giá trị của storedUser.refreshToken cũ:", storedUser.refreshToken);
-      console.log("Giá trị của storedUser:", storedUser);
-      // Kiểm tra nếu refresh token hợp lệ
-      if (storedUser && storedUser.refreshToken === req.cookies.refreshToken) {
+            // Kiểm tra nếu refresh token hợp lệ
+            if (User && User.refreshToken === req.cookies.refreshToken) {
+              console.log("Giá trị của User.username:", User.username);
+              console.log("Giá trị của User.role:", User.role_id);
+              // Tạo Access Token mới
+              const newAccessToken = jwt.sign(
+                { 
+                  id: User.id, 
+                  username: User.username, 
+                  role: User.role_id 
+                },
+                JWT_SECRET,
+                { expiresIn: "1m" }
+              );
 
-        // Tạo Access Token mới
-        const newToken = jwt.sign(
-          { 
-            id: storedUser.id, 
-            username: storedUser.username, 
-            role: storedUser.role_id 
-          },
-          JWT_SECRET,
-          { expiresIn: "1m" }
-        );
+              // Tạo Refresh Token mới
+              const newRefreshToken = jwt.sign(
+                { 
+                  id: User.id, 
+                  username: User.username, 
+                  role: User.role_id 
+                },
+                JWT_SECRET,
+                { expiresIn: "7d" }
+              );
 
-        console.log("Giá trị của storedUser.username:", storedUser.username);
-        console.log("Giá trị của storedUser.role:", storedUser.role_id);
+              const UpdateRefreshToken = await db.usersModel.update(
+                { refreshToken: newRefreshToken },
+                { where: { id: User.id } }
+              );
 
-        // Tạo Refresh Token mới
-        const newRefreshToken = jwt.sign(
-          { 
-            id: storedUser.id, 
-            username: storedUser.username, 
-            role: storedUser.role_id 
-          },
-          JWT_SECRET,
-          { expiresIn: "7d" }
-        );
+              console.log("UpdateRefreshToken:", UpdateRefreshToken);
 
-        await db.usersModel.update(
-          { refreshToken: newRefreshToken },
-          { where: { id: storedUser.id } }
-        );
+              // Gửi Access Token mới về client
+              res.cookie("accessToken", newAccessToken, { 
+                  httpOnly: true,
+                  sameSite: "lax",
+                  path: "/",
+              });
+              console.log("Giá trị của newAccessToken:", newAccessToken);
 
-        // Gửi Access Token và Refresh Token mới về client
-        res.cookie("accessToken", newToken, { 
-            httpOnly: true,
-            sameSite: "lax",
-            path: "/",
-        });
-        console.log("Giá trị của newToken:", newToken);
+              res.cookie("refreshToken", newRefreshToken, {
+                  httpOnly: true,
+                  sameSite: "lax",
+                  path: "/",
+              });
+              console.log("Giá trị của newRefreshToken mới:", newRefreshToken);
 
-        res.cookie("refreshToken", newRefreshToken, {
-            httpOnly: true,
-            sameSite: "lax",
-            path: "/",
-        });
-        console.log("Giá trị của newRefreshToken mới:", newRefreshToken);
+              req.user = {
+                id: User.id,
+                username: User.username,
+                role: User.role_id,
+              };
 
-        // Lưu thông tin người dùng vào request
-        req.user = {
-          id: storedUser.id,
-          username: storedUser.username,
-          role: storedUser.role_id,
-        };
-        
-        console.log("Giá trị của currentUrl:", currentUrl);
-        // return reply.redirect(currentUrl);
+              //vị trí hiện tai url
+              console.log("Giá trị của currentUrl:", currentUrl);
+
+              console.log("Xác thực user thành công!")
+              
+            } else {
+              console.log("Request song song phát hiện: Đã có luồng khác cập nhật token.");
+              // Gán user từ DB để đi tiếp vào Controller, không cần tạo mới nữa
+              req.user = { id: User.id, username: User.username, role: User.role_id };
+            }
+          });
+          return next();
+        } catch (err) {
+          res.clearCookie("accessToken");
+          res.clearCookie("refreshToken");
+          return res.status(401).send({
+              message: "Token hết hạn!",
+          });
+        }
       } else {
-        res.clearCookie("accessToken");
-        res.clearCookie("refreshToken");
-        return res.status(401).send({
-          message: "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
+        return res.status(401).send({ 
+          message: "Lỗi xác thực refresh token!" 
         });
       }
-    } catch (err) {
-        res.clearCookie("accessToken");
-        res.clearCookie("refreshToken");
-        return res.status(401).send({
-            message: "Phiên đăng nhập đã hết hạn, vui lòng đăng nhập lại!",
-        });
     }
   } else {
-    return res.status(401).send({ message: "Chưa đăng nhập" });
+    return res.status(401).send({ 
+      message: "Chưa đăng nhập" 
+    });
   }
 }
-

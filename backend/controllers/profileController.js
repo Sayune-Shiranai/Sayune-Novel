@@ -2,6 +2,7 @@ import db from "../models/index.js";
 
 export async function getProfile(req, res) {
   try {
+    console.log("req.user trong getProfile:", req.user);
     if (!req.user || !req.user.id) {
       return res.status(401).json({ message: "Chưa đăng nhập!" });
     }
@@ -12,16 +13,12 @@ export async function getProfile(req, res) {
         exclude: ["password", "refreshToken"]
       }
     });
-
+    
     if (!user) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
     }
 
-    console.log("req.user trong getProfile:", req.user);
-
     return res.json({ user });
-
-    
 
   } catch (err) {
     console.error("Get profile error:", err);
