@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Đăng ký - SayuneNovel</title>
+    <link rel="stylesheet" href="./public_html/assets/css/base.css" />
+    <link rel="stylesheet" href="./public_html/assets/css/register.css" />
+    <style>
+      body {
+        margin: 0;
+        min-height: 100vh;
+        background-color: #0b1120;
+        color: #e5e7eb;
+        font-family: "Source Sans Pro", system-ui, -apple-system,
+          BlinkMacSystemFont, "Segoe UI", sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .auth-page-wrapper {
+        width: 100%;
+        max-width: 420px;
+        padding: 24px;
+      }
+
+      .auth-card {
+        background-color: #020617;
+        border-radius: 16px;
+        padding: 32px 28px 28px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+        border: 1px solid #1f2937;
+      }
+
+      .auth-form__logo {
+        background-image: url("./public_html/assets/img/logo/android-icon-144x144.png");
+        border-radius: 50%;
+      }
+
+      .auth-form__header {
+        color: #f9fafb;
+      }
+
+      .auth-form__input {
+        background-color: #020617;
+        color: #e5e7eb;
+      }
+
+      .auth-form__input::placeholder {
+        color: #6b7280;
+      }
+
+      .auth-form__group {
+        border-color: #374151;
+        background-color: #020617;
+      }
+
+      .auth-form__submit {
+        background: linear-gradient(90deg, #f97316, #facc15);
+        color: #111827;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+      .auth-form__submit:hover {
+        filter: brightness(1.05);
+      }
+
+      .auth-form__footer-text {
+        margin-top: 12px;
+        font-size: 13px;
+        color: #9ca3af;
+      }
+
+      .auth-form__footer-text a {
+        color: #f97316;
+        text-decoration: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="auth-page-wrapper">
+      <div class="auth-card">
+        <div class="auth-form">
+          <div class="auth-form__container">
+            <div class="auth-form__logo"></div>
+            <div class="auth-form__header">
+              <h3 class="auth-form-heading">SayuneNovel</h3>
+            </div>
+
+            <div class="auth-form__form">
+              <div class="auth-form__group">
+                <input
+                  type="text"
+                  class="auth-form__input"
+                  placeholder="Tên đăng nhập"
+                />
+              </div>
+
+              <div class="auth-form__group">
+                <input
+                  type="email"
+                  class="auth-form__input"
+                  placeholder="Email"
+                />
+              </div>
+
+              <div class="auth-form__group">
+                <input
+                  type="password"
+                  class="auth-form__input"
+                  placeholder="Mật khẩu"
+                />
+              </div>
+
+              <div class="auth-form__group">
+                <input
+                  type="password"
+                  class="auth-form__input"
+                  placeholder="Nhập lại mật khẩu"
+                />
+              </div>
+            </div>
+
+            <div class="auth-form__aside">
+              <label for class="auth-form__checkbox">
+                <span class="auth-form__checkbox-input">
+                  <input
+                    type="checkbox"
+                    class="auth-form__checkbox-original"
+                    id="agreement-check"
+                  />
+                  <label
+                    for="agreement-check"
+                    class="auth-form__checkbox-inner"
+                  >
+                  </label>
+                </span>
+
+                <span class="auth-form__checkbox-text">
+                  <span>Tôi đã đọc và đồng ý</span>
+                  <span><a href="#">Điều Khoản Dịch Vụ</a></span>
+                  <span>&</span>
+                  <span><a href="#">Chính Sách Về Quyền Riêng Tư</a></span>
+                </span>
+              </label>
+            </div>
+
+            <button class="auth-form__submit">
+              <span>Đăng ký</span>
+            </button>
+
+            <div class="auth-form__footer-text">
+              Đã có tài khoản?
+              <a href="./login.html">Đăng nhập</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./public_html/assets/js/apiClient.js"></script>
+    <script src="./public_html/assets/js/authApi.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        const card = document.querySelector(".auth-card");
+        const inputs = card.querySelectorAll(".auth-form__input");
+        const usernameInput = inputs[0];
+        const emailInput = inputs[1];
+        const passwordInput = inputs[2];
+        const confirmPasswordInput = inputs[3];
+        const submitBtn = card.querySelector(".auth-form__submit");
+        const agreementCheckbox = card.querySelector("#agreement-check");
+
+        async function handleRegister(e) {
+          e.preventDefault();
+          const username = usernameInput.value.trim();
+          const email = emailInput.value.trim();
+          const password = passwordInput.value.trim();
+          const confirmPassword = confirmPasswordInput.value.trim();
+
+          if (!username || !email || !password || !confirmPassword) {
+            alert("Vui lòng nhập đầy đủ thông tin đăng ký");
+            return;
+          }
+
+          if (password !== confirmPassword) {
+            alert("Mật khẩu nhập lại không khớp");
+            return;
+          }
+
+          if (agreementCheckbox && !agreementCheckbox.checked) {
+            alert(
+              "Vui lòng đồng ý Điều Khoản Dịch Vụ & Chính Sách Về Quyền Riêng Tư"
+            );
+            return;
+          }
+
+          submitBtn.disabled = true;
+          try {
+            await window.authApi.register({ username, email, password });
+            alert("Đăng ký thành công! Vui lòng đăng nhập.");
+            window.location.href = "./login.html";
+          } catch (err) {
+            const msg =
+              (err && err.data && err.data.message) ||
+              err.message ||
+              "Đăng ký thất bại";
+            alert(msg);
+          } finally {
+            submitBtn.disabled = false;
+          }
+        }
+
+        submitBtn.addEventListener("click", handleRegister);
+      });
+    </script>
+  </body>
+</html>
+
