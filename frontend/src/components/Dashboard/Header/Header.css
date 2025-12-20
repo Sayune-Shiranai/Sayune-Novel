@@ -124,6 +124,7 @@
 .profile-dropdown > li{
     padding: 0 !important;
     border-bottom: 1px solid rgb(230, 233, 235);
+    list-style-type: none;
 }
 
 .profile-dropdown li a {
@@ -135,7 +136,20 @@
     text-decoration: none;
 }
 
-.profile-dropdown li a:hover {
+.profile-dropdown li button {
+    background-color: white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 10px;
+    color: #051a1a;
+    text-decoration: none;
+    border: none;
+}
+
+.profile-dropdown li a:hover,
+.profile-dropdown li button:hover {
     /* background: #f3f9ff; */
     color: #006666;
 }

@@ -39,7 +39,7 @@ const Header = () => {
         <div className="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
             <div>
                 <div className="d-flex align-items-center gap-2 ">
-                    <h4 className="f-w-600 m-0">Xin chào Sayune</h4>
+                    <h4 className="f-w-600 m-0">Xin chào {user?.username}</h4>
                 </div>
             </div>
             <div className="welcome-content d-xl-block d-none">
@@ -70,7 +70,7 @@ const Header = () => {
       
                 <div className="profile-info d-none d-md-block">
                   <span>{user?.username}</span>
-                  <small>{user?.role}</small>
+                  <small>{user?.User_Role.role}</small>
                 </div>
 
                 <i className="fa fa-angle-down ms-2"></i>

@@ -11,8 +11,15 @@ export async function getProfile(req, res) {
       where: { id: req.user.id },
       attributes: {
         exclude: ["password", "refreshToken"]
-      }
+      },
+      include: [{
+        model: db.roleModel,
+        as: "User_Role",
+        attributes: ["role"]
+      }]
     });
+
+    console.log("User:", user)
     
     if (!user) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
