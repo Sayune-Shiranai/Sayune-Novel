@@ -15,9 +15,9 @@ const DashboardLayout = () => {
       {/* Body */}
       <div className="page-body-wrapper">
         <Sidebar />
-        <h1>Dashboard Page Body wrapper</h1>
+        {/* <h1>Dashboard Page Body wrapper</h1> */}
         <div className="page-body">
-          <h1>Dashboard Page Body</h1>
+          {/* <h1>Dashboard Page Body</h1> */}
           {/* <Outlet /> */}
         </div>
         <Footer />

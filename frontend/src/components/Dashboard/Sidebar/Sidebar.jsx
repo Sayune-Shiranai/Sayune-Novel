@@ -1,27 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css"
+import logo from '../../../../../media/logo/logo-dark.png'
 
 const Sidebar = () => {
   return (
     <aside className="sidebar-wrapper">
-
-      {/* Logo */}
       <div className="logo-wrapper">
         <Link to="/dashboard">
-          <img className="img-fluid" src="/202404/images/logo.png" alt="" />
+          <img className="logo-dark" src={logo} alt="logo-dark" />
         </Link>
-        <div className="back-btn"><i className="fa fa-angle-left"></i></div>
-        <div className="toggle-sidebar">
-          <i className="status_toggle middle sidebar-toggle" data-feather="grid"></i>
-        </div>
+        {/* <div className="back-btn"><i className="fa fa-angle-left"></i></div> */}
       </div>
 
-      <div className="logo-icon-wrapper">
+      <div className="toggle-sidebar">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      </div>
+      {/* <div className="logo-icon-wrapper">
         <Link to="/dashboard">
           <img className="img-fluid" src="/202404/images/logobe.png" alt="" />
         </Link>
-      </div>
+      </div> */}
 
       {/* Sidebar menu */}
       <nav className="sidebar-main">
@@ -33,7 +32,7 @@ const Sidebar = () => {
           <ul className="sidebar-links" id="simple-bar">
 
             {/* Back button mobile */}
-            <li className="back-btn">
+            {/* <li className="back-btn">
               <Link to="/dashboard">
                 <img className="img-fluid" src="/202404/images/logo.png" alt="" />
               </Link>
@@ -42,24 +41,20 @@ const Sidebar = () => {
                 <span>Back</span>
                 <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
               </div>
-            </li>
+            </li> */}
 
-            {/* Pinned */}
+            {/* Pinned
             <li className="pin-title sidebar-main-title">
               <div><h6>Pinned</h6></div>
-            </li>
+            </li> */}
 
-            {/* ---------------------- */}
-            {/* MENU MẪU TĨNH DƯỚI ĐÂY */}
-            {/* ---------------------- */}
 
             {/* QUẢN LÝ HỆ THỐNG */}
             <li className="sidebar-main-title">
-              <div><h6>Quản lý hệ thống</h6></div>
+              <div><h6 className="m-0">Quản lý hệ thống</h6></div>
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title link-nav" to="/dashboard">
                 <i className="fa fa-home"></i>
                 <span className="ms-2">Dashboard</span>
@@ -67,7 +62,6 @@ const Sidebar = () => {
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title" to="#">
                 <i className="fa fa-user"></i>
                 <span className="ms-2">Người dùng</span>
@@ -81,11 +75,10 @@ const Sidebar = () => {
 
             {/* QUẢN LÝ TRUYỆN */}
             <li className="sidebar-main-title">
-              <div><h6>Quản lý truyện</h6></div>
+              <div><h6 className="m-0">Quản lý truyện</h6></div>
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title link-nav" to="/books">
                 <i className="fa fa-book"></i>
                 <span className="ms-2">Danh sách truyện</span>
@@ -93,7 +86,6 @@ const Sidebar = () => {
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title link-nav" to="/books/create">
                 <i className="fa fa-plus-circle"></i>
                 <span className="ms-2">Thêm truyện</span>
@@ -101,7 +93,6 @@ const Sidebar = () => {
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title" to="#">
                 <i className="fa fa-list"></i>
                 <span className="ms-2">Quản lý chương</span>
@@ -115,11 +106,10 @@ const Sidebar = () => {
 
             {/* CÀI ĐẶT */}
             <li className="sidebar-main-title">
-              <div><h6>Cài đặt</h6></div>
+              <div><h6 className="m-0">Cài đặt</h6></div>
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title link-nav" to="/settings/system">
                 <i className="fa fa-cog"></i>
                 <span className="ms-2">Cấu hình hệ thống</span>
@@ -127,7 +117,6 @@ const Sidebar = () => {
             </li>
 
             <li className="sidebar-list">
-              <i className="fa fa-thumb-tack"></i>
               <Link className="sidebar-link sidebar-title link-nav" to="/settings/profile">
                 <i className="fa fa-id-card"></i>
                 <span className="ms-2">Thông tin tài khoản</span>

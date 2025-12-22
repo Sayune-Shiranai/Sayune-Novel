@@ -4,66 +4,85 @@
   height: 100vh;
   background: #fff;
   position: fixed;
-  top: 80px;            /* phù hợp với Header cao 80px */
   left: 0;
   border-right: 1px solid #ddd;
-  overflow-y: auto;
-  z-index: 100;
+  /* overflow-y: auto; */
+  z-index: 2;
   transition: all 0.3s ease;
 }
 
-/* Container chính */
+.sidebar-wrapper .logo-wrapper {
+  position: sticky;
+    overflow: hidden;
+    text-align: center;
+    white-space: nowrap;
+    -webkit-transition: all .3s ease-in-out;
+    transition: all .3s ease-in-out;
+    line-height: var(--bs-topbar-height);
+}
+
+.sidebar-wrapper .toggle-sidebar {
+  position: absolute;
+  right: 32px;
+  top: 32px;
+  cursor: pointer;
+}
+
+.sidebar-wrapper .logo-wrapper .logo-dark {
+  height: var(--bs-logo-lg-height);
+  right: 32px;
+  position: relative;
+}
+
 .sidebar-main {
-  padding: 0 10px;
+  /* padding: 0 10px; */
 }
 
-/* UL danh sách */
+.sidebar-main .sidebar-menu {}
+
 .sidebar-links {
-  list-style: none;
+  list-style-type: none;
   padding: 0;
-  margin: 0;
 }
 
-/* Tiêu đề nhóm menu */
 .sidebar-main-title {
-  padding: 15px 12px 5px 12px;
-  font-size: 12px;
-  font-weight: bold;
-  color: #999;
+  padding: 10px 20px;
+  /* color: #999; */
   text-transform: uppercase;
 }
 
-/* Item menu */
-.sidebar-list {
-  margin-bottom: 4px;
+.sidebar-main-title h6 {
+  font-size: 16px;
+  font-weight: 600;
 }
 
-/* Link menu cấp 1 */
+.sidebar-list {
+  /* display: flex;
+  align-items: center; */
+}
+
+.sidebar-list:hover {
+  background: #eef5ff;
+  color: #0d6efd;
+}
+
 .sidebar-link {
   display: flex;
   align-items: center;
-  padding: 10px 14px;
+  padding: 10px 20px;
   border-radius: 6px;
-  color: #222;
+  color: black;
   text-decoration: none;
   transition: all 0.25s ease;
   position: relative;
 }
 
-/* Icon menu cấp 1 */
 .sidebar-link i {
   width: 22px;
   text-align: center;
   font-size: 16px;
 }
 
-/* Hover cấp 1 */
-.sidebar-link:hover {
-  background: #eef5ff;
-  color: #0d6efd;
-}
-
-/* Menu con */
 .sidebar-submenu {
   list-style: none;
   padding: 5px 0 5px 42px;

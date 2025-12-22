@@ -10,6 +10,11 @@
     --light2: #F5F6F9;
     --sidebar-border: rgba(0, 0, 0, 0.1);
     --chart-text-color: rgba(82, 82, 108, 0.8);
+    --bs-topbar-height: 80px;
+    --bs-logo-lg-height: 40px;
+    --bs-logo-sm-height: 24px;
+    --bs-sidebar-width: 250px;
+    --bs-sidebar-width-sm: 70px;
 
 }
 

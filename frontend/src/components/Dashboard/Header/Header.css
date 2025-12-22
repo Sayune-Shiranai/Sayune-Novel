@@ -43,13 +43,6 @@
     color: var(--chart-text-color);
 }
 
-.toggle-sidebar {
-    background: none;
-    border: none;
-    font-size: 20px;
-    cursor: pointer;
-}
-
 /* RIGHT */
 .nav-menus {
     list-style: none;
@@ -155,5 +148,5 @@
 }
 
 .page-body-wrapper {
-    padding-top: 80px;
+    /* padding-top: 80px; */
 }
