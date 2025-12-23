@@ -1,133 +1,165 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import "./Sidebar.css"
-import logo from '../../../../../media/logo/logo-dark.png'
+import "./Sidebar.css";
+import logo from "../../../../../media/logo/logo-dark.png";
 
 const Sidebar = () => {
+  const [openMenu, setOpenMenu] = useState(null);
+
+  const toggleMenu = (menu) => {
+    setOpenMenu(openMenu === menu ? null : menu);
+  };
+
+  const [collapsed, setCollapsed] = useState(false);
+
   return (
-    <aside className="sidebar-wrapper">
+    <aside className={`sidebar-wrapper ${collapsed ? "collapsed" : ""}`}>
       <div className="logo-wrapper">
         <Link to="/dashboard">
           <img className="logo-dark" src={logo} alt="logo-dark" />
         </Link>
-        {/* <div className="back-btn"><i className="fa fa-angle-left"></i></div> */}
       </div>
 
-      <div className="toggle-sidebar">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid status_toggle middle sidebar-toggle"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+      <div className="toggle-sidebar" onClick={() => setCollapsed(!collapsed)}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="feather feather-grid sidebar-toggle"
+        >
+          <rect x="3" y="3" width="7" height="7" />
+          <rect x="14" y="3" width="7" height="7" />
+          <rect x="14" y="14" width="7" height="7" />
+          <rect x="3" y="14" width="7" height="7" />
+        </svg>
       </div>
-      {/* <div className="logo-icon-wrapper">
-        <Link to="/dashboard">
-          <img className="img-fluid" src="/202404/images/logobe.png" alt="" />
-        </Link>
-      </div> */}
 
-      {/* Sidebar menu */}
       <nav className="sidebar-main">
-        <div className="left-arrow" id="left-arrow">
-          <i data-feather="arrow-left"></i>
-        </div>
+        <ul className="sidebar-links">
 
-        <div id="sidebar-menu">
-          <ul className="sidebar-links" id="simple-bar">
+          {/* QUẢN LÝ HỆ THỐNG */}
+          <li className="sidebar-main-title">
+            <h6>Quản lý hệ thống</h6>
+          </li>
 
-            {/* Back button mobile */}
-            {/* <li className="back-btn">
-              <Link to="/dashboard">
-                <img className="img-fluid" src="/202404/images/logo.png" alt="" />
-              </Link>
+          <li className="sidebar-list">
+            <Link className="sidebar-link sidebar-title" to="/dashboard">
+              <i className="fa fa-home"></i>
+              <span className="ms-2">Dashboard</span>
+            </Link>
+          </li>
 
-              <div className="mobile-back text-end">
-                <span>Back</span>
-                <i className="fa fa-angle-right ps-2" aria-hidden="true"></i>
-              </div>
-            </li> */}
+          {/* NGƯỜI DÙNG */}
+          <li className={`sidebar-list ${openMenu === "users" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("users")}
+            >
+              <i className="fa fa-user"></i>
+              <span className="ms-2">Người dùng</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
 
-            {/* Pinned
-            <li className="pin-title sidebar-main-title">
-              <div><h6>Pinned</h6></div>
-            </li> */}
+            <ul className="sidebar-submenu">
+              <li><Link to="/dashboard/users">Danh sách người dùng</Link></li>
+              <li><Link to="/dashboard/users/create">Thêm người dùng</Link></li>
+            </ul>
+          </li>
 
+          {/* QUẢN LÝ TRUYỆN */}
+          <li className="sidebar-main-title">
+            <h6>Quản lý truyện</h6>
+          </li>
 
-            {/* QUẢN LÝ HỆ THỐNG */}
-            <li className="sidebar-main-title">
-              <div><h6 className="m-0">Quản lý hệ thống</h6></div>
-            </li>
+          <li className={`sidebar-list ${openMenu === "book" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("book")}
+            >
+              <i className="fa fa-user"></i>
+              <span className="ms-2">Quản lý truyện</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title link-nav" to="/dashboard">
-                <i className="fa fa-home"></i>
-                <span className="ms-2">Dashboard</span>
-              </Link>
-            </li>
+            <ul className="sidebar-submenu">
+              <li><Link to="/users/list">Danh sách truyện</Link></li>
+              <li><Link to="/users/create">Thêm truyện</Link></li>
+            </ul>
+          </li>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title" to="#">
-                <i className="fa fa-user"></i>
-                <span className="ms-2">Người dùng</span>
-              </Link>
+          <li className={`sidebar-list ${openMenu === "category" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("category")}
+            >
+              <i className="fa fa-list"></i>
+              <span className="ms-2">Quản lý thể loại</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
 
-              <ul className="sidebar-submenu">
-                <li><Link to="/users/list">Danh sách người dùng</Link></li>
-                <li><Link to="/users/create">Thêm người dùng</Link></li>
-              </ul>
-            </li>
+            <ul className="sidebar-submenu">
+              <li><Link to="/chapters">Danh sách thể loại</Link></li>
+              <li><Link to="/chapters/create">Thêm thể loại</Link></li>
+            </ul>
+          </li>
 
-            {/* QUẢN LÝ TRUYỆN */}
-            <li className="sidebar-main-title">
-              <div><h6 className="m-0">Quản lý truyện</h6></div>
-            </li>
+          <li className={`sidebar-list ${openMenu === "author" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("author")}
+            >
+              <i className="fa fa-list"></i>
+              <span className="ms-2">Quản lý tác giả</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title link-nav" to="/books">
-                <i className="fa fa-book"></i>
-                <span className="ms-2">Danh sách truyện</span>
-              </Link>
-            </li>
+            <ul className="sidebar-submenu">
+              <li><Link to="/chapters">Danh sách tác giả</Link></li>
+              <li><Link to="/chapters/create">Thêm tác giả</Link></li>
+            </ul>
+          </li>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title link-nav" to="/books/create">
-                <i className="fa fa-plus-circle"></i>
-                <span className="ms-2">Thêm truyện</span>
-              </Link>
-            </li>
+          <li className={`sidebar-list ${openMenu === "artist" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("artist")}
+            >
+              <i className="fa fa-list"></i>
+              <span className="ms-2">Quản lý họa sĩ</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title" to="#">
-                <i className="fa fa-list"></i>
-                <span className="ms-2">Quản lý chương</span>
-              </Link>
+            <ul className="sidebar-submenu">
+              <li><Link to="/chapters">Danh sách họa sĩ</Link></li>
+              <li><Link to="/chapters/create">Thêm họa sĩ</Link></li>
+            </ul>
+          </li>
 
-              <ul className="sidebar-submenu">
-                <li><Link to="/chapters">Danh sách chương</Link></li>
-                <li><Link to="/chapters/create">Thêm chương</Link></li>
-              </ul>
-            </li>
+          <li className="sidebar-main-title">
+            <h6>Cài đặt</h6>
+          </li>
 
-            {/* CÀI ĐẶT */}
-            <li className="sidebar-main-title">
-              <div><h6 className="m-0">Cài đặt</h6></div>
-            </li>
+          <li className="sidebar-list">
+            <Link className="sidebar-link sidebar-title" to="/settings/system">
+              <i className="fa fa-cog"></i>
+              <span className="ms-2">Cấu hình hệ thống</span>
+            </Link>
+          </li>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title link-nav" to="/settings/system">
-                <i className="fa fa-cog"></i>
-                <span className="ms-2">Cấu hình hệ thống</span>
-              </Link>
-            </li>
+          <li className="sidebar-list">
+            <Link className="sidebar-link sidebar-title" to="/settings/profile">
+              <i className="fa fa-id-card"></i>
+              <span className="ms-2">Thông tin tài khoản</span>
+            </Link>
+          </li>
 
-            <li className="sidebar-list">
-              <Link className="sidebar-link sidebar-title link-nav" to="/settings/profile">
-                <i className="fa fa-id-card"></i>
-                <span className="ms-2">Thông tin tài khoản</span>
-              </Link>
-            </li>
-          </ul>
-
-          <div className="right-arrow" id="right-arrow">
-            <i data-feather="arrow-right"></i>
-          </div>
-        </div>
+        </ul>
       </nav>
     </aside>
   );

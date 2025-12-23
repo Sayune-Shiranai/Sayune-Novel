@@ -5,8 +5,8 @@ import LoginPage from "./pages/Auth/Login/LoginPage.jsx";
 import RegisterPage from "./pages/Auth/Register/RegisterPage.jsx";
 import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
 
-import Home from './pages/Home/HomePage.jsx';
-import User from "./pages/User/UserPage.jsx";
+import HomePage from './pages/Home/HomePage.jsx';
+import UserPage from "./pages/User/UserPage.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -22,16 +22,16 @@ const App = () => {
       </Route>
 
       {/* HOME */}
-      <Route path="/" element={<Home />} />
+      <Route path="/" element={<HomePage />} />
 
       {/* DASHBOARD */}
       <Route path="/dashboard" element={<DashboardLayout />}>
 
         {/* /dashboard */}
-        <Route index element={<User />} />
+        <Route index element={null} />
 
         {/* /dashboard/user */}
-        <Route path="user" element={<User />} />
+        <Route path="users" element={<UserPage />} />
 
         {/* /dashboard/book/create */}
         {/* <Route path="book/create" element={<BookCreatePage />} /> */}
