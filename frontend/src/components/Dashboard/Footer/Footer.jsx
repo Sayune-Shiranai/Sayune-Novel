@@ -1,9 +1,14 @@
 import React from 'react'
+import './Footer.css'
 
 const Footer = () => {
   return (
-    <footer style={{ padding: 20, textAlign: "center" }}>
-      <p>© SayuneNovel React</p>
+    <footer className='page-footer'>
+      <div className="container-fluid">
+        <div className='row'>
+          <p>© SayuneNovel React</p>
+        </div>
+      </div>
     </footer>
   );
 }

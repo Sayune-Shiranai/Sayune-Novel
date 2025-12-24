@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import './UserPage.css'
 
 export default function UserPage() {
   const [users, setUsers] = useState([]);
@@ -92,7 +93,7 @@ export default function UserPage() {
   };
 
   return (
-    <div className="container mt-4">
+    <div className="main-page container-fluid">
       <h2 className="mb-3">Danh sách người dùng</h2>
 
       {/* Search box */}

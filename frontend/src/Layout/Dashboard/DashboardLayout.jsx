@@ -5,6 +5,7 @@ import { Outlet } from "react-router-dom";
 import Header from '../../components/Dashboard/Header/Header';
 import Sidebar from '../../components/Dashboard/Sidebar/Sidebar'
 import Footer from '../../components/Dashboard/Footer/Footer';
+import './DashboardLayout.css'
 
 const DashboardLayout = () => {
   return (
