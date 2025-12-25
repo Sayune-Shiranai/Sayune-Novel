@@ -70,11 +70,12 @@ useEffect(() => {
               <table className="table table-bordered table-hover">
                 <thead className="table-light">
                   <tr>
-                    <th>#</th>
-                    <th>Username</th>
+                    <th>Id</th>
+                    <th>Tên người dùng</th>
                     <th>Email</th>
                     <th>Role</th>
-                    <th width="120">Hành động</th>
+                    <th>Trạng thái kiểm duyệt</th>
+                    <th width="120">Chức năng</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -94,6 +95,13 @@ useEffect(() => {
                           <span className="badge bg-info">
                             {u.User_Role?.role}
                           </span>
+                        </td>
+                        <td>
+                          {u.isVerified ? (
+                            <span className="badge bg-success">Duyệt</span>
+                          ) : (
+                            <span className="badge bg-warning">Từ chối</span>
+                          )}
                         </td>
                         <td>
                           <button className="btn btn-sm btn-primary me-2">
