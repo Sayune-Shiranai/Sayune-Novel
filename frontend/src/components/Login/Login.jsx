@@ -3,6 +3,7 @@ import { useActionState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../../../../media/logo/logo.png";
+import { login } from "../../services/AuthService";
 
 const initialState = {
   success: false,
@@ -35,30 +36,11 @@ const Login = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ username, password }),
-      });
-
-      const data = await res.json();
-
-      if (!res.ok) {
-        return {
-          success: false,
-          errors: {
-            general: data.message || "Đăng nhập thất bại",
-          },
-          formData: { username, password },
-        };
-      }
+      const data = await login(username, password);
 
       const role = data.user?.role;
 
-      if (role === "Admin" || role === "Mod" || role === "Uploader") {
+      if (["Admin", "Mod", "Uploader"].includes(role)) {
         navigate("/dashboard");
       } else {
         navigate("/");
@@ -69,12 +51,13 @@ const Login = () => {
         errors: {},
         formData: {},
       };
+
     } catch (err) {
-      console.error("Login error:", err);
       return {
         success: false,
         errors: {
-          general: "Không kết nối được server",
+          general:
+            err.response?.data?.message || "Không kết nối được server",
         },
         formData: { username, password },
       };

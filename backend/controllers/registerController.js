@@ -44,7 +44,8 @@ export async function register (req, res) {
     username, 
     email, 
     password: hashedPassword,
-    role_id: role.id
+    role_id: role.id,
+    trangthai: '1'
   });
     return res.status(201).json({ 
       message: 'Tạo user thành công!', 

@@ -9,7 +9,7 @@ const Header = () => {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    const fetchProfile = async () => {
+    const Profile = async () => {
       try {
         const res = await getProfile();
         setUser(res.user);
@@ -19,7 +19,7 @@ const Header = () => {
       }
     };
 
-    fetchProfile();
+    Profile();
   }, []);
 
 

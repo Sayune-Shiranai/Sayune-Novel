@@ -2,6 +2,7 @@ import { useActionState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Register.css";
 import logo from "../../../../media/logo/logo.png";
+import { register } from "../../services/AuthService"
 
 const initialState = {
   success: false,
@@ -28,14 +29,10 @@ const Register = () => {
     const errors = {};
     if (!username) errors.username = "Tên đăng nhập không được để trống!";
     if (!email) errors.email = "Email không được để trống!";
-    if (!password) errors.password = "Mật khẩu không được để trống";
-    if (!confirm) errors.confirm = "Vui lòng nhập lại mật khẩu";
-    if (password && confirm !== confirm) {
-      errors.confirm = "Mật khẩu không khớp";
-    }
-    if (!AgreeTerm) {
-      errors.AgreeTerm = "Bạn phải đồng ý với điều khoản";
-    }
+    if (!password) errors.password = "Mật khẩu không được để trống!";
+    if (!confirm) errors.confirm = "Vui lòng nhập lại mật khẩu!";
+    if (password !== confirm) errors.confirm = "Mật khẩu không khớp!";
+    if (!AgreeTerm) errors.AgreeTerm = "Bạn phải đồng ý với điều khoản!";
 
     if (Object.keys(errors).length > 0) {
       return {
@@ -46,27 +43,15 @@ const Register = () => {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/register", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, email, password, confirmPassword:confirm }),
+      await register({
+        username,
+        email,
+        password,
+        confirmPassword: confirm,
+        role: "Member",
       });
 
-      const data = await res.json();
-
-      if (!res.ok) {
-        return {
-          success: false,
-          errors: {
-            general: data.message || "Đăng ký thất bại",
-          },
-          formData: { username, email, password, confirm},
-        };
-      }
-
-      navigate("/");
+      navigate("/login");
 
       return {
         success: true,
@@ -74,14 +59,15 @@ const Register = () => {
         formData: {},
       };
     } catch (err) {
-        console.error("FETCH FAILED:", err);
-        alert(err.message);
       return {
         success: false,
         errors: {
-          general: "Không kết nối được server",
+          general:
+            err?.response?.data?.message ||
+            err.message ||
+            "Không kết nối được server",
         },
-        formData: { username, email, password, confirm},
+        formData: { username, email, password, confirm, AgreeTerm },
       };
     }
   }

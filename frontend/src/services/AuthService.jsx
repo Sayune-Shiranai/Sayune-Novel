@@ -1,25 +1,42 @@
-export const logout = async () => {
-  const res = await fetch("http://localhost:3000/logout", {
-    method: "POST",
-    credentials: "include",
-  });
+import axios from "axios";
 
-  if (!res.ok) {
+export const login = async (username, password) => {
+  const res = await axios.post(
+    "http://localhost:3000/login", 
+    { username, password }, 
+    { withCredentials: true }
+  );
+  return res.data;
+};
+
+export const register = async (data) => {
+  const res = await axios.post("http://localhost:3000/register", data);
+  return res.data;
+};
+
+export const logout = async () => {
+  try {
+    const res = await axios.post(
+      "http://localhost:3000/logout",
+      {},
+      { withCredentials: true }
+    );
+
+    return res.data;
+  } catch {
     throw new Error("Đăng xuất thất bại!");
   }
-
-  return res.json();
 };
 
 export const getProfile = async () => {
-  const res = await fetch("http://localhost:3000/profile", {
-    method: "GET",
-    credentials: "include",
-  });
+  try {
+    const res = await axios.get(
+      "http://localhost:3000/profile",
+      { withCredentials: true }
+    );
 
-  if (!res.ok) {
+    return res.data;
+  } catch {
     throw new Error("Chưa đăng nhập");
   }
-
-  return res.json();
 };
