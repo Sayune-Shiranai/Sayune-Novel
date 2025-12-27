@@ -67,8 +67,8 @@ const Sidebar = () => {
             </div>
 
             <ul className="sidebar-submenu">
-              <li><Link to="/dashboard/users">Danh sách người dùng</Link></li>
-              <li><Link to="/dashboard/users/create">Thêm người dùng</Link></li>
+              <li><Link to="/dashboard/user">Danh sách người dùng</Link></li>
+              <li><Link to="/dashboard/user/create">Thêm người dùng</Link></li>
             </ul>
           </li>
 
@@ -88,8 +88,8 @@ const Sidebar = () => {
             </div>
 
             <ul className="sidebar-submenu">
-              <li><Link to="/users/list">Danh sách truyện</Link></li>
-              <li><Link to="/users/create">Thêm truyện</Link></li>
+              <li><Link to="/book/list">Danh sách truyện</Link></li>
+              <li><Link to="/book/create">Thêm truyện</Link></li>
             </ul>
           </li>
 

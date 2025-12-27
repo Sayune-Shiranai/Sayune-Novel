@@ -67,7 +67,6 @@ export default function UserPage() {
 
   return (
     <div className="main-page">
-      {/* ===== PAGE TITLE ===== */}
       <div className="page-header-box container-fluid">
         <div className="page-title">
           <div className="row">
@@ -153,7 +152,6 @@ export default function UserPage() {
                           )}
                         </td>
                         <td className="text-center">
-                          {/* CHỜ DUYỆT */}
                           {u.trangthai === 0 && (
                             <>
                               <button
@@ -171,7 +169,6 @@ export default function UserPage() {
                             </>
                           )}
 
-                          {/* TỪ CHỐI */}
                           {u.trangthai === 2 && (
                           <>
                             <button
@@ -198,7 +195,6 @@ export default function UserPage() {
                           </>
                           )}
 
-                          {/* ĐÃ DUYỆT */}
                           {u.trangthai === 1 && (
                             <button
                               className="btn btn-sm btn-warning text-dark"
@@ -215,7 +211,6 @@ export default function UserPage() {
               </table>
             </div>
 
-            {/* PAGINATION */}
             <div className="d-flex justify-content-center mt-3">
               <ul className="pagination">
                 {Array.from({ length: totalPages }, (_, i) => (

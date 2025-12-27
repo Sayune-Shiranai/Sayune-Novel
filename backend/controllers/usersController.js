@@ -140,6 +140,28 @@ export async function rejectUser(req, res) {
   }
 }
 
+// Lấy thông tin user theo ID
+export async function getUserById(req, res) {
+  try {
+    const { id } = req.params;
+    const user = await db.usersModel.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.roleModel,
+          as: "User_Role"
+        }
+      ]
+    });
+    if (!user) return res.status(404).json({ success: false, message: 'Không tìm thấy user!' });
+
+    res.json({ success: true, data: user });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
 // Lấy tất cả người dùng
 export async function getAllUsers(req, res) {
   try {

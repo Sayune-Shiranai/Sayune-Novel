@@ -7,6 +7,7 @@ import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
 
 import HomePage from './pages/Home/HomePage.jsx';
 import UserPage from "./pages/User/UserPage.jsx";
+import UpdateUserPage from "./pages/User/UpdateUserPage/UpdateUserPage.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -31,7 +32,9 @@ const App = () => {
         <Route index element={null} />
 
         {/* /dashboard/user */}
-        <Route path="users" element={<UserPage />} />
+        <Route path="user" element={<UserPage />} />
+        {/* /dashboard/user/update/:id */}
+        <Route path="user/update/:id" element={<UpdateUserPage />} />
 
         {/* /dashboard/book/create */}
         {/* <Route path="book/create" element={<BookCreatePage />} /> */}
