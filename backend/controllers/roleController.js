@@ -28,7 +28,7 @@ export async function GetPaged(req, res) {
       include: [
         {
           model: db.usersModel,
-          as: "Role_Users"
+          as: "Role_User"
         }
       ],
       limit,

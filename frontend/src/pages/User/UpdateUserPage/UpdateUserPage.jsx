@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserById, updateUser } from "../../../services/UserService";
+import { getPagedRoles } from "../../../services/RoleService";
 
 const UpdateUserPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
+  const [roles, setRoles] = useState([]);
+
   const [formData, setFormData] = useState({
     username: "",
     email: "",
-    role: "",
+    role_id: "",
   });
 
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await getUserById(id);
-
-        const user = res.data.data;
-
+        const userRes = await getUserById(id);
+        const roleRes = await getPagedRoles();
+        const user = userRes.data.data;
+        
         setFormData({
           username: user.username,
           email: user.email,
-          role: user.User_Role?.role,
+          role_id: user.role_id,
         });
+
+        setRoles(roleRes.data.data ?? roleRes.data);
       } catch (error) {
         console.error(error);
       }
@@ -32,7 +37,6 @@ const UpdateUserPage = () => {
     fetchUser();
   }, [id]);
 
-  /* Handle input */
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -40,12 +44,10 @@ const UpdateUserPage = () => {
     });
   };
 
-  /* Submit */
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       await updateUser(id, formData);
-      alert("Cập nhật thành công");
       navigate("/dashboard/user");
     } catch (error) {
       console.error(error);
@@ -86,13 +88,17 @@ const UpdateUserPage = () => {
 
             <div className="mb-3">
               <label className="form-label">Vai trò</label>
-              <input
-                type="text"
+              <select
+                name="role_id"
+                value={formData.role_id}
                 className="form-control"
-                name="role"
-                value={formData.role}
                 onChange={handleChange}
-              />
+              >
+                <option value="">-- Chọn vai trò --</option>
+                {roles.map((role) => (
+                  <option key={role.id} value={role.id}>{role.role}</option>
+                ))}
+              </select>
             </div>
 
             <button className="btn btn-primary">
