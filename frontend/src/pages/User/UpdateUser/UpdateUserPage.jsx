@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getUserById, updateUser } from "../../../services/UserService";
 import { getPagedRoles } from "../../../services/RoleService";
+import "./UpdateUserPage.css";
 
 const UpdateUserPage = () => {
   const { id } = useParams();
@@ -55,13 +56,17 @@ const UpdateUserPage = () => {
   };
 
   return (
-    <div className="container mt-4">
-      <div className="card">
-        <div className="card-header">
-          <h5 className="card-title mb-0">Update Member</h5>
-        </div>
-
-        <div className="card-body">
+    <div className="page-header-box container mt-4">
+      <div className="page-title">
+          <div className="row">
+            <div className="col-6">
+             <h4>Update Member
+              </h4>
+            </div>
+          </div>
+      </div>
+      <div className="card p-2">
+        <div className="card-body p-2">
           <form onSubmit={handleSubmit}>
 
             <div className="mb-3">

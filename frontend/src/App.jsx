@@ -7,7 +7,7 @@ import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
 
 import HomePage from './pages/Home/HomePage.jsx';
 import UserPage from "./pages/User/UserPage.jsx";
-import UpdateUserPage from "./pages/User/UpdateUserPage/UpdateUserPage.jsx";
+import UpdateUserPage from "./pages/User/UpdateUser/UpdateUserPage.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";

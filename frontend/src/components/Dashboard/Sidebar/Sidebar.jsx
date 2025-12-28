@@ -55,7 +55,6 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* NGƯỜI DÙNG */}
           <li className={`sidebar-list ${openMenu === "users" ? "open" : ""}`}>
             <div
               className="sidebar-link sidebar-title"
@@ -69,6 +68,22 @@ const Sidebar = () => {
             <ul className="sidebar-submenu">
               <li><Link to="/dashboard/user">Danh sách người dùng</Link></li>
               <li><Link to="/dashboard/user/create">Thêm người dùng</Link></li>
+            </ul>
+          </li>
+
+          <li className={`sidebar-list ${openMenu === "role" ? "open" : ""}`}>
+            <div
+              className="sidebar-link sidebar-title"
+              onClick={() => toggleMenu("role")}
+            >
+              <i className="fa fa-user"></i>
+              <span className="ms-2">Vai trò</span>
+              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+            </div>
+
+            <ul className="sidebar-submenu">
+              <li><Link to="/dashboard/role">Danh sách vai trò</Link></li>
+              <li><Link to="/dashboard/role/create">Thêm vai trò</Link></li>
             </ul>
           </li>
 
