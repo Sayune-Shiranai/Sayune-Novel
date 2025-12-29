@@ -42,6 +42,21 @@ export async function GetPaged(req, res) {
           model: db.categoryModel,
           as: "Book_Category",
           through: { attributes: [] } 
+        },
+        {
+          model: db.authorModel,
+          as: "Book_Author",
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.artistModel,
+          as: "Book_Artist",
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.StatusModel,
+          as: "Book_Status",
+          attributes: ["id", "name"]
         }
       ],
       limit,

@@ -12,12 +12,15 @@ export default (sequelize, DataTypes) => {
       allowNull: false
     },
   }, {
-    tableName: "StatusModel",
+    tableName: "Status",
     timestamps: false
   });
   
   StatusModel.associate = (models) => {
-
+    StatusModel.hasMany(models.bookModel, {
+      foreignKey: "status",
+      as: "Status_Book"
+    });
   }
 
   return StatusModel;

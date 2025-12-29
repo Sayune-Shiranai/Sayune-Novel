@@ -34,6 +34,8 @@ npx sequelize-cli db:seed --seed 0006_authorData.js
 
 npx sequelize-cli db:seed --seed 0007_artistData.js
 
+npx sequelize-cli db:seed --seed 0008_bookData.js
+
 
 npx sequelize-cli db:seed:undo
 

@@ -22,12 +22,12 @@ export async function GetPaged(req, res) {
     const totalRecords = await db.bookModel.count({ where });
 
     // Lấy danh sách artist + book theo trang
-    const artist = await db.bookModel.findAll({
+    const artist = await db.artistModel.findAll({
       where,
       include: [
         {
           model: db.bookModel,
-          as: "Book_Artist"
+          as: "Artist_Book"
         }
       ],
       limit,

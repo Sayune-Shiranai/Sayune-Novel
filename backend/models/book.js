@@ -109,6 +109,18 @@ export default (sequelize, DataTypes) => {
       timestamps: false, 
     });
 
+    // relationship book - status
+    bookModel.belongsTo(models.StatusModel, {
+      foreignKey: "status",
+      as: "Book_Status"
+    });
+
+    // relationship book - moderation status
+    bookModel.belongsTo(models.ModerationStatusModel, {
+      foreignKey: "trangthai",
+      as: "Book_ModerationStatus"
+    });
+
     // relationship book - author
     bookModel.belongsTo(models.authorModel, {
       foreignKey: "author_id",

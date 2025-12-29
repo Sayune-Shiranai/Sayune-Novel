@@ -19,6 +19,10 @@ app.use(cors({
   origin: "http://localhost:5173", // hoặc "http://localhost:5173"
   credentials: true,
 }));
+app.use(
+  "/media",
+  express.static(path.join(process.cwd(), "media"))
+);
 
 
 
@@ -28,6 +32,7 @@ import UserRoutes from "./routes/dashboard/UsersRoutes.js";
 import AuthorRoutes from "./routes/dashboard/AuthorRoutes.js";
 import ArtistRoutes from "./routes/dashboard/ArtistRoutes.js";
 import CategoryRoutes from "./routes/dashboard/CategoryRoutes.js";
+import StatusRoutes from "./routes/dashboard/StatusRoutes.js";
 import BookRoutes from "./routes/dashboard/BookRoutes.js";
 import VolumeRoutes from "./routes/dashboard/VolumeRoutes.js";
 import VolumePostRoutes from "./routes/dashboard/VolumePostRoutes.js";
@@ -64,6 +69,7 @@ app.use("/dashboard/user", UserRoutes) // dashboard/user
 app.use("/dashboard/author", AuthorRoutes) // dashboard/author
 app.use("/dashboard/artist", ArtistRoutes) // dashboard/artist
 app.use("/dashboard/category", CategoryRoutes) // dashboard/category
+app.use("/dashboard/status", StatusRoutes) // dashboard/status
 app.use("/dashboard/book", BookRoutes) // dashboard/book
 app.use("/dashboard/book", VolumeRoutes) // dashboard/volume
 app.use("/dashboard/volumeComment", VolumePostRoutes) // dashboard/VolumePost

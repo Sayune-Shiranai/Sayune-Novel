@@ -3,6 +3,7 @@ import upload from "../../middleware/upload.js";
 
 import {
   GetPaged,
+  getBookBySlug,
   createBook,
   updateBook,
   deleteBook,
@@ -13,6 +14,7 @@ import {
 const router = express.Router();
 
 router.get("/", GetPaged);  //dashboard/book
+router.get("/:slug", getBookBySlug); //dashboard/book/:slug
 router.post("/create", upload.single("img"), createBook); //dashboard/book/create
 router.post("/update/:slug",upload.single("img"), updateBook);  //dashboard/book/update/:slug
 router.delete("/delete/:id", deleteBook); //dashboard/book/delete/:id
