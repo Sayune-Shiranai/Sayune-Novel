@@ -57,6 +57,16 @@ export async function GetPaged(req, res) {
           model: db.StatusModel,
           as: "Book_Status",
           attributes: ["id", "name"]
+        },
+        {
+          model: db.usersModel,
+          as: "Book_User",
+          attributes: ["id", "username"]
+        },
+        {
+          model: db.volumeModel,
+          as: "Book_Volume",
+          attributes: ["id"]
         }
       ],
       limit,
@@ -116,7 +126,6 @@ export async function createBook(req, res) {
       artist_id,
       status,
       description,
-      user_id,
       category_id
     } = req.body;
 
@@ -157,8 +166,11 @@ export async function createBook(req, res) {
       artist_id,
       status,
       description,
-      user_id, // fix tự động update theo tk
+      user_id: req.user.id || null,
+      trangthai: '1',
     });
+
+    console.log("book_user:", req.user.id)
 
 
     let category = [];
@@ -213,7 +225,6 @@ export async function updateBook(req, res) {
       artist_id,
       status,
       description,
-      user_id,
       category_id
     } = req.body;
 
@@ -262,7 +273,8 @@ export async function updateBook(req, res) {
       artist_id: artist_id ?? book.artist_id,
       status: status ?? book.status,
       description: description ?? book.description,
-      user_id: user_id ?? book.user_id, // fix tự động update theo tk up book
+      trangthai: '1',
+      user_id: req.user.id,
     });
 
 

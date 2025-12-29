@@ -1,5 +1,6 @@
 import express from "express";
 import upload from "../../middleware/upload.js";
+import { verifyToken } from "../../middleware/verifyToken.js";
 
 import {
   GetPaged,
@@ -15,8 +16,8 @@ const router = express.Router();
 
 router.get("/", GetPaged);  //dashboard/book
 router.get("/:slug", getBookBySlug); //dashboard/book/:slug
-router.post("/create", upload.single("img"), createBook); //dashboard/book/create
-router.post("/update/:slug",upload.single("img"), updateBook);  //dashboard/book/update/:slug
+router.post("/create", upload.single("img"),verifyToken ,createBook); //dashboard/book/create
+router.post("/update/:slug",upload.single("img"),verifyToken, updateBook);  //dashboard/book/update/:slug
 router.delete("/delete/:id", deleteBook); //dashboard/book/delete/:id
 router.post("/approve/:id", approveBook); //dashboard/book/approve/:id
 router.post("/reject/:id", rejectBook); //dashboard/book/reject/:id

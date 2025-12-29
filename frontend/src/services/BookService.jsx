@@ -15,15 +15,21 @@ export const getBookBySlug = (slug) => {
 
 export const createBook = async (data) => {
   return axios.post(
-    "http://localhost:3000/dashboard/book/create",
-    data
+    "http://localhost:3000/dashboard/book/create", data, 
+    {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true
+    }
   );
 };
 
+
 export const updateBook = async (slug, data) => {
   return axios.put(
-    `http://localhost:3000/dashboard/book/update/${slug}`,
-    data
+    `http://localhost:3000/dashboard/book/update/${slug}`, data, {
+      headers: { "Content-Type": "multipart/form-data" },
+      withCredentials: true
+    }
   );
 }
 

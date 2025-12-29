@@ -123,7 +123,7 @@ export default function BookPage() {
                 <thead className="table-light">
                   <tr>
                     <th className="text-center">Id</th>
-                    <th>Id truyện</th>
+                    <th>Số truyện</th>
                     <th>Tên truyện</th>
                     <th>Tên khác</th>
                     <th>Ảnh bìa</th>
@@ -132,6 +132,8 @@ export default function BookPage() {
                     <th>Tình Trạng</th>
                     <th>Thể loại</th>
                     <th>Nội dung</th>
+                    <th>Tổng chương</th>
+                    <th>Người tạo</th>
                     <th>Trạng thái kiểm duyệt</th>
                     <th width="120">Chức năng</th>
                   </tr>
@@ -147,7 +149,7 @@ export default function BookPage() {
                     books.map((book, i) => (
                       <tr key={book.id}>
                         <td className="text-center">{(page - 1) * limit + i + 1}</td>
-                        <td>{book.book_number}</td>
+                        <td className="text-center">{book.book_number}</td>
                         <td>{book.title}</td>
                         <td>{book.another_name}</td>
                         <td>
@@ -166,6 +168,17 @@ export default function BookPage() {
                             }
                         </td>
                         <td>{book.description}</td>
+                        <td
+                          className="text-primary fw-bold text-center"
+                          style={{ cursor: "pointer" }}
+                          title="Xem danh sách chương"
+                          onClick={() =>
+                            navigate(`/dashboard/book/${book.slug}/volume`)
+                          }
+                        >
+                          {book.Book_Volume?.length || 0}
+                        </td>
+                        <td>{book.Book_User?.username}</td>
                         <td>
                           {book.trangthai === 0 && (
                             <span className="badge bg-warning text-dark">Chờ duyệt</span>
