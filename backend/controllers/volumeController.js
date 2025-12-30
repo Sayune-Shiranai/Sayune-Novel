@@ -6,16 +6,26 @@ export async function GetPaged(req, res) {
   try {
     const book_slug = req.params.slug;
     console.log("book_slug:", book_slug);
+
+    const book = await db.bookModel.findOne({
+      where: { slug: book_slug }
+    });
+
+    if (!book) {
+      return res.status(404).json({ error: "Book không tồn tại" });
+    }
+
     let { page = 1, limit = 10, keyword = "" } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
 
     const offset = (page - 1) * limit;
 
-    let where = {};
+    let where = {book_id: book.id };
 
     if (keyword.trim() !== "") {
       where = {
+        ...where,
         [Op.or]: [
           { volume_number: { [Op.like]: `%${keyword}%` } },
           { title: { [Op.like]: `%${keyword}%` } },
@@ -30,6 +40,10 @@ export async function GetPaged(req, res) {
       include: [{ 
         model: db.bookModel,
         as: "Volume_Book"
+      },
+      {
+        model: db.usersModel,
+        as: "Volume_User"
       }],
       limit,
       offset,
@@ -71,7 +85,6 @@ export async function createVolume(req, res) {
     let {
       volume_number,
       title,
-      user_id // fix tự động update theo tk up book
     } = req.body;
 
     console.log("body:", req.body)
@@ -102,8 +115,6 @@ export async function createVolume(req, res) {
       return res.status(400).json({ error: "Vui lòng upload ít nhất 1 ảnh!" });
     }
 
-
-
     const imgPaths = files.map(
       file => `/media/truyen/${book.slug}/volume-${volume_number}/${file.filename}`
     );
@@ -129,7 +140,7 @@ export async function createVolume(req, res) {
       book_id: book.id,
       volume_number,
       title,
-      user_id,
+      user_id: req.user.id,
       chapter_content: JSON.stringify(imgPaths)
     });
 
