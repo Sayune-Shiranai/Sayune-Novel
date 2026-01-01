@@ -7,8 +7,6 @@ import cors from "cors";
 import path from "path";
 import cookieParser from "cookie-parser";
 
-
-
 const app = express();
 const PORT = 3000;
 
@@ -60,7 +58,6 @@ import registerRoutes from "./routes/registerRoutes.js";
 import loginRoutes from "./routes/loginRoutes.js"
 import logoutRoutes from "./routes/logoutRoutes.js";
 
-// load biến môi trường
 dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 
 //dashboard routes
@@ -103,7 +100,7 @@ app.get('/HelloWorld', (req, res) => {
 
 app.get("/connectDB", async (req, res) => {
   try {
-    await connectDB.authenticate(); // kiểm tra kết nối
+    await connectDB.authenticate();
     res.json({ success: true, message: "Kết nối thành công với SQL Server!" });
   } catch (err) {
     console.error(err);
@@ -113,7 +110,7 @@ app.get("/connectDB", async (req, res) => {
 
 app.get("/syncDB", async (req, res) => {
   try {
-    await db.sequelize.sync({ alter: true }); // đồng bộ các model với database
+    await db.sequelize.sync({ alter: true });
     res.json({ success: true, message: "Đồng bộ database thành công!" });
   } catch (err) {
     console.error(err);
