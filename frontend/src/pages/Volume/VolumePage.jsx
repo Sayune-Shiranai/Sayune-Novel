@@ -119,8 +119,8 @@ export default function VolumePage() {
                   ) : (
                     volumes.map((volume, i) => (
                       <tr key={volume.id}>
-                        <td className="text-center">{(page - 1) * limit + i + 1}</td>
-                        <td className="text-center">{volume.volume_number}</td>
+                        <td>{(page - 1) * limit + i + 1}</td>
+                        <td>{volume.volume_number}</td>
                         <td>{volume.title}</td>
                         <td>{volume.Volume_User?.username}</td>
                         <td className="text-center">

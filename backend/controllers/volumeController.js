@@ -115,6 +115,12 @@ export async function createVolume(req, res) {
       return res.status(400).json({ error: "Vui lòng upload ít nhất 1 ảnh!" });
     }
 
+    files.sort((a, b) => {
+      const numA = parseInt(a.originalname.match(/\d+/)?.[0] || 0);
+      const numB = parseInt(b.originalname.match(/\d+/)?.[0] || 0);
+      return numA - numB;
+    });
+
     const imgPaths = files.map(
       file => `/media/truyen/${book.slug}/volume-${volume_number}/${file.filename}`
     );
