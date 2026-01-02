@@ -1,15 +1,15 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import "./AuthorPage.css";
+import "./RolePage.css";
 import { 
-  getPagedAuthors,
-  deleteAuthor
-} from "../../services/AuthorService";
+  getPagedRoles,
+  deleteRole
+} from "../../services/RoleService";
 
-export default function AuthorPage() {
+export default function RolePage() {
   const navigate = useNavigate();
-  const [authors, setAuthor] = useState([]);
+  const [roles, setRole] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
   const limit = 10;
@@ -18,20 +18,20 @@ export default function AuthorPage() {
   useEffect(() => {
     let ignore = false;
 
-    const loadAuthor = async () => {
-      const res = await getPagedAuthors({
+    const loadRole = async () => {
+      const res = await getPagedRoles({
         page,
         limit,
         keyword,
       });
 
       if (!ignore) {
-        setAuthor(res.data);
+        setRole(res.data);
         setTotalPages(res.totalPages);
       }
     };
 
-    loadAuthor();
+    loadRole();
 
     return () => {
       ignore = true;
@@ -39,20 +39,13 @@ export default function AuthorPage() {
   }, [page, keyword]);
 
     const handleCreate = () => {
-    navigate("/dashboard/author/create");
+    navigate("/dashboard/role/create");
   }
 
   const handleDelete = async (id) => { 
-    if (!window.confirm("Xóa tác giả này?")) return; 
-    await deleteAuthor(id); 
-    const res = await getPagedAuthors({
-      page: 1,
-      limit,
-      keyword,
-    });
-
-    setAuthor(res.data);
-    setTotalPages(res.totalPages); 
+    if (!window.confirm("Xóa vai trò này?")) return; 
+    await deleteRole(id); 
+    setPage(1); 
   };
 
   return (
@@ -61,7 +54,7 @@ export default function AuthorPage() {
         <div className="page-title">
           <div className="row">
             <div className="col-6">
-              <h4>Danh sách tác giả</h4>
+              <h4>Danh sách vai trò</h4>
             </div>
           </div>
         </div>
@@ -107,21 +100,21 @@ export default function AuthorPage() {
                   </tr>
                 </thead>
                 <tbody>
-                  {authors.length === 0 ? (
+                  {roles.length === 0 ? (
                     <tr>
                       <td colSpan="5" className="text-center text-muted">
                         Không có dữ liệu
                       </td>
                     </tr>
                   ) : (
-                    authors.map((author, i) => (
-                      <tr key={author.id}>
+                    roles.map((role, i) => (
+                      <tr key={role.id}>
                         <td className="text-center">{(page - 1) * limit + i + 1}</td>
-                        <td>{author.name}</td>
+                        <td>{role.role}</td>
                         <td className="text-center">
                             <button
                               className="btn btn-sm btn-danger"
-                              onClick={() => handleDelete(author.id)}
+                              onClick={() => handleDelete(role.id)}
                               title="Xóa"
                             >
                               <FaTrash />

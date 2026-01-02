@@ -19,7 +19,7 @@ export async function GetPaged(req, res) {
       };
     }
 
-    const totalRecords = await db.bookModel.count({ where });
+    const totalRecords = await db.authorModel.count({ where });
 
     // Lấy danh sách book + author theo trang
     const author = await db.authorModel.findAll({
@@ -91,13 +91,23 @@ export async function updateAuthor(req, res) {
 export async function deleteAuthor(req, res) {
   try {
     const { id } = req.params;
-    const artist = await db.authorModel.findOne(
+    const author = await db.authorModel.findOne(
       { where: { id } }
     );
-    if (!artist) {
+    if (!author) {
       return res.status(404).json({ error: "Không tìm thấy author!" });
     }
-    await artist.destroy();
+
+    const bookCount = await db.bookModel.count({
+      where: { author_id: id }
+    });
+
+    if (bookCount > 0) {
+      return res.status(400).json({
+        error: "Không thể xóa tác giả đang được sử dụng trong truyện!"
+      });
+    }
+    await author.destroy();
     return res.json({ message: "Xóa author thành công!" });
   } catch (err) {
     return res.status(500).json({ error: err.message });

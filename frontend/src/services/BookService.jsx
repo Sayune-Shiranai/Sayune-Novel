@@ -35,7 +35,7 @@ export const updateBook = async (slug, data) => {
 
 export const deleteBook = async (id) => {
   return axios.delete(
-    `http://localhost:3000/dashboard/book/${id}`
+    `http://localhost:3000/dashboard/book/delete/${id}`
   );
 };
 

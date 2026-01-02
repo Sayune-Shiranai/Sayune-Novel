@@ -12,6 +12,10 @@ import BookPage from "./pages/Book/BookPage.jsx";
 import CreateBookPage from "./pages/Book/CreateBook/CreateBookPage.jsx";
 import VolumePage from "./pages/Volume/VolumePage.jsx";
 import CreateVolumePage from "./pages/Volume/CreateVolume/CreateVolumePage.jsx";
+import AuthorPage from "./pages/Author/AuthorPage.jsx";
+import CreateAuthorPage from "./pages/Author/CreateAuthor/CreateAuthorPage.jsx";
+import ArtistPage from "./pages/Artist/ArtistPage.jsx";
+import RolePage from "./pages/Role/RolePage.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -33,7 +37,7 @@ const App = () => {
       <Route path="/dashboard" element={<DashboardLayout />}>
 
         {/* /dashboard */}
-        <Route index element={null} />
+        <Route index element={<BookPage />} />
 
         {/* /dashboard/user */}
         <Route path="user" element={<UserPage />} />
@@ -48,8 +52,14 @@ const App = () => {
 
         <Route path="book/:slug/volume/create" element={<CreateVolumePage/>} />
 
-        {/* /dashboard/book/create */}
-        {/* <Route path="book/create" element={<BookCreatePage />} /> */}
+        <Route path="author" element={<AuthorPage />} />
+
+        <Route path="author/create" element={<CreateAuthorPage />} />
+
+        <Route path="artist" element={<ArtistPage />} />
+
+        <Route path="role" element={<RolePage />} />
+
 
       </Route>
 

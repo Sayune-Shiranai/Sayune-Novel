@@ -7,3 +7,9 @@ export const getPagedArtists = async ({ page, limit, keyword }) => {
   );
   return res.data;
 };
+
+export const deleteArtist = async (id) => {
+  return axios.delete(
+    `http://localhost:3000/dashboard/artist/${id}`
+  );
+};

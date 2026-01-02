@@ -119,8 +119,8 @@ const Sidebar = () => {
             </div>
 
             <ul className="sidebar-submenu">
-              <li><Link to="/chapters">Danh sách thể loại</Link></li>
-              <li><Link to="/chapters/create">Thêm thể loại</Link></li>
+              <li><Link to="/dashboard/category">Danh sách thể loại</Link></li>
+              <li><Link to="/dashboard/category/create">Thêm thể loại</Link></li>
             </ul>
           </li>
 
@@ -135,8 +135,8 @@ const Sidebar = () => {
             </div>
 
             <ul className="sidebar-submenu">
-              <li><Link to="/chapters">Danh sách tác giả</Link></li>
-              <li><Link to="/chapters/create">Thêm tác giả</Link></li>
+              <li><Link to="/dashboard/author">Danh sách tác giả</Link></li>
+              <li><Link to="/dashboard/author/create">Thêm tác giả</Link></li>
             </ul>
           </li>
 
@@ -151,8 +151,8 @@ const Sidebar = () => {
             </div>
 
             <ul className="sidebar-submenu">
-              <li><Link to="/chapters">Danh sách họa sĩ</Link></li>
-              <li><Link to="/chapters/create">Thêm họa sĩ</Link></li>
+              <li><Link to="/dashboard/artist">Danh sách họa sĩ</Link></li>
+              <li><Link to="/dashboard/artist/create">Thêm họa sĩ</Link></li>
             </ul>
           </li>
 

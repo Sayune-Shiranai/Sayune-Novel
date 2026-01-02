@@ -111,8 +111,10 @@ export default function BookPage() {
               </div>
 
               <div className="col-md-6 text-end">
-                <button className="btn btn-success" 
-                onClick={handleCreate} title="Thêm mới">Thêm mới</button>
+                <button 
+                className="btn btn-success" 
+                onClick={handleCreate} 
+                title="Thêm mới">Thêm mới</button>
               </div>
             </div>
           </div>
