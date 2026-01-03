@@ -48,7 +48,14 @@ export default function UserPage() {
   const handleDelete = async (id) => { 
     if (!window.confirm("Xóa người dùng này?")) return; 
     await deleteUser(id); 
-    setPage(1); 
+    const res = await getPagedUsers({
+      page: 1,
+      limit,
+      keyword,
+    });
+
+    setUsers(res.data);
+    setTotalPages(res.totalPages);
   };
 
   const handleApprove = async (id) => { 

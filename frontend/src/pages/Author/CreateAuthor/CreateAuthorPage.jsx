@@ -72,6 +72,11 @@ const CreateAuthorPage = () => {
         <div className="card p-2">
             <div className="card-body p-2"></div>
                 <form action={submit}>
+                    {state.errors?.general && (
+                    <div className="alert alert-danger">
+                        {state.errors.general}
+                    </div>
+                    )}
                     <div className="mb-3">
                         <label className="form-label">Tên tác giả</label>
                         <input

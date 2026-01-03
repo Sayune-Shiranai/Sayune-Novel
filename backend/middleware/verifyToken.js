@@ -41,6 +41,10 @@ export async function verifyToken(req, res, next) {
 
             const User = await db.usersModel.findOne({
               where: { id: CheckRefreshToken.id },
+                include: {
+                  model: db.roleModel,
+                  as: "User_Role"
+                }
             });
 
             if (!User) {
@@ -55,13 +59,13 @@ export async function verifyToken(req, res, next) {
             // Kiểm tra nếu refresh token hợp lệ
             if (User && User.refreshToken === req.cookies.refreshToken) {
               console.log("Giá trị của User.username:", User.username);
-              console.log("Giá trị của User.role:", User.role_id);
+              console.log("Giá trị của User.role:", User.User_Role.role);
               // Tạo Access Token mới
               const newAccessToken = jwt.sign(
                 { 
                   id: User.id, 
                   username: User.username, 
-                  role: User.role_id 
+                  role: User.User_Role.role 
                 },
                 JWT_SECRET,
                 { expiresIn: "1m" }
@@ -72,7 +76,7 @@ export async function verifyToken(req, res, next) {
                 { 
                   id: User.id, 
                   username: User.username, 
-                  role: User.role_id 
+                  role: User.User_Role.role 
                 },
                 JWT_SECRET,
                 { expiresIn: "7d" }
@@ -103,7 +107,7 @@ export async function verifyToken(req, res, next) {
               req.user = {
                 id: User.id,
                 username: User.username,
-                role: User.role_id,
+                role: User.User_Role.role,
               };
 
               //vị trí hiện tai url
@@ -114,7 +118,7 @@ export async function verifyToken(req, res, next) {
             } else {
               console.log("Request song song phát hiện: Đã có luồng khác cập nhật token.");
               // Gán user từ DB để đi tiếp vào Controller, không cần tạo mới nữa
-              req.user = { id: User.id, username: User.username, role: User.role_id };
+              req.user = { id: User.id, username: User.username, role: User.User_Role.role };
             }
           });
           return next();

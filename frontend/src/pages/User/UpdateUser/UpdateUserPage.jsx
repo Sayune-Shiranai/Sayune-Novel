@@ -20,7 +20,7 @@ const UpdateUserPage = () => {
     const fetchUser = async () => {
       try {
         const userRes = await getUserById(id);
-        const roleRes = await getPagedRoles();
+        const roleRes = await getPagedRoles({ page: 1, limit: 100 });
         const user = userRes.data.data;
         
         setFormData({

@@ -30,7 +30,7 @@ export async function login (req, res) {
         { 
           id: user.id, 
           username: user.username, 
-          role: user.role_id 
+          role: user.User_Role.role 
         },
         JWT_SECRET,
         { expiresIn: "1m" }
@@ -40,7 +40,7 @@ export async function login (req, res) {
         { 
           id: user.id, 
           username: user.username, 
-          role: user.role_id 
+          role: user.User_Role.role 
         },
         JWT_SECRET,
         { expiresIn: "7d" }
@@ -60,7 +60,7 @@ export async function login (req, res) {
           id: user.id, 
           username: user.username, 
           email: user.email,
-          role_id: user.role_id,
+          role_id: user.User_Role.role,
           role,
         }, 
         accessToken,

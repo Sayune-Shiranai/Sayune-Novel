@@ -48,7 +48,6 @@ export default function VolumePage() {
 
     setVolumes(res.data);
     setTotalPages(res.totalPages);
-    setPage(1);
     };
 
 
@@ -126,7 +125,7 @@ export default function VolumePage() {
                         <td className="text-center">
                             <button
                               className="btn btn-sm btn-danger"
-                              onClick={() => handleDelete(volume.id)}
+                              onClick={() => handleDelete(slug, volume.id)}
                               title="Xóa"
                             >
                               <FaTrash />

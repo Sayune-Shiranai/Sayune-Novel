@@ -9,6 +9,7 @@ import {
 
 export default function RolePage() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [roles, setRole] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
@@ -42,10 +43,28 @@ export default function RolePage() {
     navigate("/dashboard/role/create");
   }
 
-  const handleDelete = async (id) => { 
-    if (!window.confirm("Xóa vai trò này?")) return; 
-    await deleteRole(id); 
-    setPage(1); 
+  const handleDelete = async (id) => {
+    if (!window.confirm("Xóa vai trò này?")) return;
+
+    try {
+      await deleteRole(id);
+
+      const res = await getPagedRoles({
+        page: 1,
+        limit,
+        keyword,
+      });
+
+      setRole(res.data);
+      setTotalPages(res.totalPages);
+      setErrorMessage("");
+    } catch (err) {
+      setErrorMessage(
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        "Xóa vai trò thất bại!"
+      );
+    }
   };
 
   return (
@@ -62,6 +81,11 @@ export default function RolePage() {
 
       <div className="page-body-box container-fluid">
         <div className="card p-2">
+          {errorMessage && (
+            <div className="alert alert-danger mb-2">
+              {errorMessage}
+            </div>
+          )}
           <div className="header-page-body-box card-header p-2 border-0">
             <div className="row align-items-center">
               <div className="search-box col-md-6 d-flex">

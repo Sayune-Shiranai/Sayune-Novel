@@ -55,7 +55,6 @@ export default function BookPage() {
     const res = await getPagedBooks({ page: 1, limit, keyword });
     setBooks(res.data);
     setTotalPages(res.totalPages);
-    setPage(1);
   };
 
   const handleApprove = async (id) => { 

@@ -56,9 +56,27 @@ export async function createRole(req, res) {
   try {
     const { role } = req.body;
 
+    if (!role || role.trim() === "") {
+      return res.status(400).json({ error: "Vui lòng nhập tên role!" });
+    }
+
+    const checkRole = await db.roleModel.findOne({
+      where: { role }
+    });
+
+    if (checkRole) {
+      return res.status(400).json({
+        success: false,
+        message: "Role đã tồn tại!"
+      });
+    }
+
     const newRole = await db.roleModel.create({ role });
 
-    return res.status(201).json(newRole);
+    return res.status(201).json({
+      message: "Tạo role thành công!",
+      role: newRole
+    });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -77,12 +95,12 @@ export async function updateRole(req, res) {
     const CheckRole = await db.roleModel.findOne({
       where: { id }
     });
+
     if (!CheckRole) {
       return res.status(404).json({ error: "Không tìm thấy role" });
     }
 
-    CheckRole.role = role;
-    await CheckRole.save();
+  await CheckRole.update({ role });
 
     return res.json(CheckRole);
   } catch (err) {
@@ -94,15 +112,25 @@ export async function updateRole(req, res) {
 export async function deleteRole(req, res) {
   try {
     const { id } = req.params;
-
-    const existingRole = await db.roleModel.findByPk(id);
-    if (!existingRole) {
-      return res.status(404).json({ error: "Role not found" });
+    const role = await db.roleModel.findOne(
+      { where: { id } }
+    );
+    if (!role) {
+      return res.status(404).json({ error: "Không tìm thấy role!" });
     }
 
-    await existingRole.destroy();
+    const userCount = await db.usersModel.count({
+      where: { role_id: id }
+    });
 
-    return res.json({ message: "Role deleted successfully" });
+    if (userCount > 0) {
+      return res.status(400).json({
+        error: "Không thể xóa vai trò đang được sử dụng!"
+      });
+    }
+
+    await role.destroy();
+    return res.json({ message: "Xóa role thành công!" });
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }

@@ -60,6 +60,11 @@ import logoutRoutes from "./routes/logoutRoutes.js";
 
 dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 
+import { verifyToken } from "./middleware/verifyToken.js";
+import { roleMiddleware } from "./middleware/roleMiddleware.js";
+
+app.use("/dashboard", verifyToken, roleMiddleware(["Admin"]));
+
 //dashboard routes
 app.use("/dashboard/role", RoleRoutes); // dashboard/role
 app.use("/dashboard/user", UserRoutes) // dashboard/user

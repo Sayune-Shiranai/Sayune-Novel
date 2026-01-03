@@ -4,7 +4,10 @@ import axios from "axios";
 export const getPagedBooks = async ({ page, limit, keyword }) => {
   const res = await axios.get(
     "http://localhost:3000/dashboard/book",
-    { params: { page, limit, keyword } }
+    { 
+      params: { page, limit, keyword },
+      withCredentials: true
+    }
   );
   return res.data;
 }

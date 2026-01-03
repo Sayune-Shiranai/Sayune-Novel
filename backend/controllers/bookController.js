@@ -321,6 +321,12 @@ export async function deleteBook(req, res) {
     });
     if (!book) return res.status(404).json({ error: "Không tìm thấy book!" });
 
+    await db.volumeModel.destroy({
+      where: { book_id: id }
+    });
+
+    await book.setBook_Category([]);
+
     await book.destroy();
 
     res.json({ message: "Xóa book thành công!" });

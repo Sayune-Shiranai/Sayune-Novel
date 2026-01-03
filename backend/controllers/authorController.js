@@ -53,12 +53,30 @@ export async function GetPaged(req, res) {
 // create author
 export async function createAuthor(req, res) {
   try {
-    const { name } = req.body;
+    let { name } = req.body;
+
     if (!name || name.trim() === "") {
       return res.status(400).json({ error: "Vui lòng nhập tên author!" });
     }
+
+    const checkAuthor = await db.authorModel.findOne({
+      where: { name }
+    });
+
+    if (checkAuthor) {
+      return res.status(400).json({
+        success: false,
+        message: "Author đã tồn tại!"
+      });
+    }
+
     const newAuthor = await db.authorModel.create({ name });
-    return res.status(201).json({ message: "Tạo author thành công!", author: newAuthor });
+
+    return res.status(201).json({
+      message: "Tạo author thành công!",
+      author: newAuthor
+    });
+
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }

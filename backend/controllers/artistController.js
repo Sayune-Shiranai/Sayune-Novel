@@ -57,8 +57,24 @@ export async function createArtist(req, res) {
     if (!name || name.trim() === "") {
       return res.status(400).json({ error: "Vui lòng nhập tên artist!" });
     }
+
+    const checkArist = await db.artistModel.findOne({
+      where: { name }
+    });
+
+    if (checkArist) {
+      return res.status(400).json({
+        success: false,
+        message: "Artist đã tồn tại!"
+      });
+    }
+
     const newArtist = await db.artistModel.create({ name });
-    return res.status(201).json({ message: "Tạo artist thành công!", artist: newArtist });
+    return res.status(201).json({ 
+      message: "Tạo artist thành công!", 
+      artist: newArtist 
+    });
+    
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
@@ -99,6 +115,17 @@ export async function deleteArtist(req, res) {
     if (!artist) {
       return res.status(404).json({ error: "Không tìm thấy artist!" });
     }
+
+    const bookCount = await db.bookModel.count({
+      where: { artist_id: id }
+    });
+
+    if (bookCount > 0) {
+      return res.status(400).json({
+        error: "Không thể xóa họa sĩ đang được sử dụng trong truyện!"
+      });
+    }
+
     await artist.destroy();
     return res.json({ message: "Xóa artist thành công!" });
   } catch (err) {

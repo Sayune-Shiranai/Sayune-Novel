@@ -2,6 +2,7 @@ export default (sequelize, DataTypes) => {
   const roleModel = sequelize.define("roleModel", {
       id: { 
         type: DataTypes.INTEGER, 
+        autoIncrement: true,
         primaryKey: true
       },
       role: { 

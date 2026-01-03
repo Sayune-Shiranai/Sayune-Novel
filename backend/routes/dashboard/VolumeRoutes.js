@@ -18,7 +18,7 @@ const router = express.Router();
 // });
 router.get("/:slug/volume", GetPaged);  //dashboard/book/:slug
 router.post("/:slug/volume/create", upload.array("chapter_content"), verifyToken, createVolume);    //dashboard/book/:slug/create
-router.post("/:slug/volume/delete/:id", deleteVolume);   //dashboard/book/:slug/create/:id
+router.delete("/:slug/volume/delete/:id", deleteVolume);   //dashboard/book/:slug/create/:id
 router.post("/:slug/approve/:id", approveVolume); //dashboard/book/:slug/approve/:id
 router.post("/:slug/reject/:id", rejectVolume);   //dashboard/book/:slug/reject/:id
 

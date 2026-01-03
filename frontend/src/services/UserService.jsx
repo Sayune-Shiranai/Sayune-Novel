@@ -3,7 +3,10 @@ import axios from "axios";
 export const getPagedUsers = async ({ page, limit, keyword }) => {
   const res = await axios.get(
     "http://localhost:3000/dashboard/user",
-    { params: { page, limit, keyword } }
+    { 
+      params: { page, limit, keyword },
+      withCredentials: true
+    }
   );
   return res.data;
 };
@@ -21,7 +24,7 @@ export const updateUser = async (id, data) => {
 
 export const deleteUser = async (id) => {
   return axios.delete(
-    `http://localhost:3000/dashboard/user/${id}`
+    `http://localhost:3000/dashboard/user/delete/${id}`
   );
 };
 

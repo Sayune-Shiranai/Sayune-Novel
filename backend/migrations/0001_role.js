@@ -3,7 +3,8 @@
 export async function up (queryInterface, Sequelize) {
   await queryInterface.createTable('role', {
     id: { 
-      type: Sequelize.INTEGER, 
+      type: Sequelize.INTEGER,
+      autoIncrement: true,
       primaryKey: true 
     },
     role: { 

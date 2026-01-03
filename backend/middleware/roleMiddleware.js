@@ -1,21 +1,22 @@
-function authority(role) {
-  return (req, rep, done) => {
-    const roles = Array.isArray(role) ? role : [role];
-    console.log("roles", roles);
-    console.log("user", req.user);
-    if (req.user && roles.includes(req.user.role)) {
-      done();
-    } else {
-      return rep.status(403).render("login", {
-        formData: {},
-        errorMessage: {
-          password: `Tài khoản của bạn ${
-            req.user?.username || "không xác định"
-          } không đủ quyền truy cập trang này.`,
-        },
+export function roleMiddleware(roles = []) {
+  return (req, res, next) => {
+    if (!req.user) {
+      return res.status(401).json({
+        message: "Chưa đăng nhập"
       });
     }
+
+    const allowedRoles = Array.isArray(roles) ? roles : [roles];
+
+    console.log("req.user.role =", req.user.role);
+    console.log("allowedRoles =", allowedRoles);
+
+    if (!allowedRoles.includes(req.user.role)) {
+      return res.status(403).json({
+        message: `Tài khoản ${req.user.username} không đủ quyền truy cập`
+      });
+    }
+
+    next();
   };
 }
-
-module.exports = authority;

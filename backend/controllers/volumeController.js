@@ -47,7 +47,7 @@ export async function GetPaged(req, res) {
       }],
       limit,
       offset,
-      order: [["id", "DESC"]],
+      order: [["volume_number", "ASC"]],
     });
 
 

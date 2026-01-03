@@ -9,6 +9,7 @@ import {
 
 export default function ArtistPage() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [artists, setArtist] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
@@ -44,8 +45,26 @@ export default function ArtistPage() {
 
   const handleDelete = async (id) => { 
     if (!window.confirm("Xóa họa sĩ này?")) return; 
-    await deleteArtist(id); 
-    setPage(1); 
+
+    try {
+      await deleteArtist(id); 
+
+      const res = await getPagedArtists({
+        page: 1,
+        limit,
+        keyword,
+      });
+
+      setArtist(res.data);
+      setTotalPages(res.totalPages);
+      setErrorMessage("");
+    } catch (err) {
+      setErrorMessage(
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        "Xóa họa sĩ thất bại!"
+      );
+    }
   };
 
   return (
@@ -62,6 +81,11 @@ export default function ArtistPage() {
 
       <div className="page-body-box container-fluid">
         <div className="card p-2">
+          {errorMessage && (
+            <div className="alert alert-danger mb-2">
+              {errorMessage}
+            </div>
+          )}
           <div className="header-page-body-box card-header p-2 border-0">
             <div className="row align-items-center">
               <div className="search-box col-md-6 d-flex">
@@ -95,7 +119,7 @@ export default function ArtistPage() {
                 <thead className="table-light">
                   <tr>
                     <th className="text-center">Id</th>
-                    <th>Tác giả</th>
+                    <th>Họa sĩ</th>
                     <th width="120">Chức năng</th>
                   </tr>
                 </thead>

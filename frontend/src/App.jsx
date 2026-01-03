@@ -15,7 +15,9 @@ import CreateVolumePage from "./pages/Volume/CreateVolume/CreateVolumePage.jsx";
 import AuthorPage from "./pages/Author/AuthorPage.jsx";
 import CreateAuthorPage from "./pages/Author/CreateAuthor/CreateAuthorPage.jsx";
 import ArtistPage from "./pages/Artist/ArtistPage.jsx";
+import CreateArtistPage from "./pages/Artist/CreateArtist/CreateArtistPage.jsx";
 import RolePage from "./pages/Role/RolePage.jsx";
+import CreateRolePage from "./pages/Role/CreateRole/CreateRolePage.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -58,7 +60,11 @@ const App = () => {
 
         <Route path="artist" element={<ArtistPage />} />
 
+        <Route path="artist/create" element={<CreateArtistPage />} />
+
         <Route path="role" element={<RolePage />} />
+
+        <Route path="role/create" element={<CreateRolePage />} />
 
 
       </Route>

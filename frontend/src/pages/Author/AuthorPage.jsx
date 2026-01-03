@@ -9,6 +9,7 @@ import {
 
 export default function AuthorPage() {
   const navigate = useNavigate();
+  const [errorMessage, setErrorMessage] = useState("");
   const [authors, setAuthor] = useState([]);
   const [keyword, setKeyword] = useState("");
   const [page, setPage] = useState(1);
@@ -42,17 +43,28 @@ export default function AuthorPage() {
     navigate("/dashboard/author/create");
   }
 
-  const handleDelete = async (id) => { 
-    if (!window.confirm("Xóa tác giả này?")) return; 
-    await deleteAuthor(id); 
-    const res = await getPagedAuthors({
-      page: 1,
-      limit,
-      keyword,
-    });
+  const handleDelete = async (id) => {
+    if (!window.confirm("Xóa tác giả này?")) return;
 
-    setAuthor(res.data);
-    setTotalPages(res.totalPages); 
+    try {
+      await deleteAuthor(id);
+
+      const res = await getPagedAuthors({
+        page: 1,
+        limit,
+        keyword,
+      });
+
+      setAuthor(res.data);
+      setTotalPages(res.totalPages);
+      setErrorMessage("");
+    } catch (err) {
+      setErrorMessage(
+        err?.response?.data?.error ||
+        err?.response?.data?.message ||
+        "Xóa tác giả thất bại!"
+      );
+    }
   };
 
   return (
@@ -69,6 +81,11 @@ export default function AuthorPage() {
 
       <div className="page-body-box container-fluid">
         <div className="card p-2">
+          {errorMessage && (
+            <div className="alert alert-danger mb-2">
+              {errorMessage}
+            </div>
+          )}
           <div className="header-page-body-box card-header p-2 border-0">
             <div className="row align-items-center">
               <div className="search-box col-md-6 d-flex">
