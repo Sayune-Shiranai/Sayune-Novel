@@ -13,7 +13,11 @@ export const getPagedBooks = async ({ page, limit, keyword }) => {
 }
 
 export const getBookBySlug = (slug) => {
-  return axios.get(`http://localhost:3000/dashboard/book/${slug}`);
+  return axios.get(`http://localhost:3000/dashboard/book/${slug}`,
+    { 
+      withCredentials: true
+    }
+  );
 };
 
 export const createBook = async (data) => {
@@ -38,18 +42,27 @@ export const updateBook = async (slug, data) => {
 
 export const deleteBook = async (id) => {
   return axios.delete(
-    `http://localhost:3000/dashboard/book/delete/${id}`
+    `http://localhost:3000/dashboard/book/delete/${id}`,
+    { 
+      withCredentials: true
+    }
   );
 };
 
 export const approveBook = async (id) => {
   return axios.post(
-    `http://localhost:3000/dashboard/book/approve/${id}`
+    `http://localhost:3000/dashboard/book/approve/${id}`,
+    { 
+      withCredentials: true
+    }
   );
 };
 
 export const rejectBook = async (id) => {
   return axios.post(
-    `http://localhost:3000/dashboard/book/reject/${id}`
+    `http://localhost:3000/dashboard/book/reject/${id}`,
+    { 
+      withCredentials: true
+    }
   );
 };

@@ -1,9 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import AuthLayout from "./Layout/Auth/AuthLayout.jsx";
 import LoginPage from "./pages/Auth/Login/LoginPage.jsx";
 import RegisterPage from "./pages/Auth/Register/RegisterPage.jsx";
 import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
+// import { AuthorityRoute } from './Middleware/Routes/AuthorityRoute.jsx'
 
 import HomePage from './pages/Home/HomePage.jsx';
 import UserPage from "./pages/User/UserPage.jsx";
@@ -12,6 +14,8 @@ import BookPage from "./pages/Book/BookPage.jsx";
 import CreateBookPage from "./pages/Book/CreateBook/CreateBookPage.jsx";
 import VolumePage from "./pages/Volume/VolumePage.jsx";
 import CreateVolumePage from "./pages/Volume/CreateVolume/CreateVolumePage.jsx";
+import CategoryPage from "./pages/Category/CategoryPage.jsx";
+import CreateCategoryPage from "./pages/Category/CreateCategory/CreateCategoryPage.jsx";
 import AuthorPage from "./pages/Author/AuthorPage.jsx";
 import CreateAuthorPage from "./pages/Author/CreateAuthor/CreateAuthorPage.jsx";
 import ArtistPage from "./pages/Artist/ArtistPage.jsx";
@@ -24,52 +28,64 @@ import "./App.css";
 
 const App = () => {
   return (
-    <Routes>
+    <>
+      <ToastContainer position="top-right" autoClose={3000} />
 
-      {/* AUTH */}
-      <Route element={<AuthLayout />}>
-        <Route path="/login" element={<LoginPage />} />
-        <Route path="/register" element={<RegisterPage />} />
-      </Route>
+      <Routes>
 
-      {/* HOME */}
-      <Route path="/" element={<HomePage />} />
+        {/* AUTH */}
+        <Route element={<AuthLayout />}>
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
+        </Route>
 
-      {/* DASHBOARD */}
-      <Route path="/dashboard" element={<DashboardLayout />}>
+        {/* HOME */}
+        <Route path="/" element={<HomePage />} />
 
-        {/* /dashboard */}
-        <Route index element={<BookPage />} />
+        {/* DASHBOARD */}
+        <Route path="/dashboard" element={
+          // <AuthorityRoute roles={["Admin", "Uploader", "Mod"]}>
+            <DashboardLayout />
+          // </AuthorityRoute>
+        }>
 
-        {/* /dashboard/user */}
-        <Route path="user" element={<UserPage />} />
-        {/* /dashboard/user/update/:id */}
-        <Route path="user/update/:id" element={<UpdateUserPage />} />
+          {/* /dashboard */}
+          <Route index element={<BookPage />} />
 
-        <Route path="book" element={<BookPage />} />
+          {/* /dashboard/user */}
+          <Route path="user" element={<UserPage />} />
+          {/* /dashboard/user/update/:id */}
+          <Route path="user/update/:id" element={<UpdateUserPage />} />
 
-        <Route path="book/create" element={<CreateBookPage />} />
+          <Route path="book" element={<BookPage />} />
 
-        <Route path="book/:slug/volume" element={<VolumePage/>} />
+          <Route path="book/create" element={<CreateBookPage />} />
 
-        <Route path="book/:slug/volume/create" element={<CreateVolumePage/>} />
+          <Route path="book/:slug/volume" element={<VolumePage/>} />
 
-        <Route path="author" element={<AuthorPage />} />
+          <Route path="book/:slug/volume/create" element={<CreateVolumePage/>} />
 
-        <Route path="author/create" element={<CreateAuthorPage />} />
+          <Route path="category" element={<CategoryPage />} />
 
-        <Route path="artist" element={<ArtistPage />} />
+          <Route path="category/create" element={<CreateCategoryPage />} />
 
-        <Route path="artist/create" element={<CreateArtistPage />} />
+          <Route path="author" element={<AuthorPage />} />
 
-        <Route path="role" element={<RolePage />} />
+          <Route path="author/create" element={<CreateAuthorPage />} />
 
-        <Route path="role/create" element={<CreateRolePage />} />
+          <Route path="artist" element={<ArtistPage />} />
+
+          <Route path="artist/create" element={<CreateArtistPage />} />
+
+          <Route path="role" element={<RolePage />} />
+
+          <Route path="role/create" element={<CreateRolePage />} />
 
 
-      </Route>
+        </Route>
 
-    </Routes>
+      </Routes>
+    </>
   );
 };
 

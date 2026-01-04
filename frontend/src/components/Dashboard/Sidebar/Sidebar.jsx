@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../../../../../media/logo/logo-dark.png";
+// import { AuthContext } from '../../../Middleware/AuthContext'
 
 const Sidebar = () => {
   const [openMenu, setOpenMenu] = useState(null);
@@ -9,6 +10,15 @@ const Sidebar = () => {
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
+
+  // const { user } = useContext(AuthContext);
+
+  // const role = user?.User_Role?.role;
+
+  // const hasRole = (roles = []) => {
+  //   if (!role) return false;
+  //   return roles.includes(role);
+  // };
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -55,37 +65,41 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          <li className={`sidebar-list ${openMenu === "users" ? "open" : ""}`}>
-            <div
-              className="sidebar-link sidebar-title"
-              onClick={() => toggleMenu("users")}
-            >
-              <i className="fa fa-user"></i>
-              <span className="ms-2">Người dùng</span>
-              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
-            </div>
+          {/* {hasRole(["Admin"]) && (
+            <> */}
+              <li className={`sidebar-list ${openMenu === "users" ? "open" : ""}`}>
+                <div
+                  className="sidebar-link sidebar-title"
+                  onClick={() => toggleMenu("users")}
+                >
+                  <i className="fa fa-user"></i>
+                  <span className="ms-2">Người dùng</span>
+                  <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+                </div>
 
-            <ul className="sidebar-submenu">
-              <li><Link to="/dashboard/user">Danh sách người dùng</Link></li>
-              <li><Link to="/dashboard/user/create">Thêm người dùng</Link></li>
-            </ul>
-          </li>
+                <ul className="sidebar-submenu">
+                  <li><Link to="/dashboard/user">Danh sách người dùng</Link></li>
+                  <li><Link to="/dashboard/user/create">Thêm người dùng</Link></li>
+                </ul>
+              </li>
 
-          <li className={`sidebar-list ${openMenu === "role" ? "open" : ""}`}>
-            <div
-              className="sidebar-link sidebar-title"
-              onClick={() => toggleMenu("role")}
-            >
-              <i className="fa fa-user"></i>
-              <span className="ms-2">Vai trò</span>
-              <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
-            </div>
+              <li className={`sidebar-list ${openMenu === "role" ? "open" : ""}`}>
+                <div
+                  className="sidebar-link sidebar-title"
+                  onClick={() => toggleMenu("role")}
+                >
+                  <i className="fa fa-user"></i>
+                  <span className="ms-2">Vai trò</span>
+                  <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
+                </div>
 
-            <ul className="sidebar-submenu">
-              <li><Link to="/dashboard/role">Danh sách vai trò</Link></li>
-              <li><Link to="/dashboard/role/create">Thêm vai trò</Link></li>
-            </ul>
-          </li>
+                <ul className="sidebar-submenu">
+                  <li><Link to="/dashboard/role">Danh sách vai trò</Link></li>
+                  <li><Link to="/dashboard/role/create">Thêm vai trò</Link></li>
+                </ul>
+              </li>
+            {/* </>
+          )} */}
 
           {/* QUẢN LÝ TRUYỆN */}
           <li className="sidebar-main-title">
