@@ -3,7 +3,10 @@ import axios from "axios";
 export const getPagedVolumes = async ({ page, limit, keyword, slug }) => {
   const res = await axios.get(
     `http://localhost:3000/dashboard/book/${slug}/volume`,
-    { params: { page, limit, keyword } }
+    { 
+      params: { page, limit, keyword },
+      withCredentials: true
+    }
   );
   return res.data;
 }

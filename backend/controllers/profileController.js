@@ -19,7 +19,7 @@ export async function getProfile(req, res) {
       }]
     });
 
-    console.log("User:", user)
+    console.log("Profile User:", user)
     
     if (!user) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
