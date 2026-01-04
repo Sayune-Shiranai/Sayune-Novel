@@ -1,32 +1,23 @@
 import express from "express";
-import {
-  GetPaged,
-  getAllCategory,
-  createCategory,
-  approveCategory,
-  deleteCategory,
-  rejectCategory,
-} from "../../controllers/categoryController.js";
+import * as categoryController from "../controllers/categoryController.js";
 
 const router = express.Router();
 
-// Tạo mới category
-router.post("/create", createCategory);
+// 1. Lấy danh sách có phân trang và tìm kiếm (Dùng cho trang quản trị hoặc danh sách thể loại)
+// URL ví dụ: /api/categories/paged?page=1&limit=10&keyword=tien-hiep
+router.get("/paged", categoryController.GetPaged);
 
-// Lấy danh sách tất cả category(hạng mục)
-router.get("/", GetPaged);
+// 2. Lấy tất cả danh mục (Dùng cho dropdown hoặc menu)
+router.get("/", categoryController.getAllCategory);
 
-// Route để xóa category
-router.delete('/:id', deleteCategory);
+// 3. Tạo mới một thể loại
+router.post("/", categoryController.createCategory);
 
-// Route để duyệt category
-router.put('/approve/:id', approveCategory);
+// 4. Cập nhật trạng thái (Duyệt/Hủy duyệt)
+// URL ví dụ: /api/categories/status/1 (với body kèm status)
+router.put("/status/:id", categoryController.updateStatus);
 
-// Route để hủy duyệt category
-router.put('/reject/:id', rejectCategory);
-
-// Route để lấy tất cả categories
-router.get('/', getAllCategory);
-
+// 5. Xóa thể loại
+router.delete("/:id", categoryController.deleteCategory);
 
 export default router;
