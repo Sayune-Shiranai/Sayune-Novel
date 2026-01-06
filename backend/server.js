@@ -63,7 +63,7 @@ dotenv.config({ path: new URL("./.env", import.meta.url).pathname });
 import { verifyToken } from "./middleware/verifyToken.js";
 import { roleMiddleware } from "./middleware/roleMiddleware.js";
 
-app.use("/dashboard", verifyToken, roleMiddleware(["Admin","Uploader", "Mod"]));
+// app.use("/dashboard", verifyToken, roleMiddleware(["Admin","Uploader", "Mod"]));
 
 //dashboard routes
 app.use("/dashboard/role", RoleRoutes); // dashboard/role
