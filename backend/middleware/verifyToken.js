@@ -13,7 +13,6 @@ export async function verifyToken(req, res, next) {
     req.user = null;
     const currentUrl = req.url;
     try {
-      // Xác thực token
       const CheckAccessToken = await jwt.verify(
         req.cookies.accessToken,
         JWT_SECRET
@@ -60,11 +59,10 @@ export async function verifyToken(req, res, next) {
             console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
             console.log("Giá trị của User.refreshToken:", User.refreshToken);
 
-            // Kiểm tra nếu refresh token hợp lệ
             if (User && User.refreshToken === req.cookies.refreshToken) {
               console.log("Giá trị của User.username:", User.username);
               console.log("Giá trị của User.role:", User.User_Role.role);
-              // Tạo Access Token mới
+
               const newAccessToken = jwt.sign(
                 { 
                   id: User.id, 
@@ -75,7 +73,6 @@ export async function verifyToken(req, res, next) {
                 { expiresIn: "1m" }
               );
 
-              // Tạo Refresh Token mới
               const newRefreshToken = jwt.sign(
                 { 
                   id: User.id, 
@@ -93,7 +90,6 @@ export async function verifyToken(req, res, next) {
 
               console.log("UpdateRefreshToken:", UpdateRefreshToken);
 
-              // Gửi Access Token mới về client
               res.cookie("accessToken", newAccessToken, { 
                   httpOnly: true,
                   sameSite: "lax",
@@ -113,11 +109,6 @@ export async function verifyToken(req, res, next) {
                 username: User.username,
                 role: User.User_Role.role,
               };
-
-              //vị trí hiện tai url
-              console.log("Giá trị của currentUrl:", currentUrl);
-
-              console.log("Xác thực user thành công!")
               
             }
             //  else {
@@ -132,6 +123,9 @@ export async function verifyToken(req, res, next) {
           }
 
           req.user = userData;
+
+          console.log("Giá trị của currentUrl:", currentUrl);
+          console.log("Xác thực user thành công!")
           return next();
         } catch (err) {
           res.clearCookie("accessToken");
