@@ -13,7 +13,7 @@ import {
 } from "../../controllers/usersController.js";
 
 const router = express.Router();
-router.get("/",verifyToken, GetPaged); // dashboard/user
+router.get("/", GetPaged); // dashboard/user
 router.put("/update/:id", updateUser); // dashboard/user/update/:id/
 router.delete("/delete/:id", deleteUser); // dashboard/user/delete/:id
 router.post("/approve/:id", approveUser); // dashboard/user/approve/:id

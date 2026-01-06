@@ -22,6 +22,9 @@ export const createRole = async (data) => {
 
 export const deleteRole = async (id) => {
   return axios.delete(
-    `http://localhost:3000/dashboard/role/delete/${id}`
+    `http://localhost:3000/dashboard/role/delete/${id}`,
+    {
+      withCredentials: true
+    }
   );
 };

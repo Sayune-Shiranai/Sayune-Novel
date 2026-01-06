@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
 import logo from "../../../../media/logo/logo.png";
 import { login } from "../../services/AuthService";
+import { useContext } from "react";
+import { AuthContext } from "../../Middleware/AuthContext";
 
 const initialState = {
   success: false,
@@ -17,6 +19,7 @@ const initialState = {
 
 const Login = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
   async function loginAction(prevState, formData) {
     const username = formData.get("username");
@@ -37,6 +40,8 @@ const Login = () => {
 
     try {
       const data = await login(username, password);
+
+      setUser(data.user);
 
       const role = data.user?.role;
 

@@ -5,7 +5,7 @@ import AuthLayout from "./Layout/Auth/AuthLayout.jsx";
 import LoginPage from "./pages/Auth/Login/LoginPage.jsx";
 import RegisterPage from "./pages/Auth/Register/RegisterPage.jsx";
 import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
-// import { AuthorityRoute } from './Middleware/Routes/AuthorityRoute.jsx'
+import { AuthorityRoute } from './Middleware/Routes/AuthorityRoute.jsx'
 
 import HomePage from './pages/Home/HomePage.jsx';
 import UserPage from "./pages/User/UserPage.jsx";
@@ -44,9 +44,9 @@ const App = () => {
 
         {/* DASHBOARD */}
         <Route path="/dashboard" element={
-          // <AuthorityRoute roles={["Admin", "Uploader", "Mod"]}>
+          <AuthorityRoute roles={["Admin", "Uploader", "Mod"]}>
             <DashboardLayout />
-          // </AuthorityRoute>
+          </AuthorityRoute>
         }>
 
           {/* /dashboard */}

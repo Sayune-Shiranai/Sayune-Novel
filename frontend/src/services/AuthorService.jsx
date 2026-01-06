@@ -22,6 +22,9 @@ export const createAuthor = async (data) => {
 
 export const deleteAuthor = async (id) => {
   return axios.delete(
-    `http://localhost:3000/dashboard/author/delete/${id}`
+    `http://localhost:3000/dashboard/author/delete/${id}`,
+    {
+      withCredentials: true
+    }
   );
 };

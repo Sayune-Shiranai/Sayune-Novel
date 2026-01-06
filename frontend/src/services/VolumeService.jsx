@@ -24,5 +24,8 @@ export const createVolume = async (data, slug) => {
 export const deleteVolume = async (slug, id) => {
   return axios.delete(
     `http://localhost:3000/dashboard/book/${slug}/volume/delete/${id}`,
+    {
+      withCredentials: true
+    }
   );
 };

@@ -32,8 +32,9 @@ export const createBook = async (data) => {
 
 
 export const updateBook = async (slug, data) => {
-  return axios.put(
-    `http://localhost:3000/dashboard/book/update/${slug}`, data, {
+  return axios.post(
+    `http://localhost:3000/dashboard/book/update/${slug}`, data, 
+    {
       headers: { "Content-Type": "multipart/form-data" },
       withCredentials: true
     }
@@ -52,6 +53,7 @@ export const deleteBook = async (id) => {
 export const approveBook = async (id) => {
   return axios.post(
     `http://localhost:3000/dashboard/book/approve/${id}`,
+    {},
     { 
       withCredentials: true
     }
@@ -61,6 +63,7 @@ export const approveBook = async (id) => {
 export const rejectBook = async (id) => {
   return axios.post(
     `http://localhost:3000/dashboard/book/reject/${id}`,
+    {},
     { 
       withCredentials: true
     }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { AuthContext } from "./AuthContext"; // Import từ file vừa tạo
+import { AuthContext } from "./AuthContext";
 import { getProfile } from "../services/AuthService";
 
 export const Authority = ({ children }) => {
@@ -8,7 +8,9 @@ export const Authority = ({ children }) => {
 
   useEffect(() => {
     getProfile()
-      .then(res => setUser(res.user))
+      .then(res => {
+        setUser(res?.user ?? null);
+      })
       .catch(() => setUser(null))
       .finally(() => setLoading(false));
   }, []);

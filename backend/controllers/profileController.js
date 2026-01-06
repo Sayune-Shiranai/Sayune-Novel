@@ -8,15 +8,7 @@ export async function getProfile(req, res) {
     }
 
     const user = await db.usersModel.findOne({
-      where: { id: req.user.id },
-      attributes: {
-        exclude: ["password", "refreshToken"]
-      },
-      include: [{
-        model: db.roleModel,
-        as: "User_Role",
-        attributes: ["role"]
-      }]
+      where: { id: req.user.id }
     });
 
     console.log("Profile User:", user)
@@ -25,7 +17,13 @@ export async function getProfile(req, res) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
     }
 
-    return res.json({ user });
+    return res.json({
+      user: {
+        id: user.id,
+        username: user.username,
+        role: req.user.role,
+      }
+    });
 
   } catch (err) {
     console.error("Get profile error:", err);

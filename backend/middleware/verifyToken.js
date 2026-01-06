@@ -19,7 +19,7 @@ export async function verifyToken(req, res, next) {
         JWT_SECRET
       );
       req.user = CheckAccessToken;
-      console.log("AccessToken hợp lệ:", CheckAccessToken);
+      // console.log("AccessToken hợp lệ:", CheckAccessToken);
 
       console.log("Giá trị của currentUrl:", currentUrl);
       return next();
@@ -28,7 +28,7 @@ export async function verifyToken(req, res, next) {
 
       //kiểm tra refresh token
       if (req.cookies.refreshToken) {
-        console.log("Giá trị của cookie refreshToken:", req.cookies.refreshToken);
+        // console.log("Giá trị của cookie refreshToken:", req.cookies.refreshToken);
         try {
           const CheckRefreshToken = jwt.verify(
             req.cookies.refreshToken,
@@ -36,7 +36,7 @@ export async function verifyToken(req, res, next) {
           );
           req.user = CheckRefreshToken;
           console.log(CheckRefreshToken);
-          await lock.acquire(`refresh_lock_${CheckRefreshToken.id}`, async () => {
+          const userData = await lock.acquire(`refresh_lock_${CheckRefreshToken.id}`, async () => {
             console.log("Xác thực refresh token thành công!")
 
             const User = await db.usersModel.findOne({
@@ -47,10 +47,14 @@ export async function verifyToken(req, res, next) {
                 }
             });
 
-            if (!User) {
-              res.clearCookie("accessToken");
-              res.clearCookie("refreshToken");
-              return res.status(401).send({ message: "User không tồn tại" });
+            if (!User) return null;
+
+            if (User.refreshToken !== req.cookies.refreshToken) {
+              return {
+                id: User.id,
+                username: User.username,
+                role: User.User_Role.role
+              };
             }
             
             console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
@@ -104,7 +108,7 @@ export async function verifyToken(req, res, next) {
               });
               console.log("Giá trị của newRefreshToken mới:", newRefreshToken);
 
-              req.user = {
+              return {
                 id: User.id,
                 username: User.username,
                 role: User.User_Role.role,
@@ -115,12 +119,19 @@ export async function verifyToken(req, res, next) {
 
               console.log("Xác thực user thành công!")
               
-            } else {
-              console.log("Request song song phát hiện: Đã có luồng khác cập nhật token.");
-              // Gán user từ DB để đi tiếp vào Controller, không cần tạo mới nữa
-              req.user = { id: User.id, username: User.username, role: User.User_Role.role };
             }
+            //  else {
+            //   console.log("Request song song phát hiện: Đã có luồng khác cập nhật token.");
+            //   // Gán user từ DB để đi tiếp vào Controller, không cần tạo mới nữa
+            //   req.user = { id: User.id, username: User.username, role: User.User_Role.role };
+            // }
           });
+
+          if (!userData) {
+            return res.status(401).json({ message: "Token không hợp lệ" });
+          }
+
+          req.user = userData;
           return next();
         } catch (err) {
           res.clearCookie("accessToken");
