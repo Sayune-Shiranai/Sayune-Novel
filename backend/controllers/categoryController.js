@@ -1,120 +1,161 @@
 import db from "../models/index.js";
 import { Op } from "sequelize";
+// const Category = db.categoryModel;
 
-const Category = db.categoryModel;
-
-// 1. Xem danh sách có phân trang và tìm kiếm
+//xem danh sách có phân trang
 export async function GetPaged(req, res) {
   try {
     let { page = 1, limit = 10, keyword = "" } = req.query;
     page = parseInt(page);
     limit = parseInt(limit);
+
     const offset = (page - 1) * limit;
 
     let where = {};
+
     if (keyword) {
-      // Khớp với cột 'category' trong Model của bạn
-      where.category = { [Op.like]: `%${keyword}%` };
+      where = {
+        [Op.or]: [
+          { category: { [Op.like]: `%${keyword}%` } }
+        ]
+      };
     }
 
-    // Sử dụng findAndCountAll để lấy cả count và rows trong 1 lần query
-    const { count, rows } = await Category.findAndCountAll({
+    const totalRecords = await db.categoryModel.count({ where });
+
+    // Lấy danh sách category + book theo trang
+    const category = await db.categoryModel.findAll({
       where,
       include: [
         {
           model: db.bookModel,
-          as: "Category_Book", // Khớp với alias trong associate của Model
+          as: "Category_Book",
           through: { attributes: [] }
         }
       ],
       limit,
       offset,
-      order: [["id", "DESC"]],
-      distinct: true
+      order: [["id", "DESC"]]
     });
+
+    const totalPages = Math.ceil(totalRecords / limit);
 
     return res.json({
       page,
       limit,
-      totalPages: Math.ceil(count / limit),
-      totalRecords: count,
-      data: rows
+      totalPages,
+      totalRecords,
+      data: category
     });
+
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }
 }
 
-// 2. Lấy tất cả danh mục
+// Lấy tất cả danh mục
 export async function getAllCategory(req, res) {
   try {
-    const data = await Category.findAll({
-      order: [['category', 'ASC']]
-    });
-    res.json(data);
+    const category = await db.categoryModel.findAll();
+    res.json(category);
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
 }
 
-// 3. Tạo mới category (Đã sửa lỗi tên biến)
+// Xoá danh mục
+export async function deleteCategory(req, res) {
+  try {
+    const { id } = req.params;
+    const category = await db.categoryModel.findOne({
+      where: { id }
+    });
+    if (!category) return res.status(404).json({ success: false, message: 'Không tìm thấy category!' });
+    await category.destroy();
+    res.json({ success: true, message: 'Xóa category thành công!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Phê duyệt danh mục
+export async function approveCategory(req, res) {
+  try {
+    const { id } = req.params;
+    const category = await db.categoryModel.findOne({
+      where: { id }
+    });
+    if (!category) return res.status(404).json({ success: false, message: 'Không tìm thấy category!' });
+    category.trangthai = 1;
+    await category.save();
+    res.json({ success: true, message: 'Đã duyệt', data: category });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Huỷ duyệt danh mục
+export async function rejectCategory(req, res) {
+  try {
+    const { id } = req.params;
+    const category = await db.categoryModel.findOne({
+      where: { id }
+    });
+    if (!category) return res.status(404).json({ success: false, message: 'Không tìm thấy category!' });
+    category.trangthai = 2;
+    await category.save();
+    res.json({ success: true, message: 'Hủy duyệt', data: category });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: err.message });
+  }
+}
+
+// Tạo mới category
 export async function createCategory(req, res) {
   try {
-    const { category } = req.body;
+    const { name, description } = req.body;
 
-    if (!category) {
-      return res.status(400).json({ success: false, message: "Tên category là bắt buộc!" });
+    // Kiểm tra thiếu dữ liệu
+    if (!name) {
+      return res.status(400).json({
+        success: false,
+        message: "Tên category là bắt buộc!"
+      });
     }
 
-    // SỬA: Kiểm tra dựa trên cột 'category'
-    const existed = await Category.findOne({ where: { category } });
-    if (existed) {
-      return res.status(400).json({ success: false, message: "Category đã tồn tại!" });
-    }
-
-    const newCategory = await Category.create({
-      category: category,
-      trangthai: 0 // 0 = chờ duyệt theo DB thiết kế
+    // Kiểm tra trùng tên category
+    const existed = await db.categoryModel.findOne({
+      where: { name }
     });
 
-    return res.status(201).json({
+    if (existed) {
+      return res.status(400).json({
+        success: false,
+        message: "Category đã tồn tại!"
+      });
+    }
+
+    // Tạo mới category
+    const newCategory = await db.categoryModel.create({
+      name,
+      description: description || "",
+      trangthai: 0 // trạng thái mặc định (0 = chờ duyệt)
+    });
+
+    return res.json({
       success: true,
       message: "Tạo mới category thành công!",
       data: newCategory
     });
+
   } catch (err) {
-    return res.status(500).json({ success: false, error: err.message });
-  }
-}
-
-// 4. Xoá danh mục
-export async function deleteCategory(req, res) {
-  try {
-    const { id } = req.params;
-    const deleted = await Category.destroy({ where: { id } });
-
-    if (!deleted) return res.status(404).json({ success: false, message: 'Không tìm thấy category!' });
-
-    res.json({ success: true, message: 'Xóa category thành công!' });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
-  }
-}
-
-// 5. Phê duyệt/Hủy duyệt (Gộp chung logic cho gọn)
-export async function updateStatus(req, res) {
-  try {
-    const { id } = req.params;
-    const { status } = req.body; // Client gửi status 1 hoặc 2
-
-    const item = await Category.findByPk(id);
-    if (!item) return res.status(404).json({ success: false, message: 'Không tìm thấy!' });
-
-    item.trangthai = status;
-    await item.save();
-
-    res.json({ success: true, message: 'Cập nhật trạng thái thành công', data: item });
-  } catch (err) {
-    res.status(500).json({ success: false, error: err.message });
+    console.error(err);
+    return res.status(500).json({
+      success: false,
+      error: err.message
+    });
   }
 }
