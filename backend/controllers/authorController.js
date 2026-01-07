@@ -105,7 +105,7 @@ export async function updateAuthor(req, res) {
   }
 }
 
-// đelete author
+// delete author
 export async function deleteAuthor(req, res) {
   try {
     const { id } = req.params;

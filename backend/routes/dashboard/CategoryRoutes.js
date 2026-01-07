@@ -17,7 +17,7 @@ router.post("/create", createCategory);
 router.get("/", GetPaged);
 
 // Route để xóa category
-router.delete('/:id', deleteCategory);
+router.delete('/delete/:id', deleteCategory);
 
 // Route để duyệt category
 router.put('/approve/:id', approveCategory);
