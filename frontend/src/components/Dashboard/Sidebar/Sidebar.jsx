@@ -1,24 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../../../../../media/logo/logo-dark.png";
-// import { AuthContext } from '../../../Middleware/AuthContext'
+import { AuthContext } from '../../../Middleware/AuthContext'
 
 const Sidebar = () => {
   const [openMenu, setOpenMenu] = useState(null);
+  
 
   const toggleMenu = (menu) => {
     setOpenMenu(openMenu === menu ? null : menu);
   };
 
-  // const { user } = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
 
-  // const role = user?.User_Role?.role;
+  const role = user?.User_Role?.role;
 
-  // const hasRole = (roles = []) => {
-  //   if (!role) return false;
-  //   return roles.includes(role);
-  // };
+  const hasRole = (roles = []) => {
+    if (!role) return false;
+    return roles.includes(role);
+  };
 
   const [collapsed, setCollapsed] = useState(false);
 
@@ -65,8 +66,8 @@ const Sidebar = () => {
             </Link>
           </li>
 
-          {/* {hasRole(["Admin"]) && (
-            <> */}
+          {hasRole(["Admin"]) && (
+            <>
               <li className={`sidebar-list ${openMenu === "users" ? "open" : ""}`}>
                 <div
                   className="sidebar-link sidebar-title"
@@ -98,8 +99,8 @@ const Sidebar = () => {
                   <li><Link to="/dashboard/role/create">Thêm vai trò</Link></li>
                 </ul>
               </li>
-            {/* </>
-          )} */}
+            </>
+          )}
 
           {/* QUẢN LÝ TRUYỆN */}
           <li className="sidebar-main-title">
