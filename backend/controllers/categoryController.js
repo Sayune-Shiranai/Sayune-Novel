@@ -116,10 +116,10 @@ export async function rejectCategory(req, res) {
 // Tạo mới category
 export async function createCategory(req, res) {
   try {
-    const { name, description } = req.body;
+    const { category, description } = req.body;
 
     // Kiểm tra thiếu dữ liệu
-    if (!name) {
+    if (!category) {
       return res.status(400).json({
         success: false,
         message: "Tên category là bắt buộc!"
@@ -128,7 +128,7 @@ export async function createCategory(req, res) {
 
     // Kiểm tra trùng tên category
     const existed = await db.categoryModel.findOne({
-      where: { name }
+      where: { category }
     });
 
     if (existed) {
@@ -140,7 +140,7 @@ export async function createCategory(req, res) {
 
     // Tạo mới category
     const newCategory = await db.categoryModel.create({
-      name,
+      category,
       description: description || "",
       trangthai: 0 // trạng thái mặc định (0 = chờ duyệt)
     });
