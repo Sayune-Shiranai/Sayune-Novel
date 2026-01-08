@@ -14,7 +14,7 @@ const Sidebar = () => {
 
   const { user } = useContext(AuthContext);
 
-  const role = user?.User_Role?.role;
+  const role = user?.role;
 
   const hasRole = (roles = []) => {
     if (!role) return false;

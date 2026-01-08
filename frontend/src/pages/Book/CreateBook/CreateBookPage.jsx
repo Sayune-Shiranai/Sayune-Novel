@@ -28,33 +28,33 @@ const CreateBookPage = () => {
     });
 
     const validate = () => {
-    const newErrors = {};
+        const newErrors = {};
 
-    if (!formData.book_number.trim()) {
-        newErrors.book_number = "Vui lòng nhập số truyện";
-    } else if (isNaN(formData.book_number)) {
-        newErrors.book_number = "Số truyện phải là số";
-    }
+        if (!formData.book_number.trim()) {
+            newErrors.book_number = "Vui lòng nhập số truyện";
+        } else if (isNaN(formData.book_number)) {
+            newErrors.book_number = "Số truyện phải là số";
+        }
 
-    if (!formData.title.trim()) {
-        newErrors.title = "Vui lòng nhập tên truyện";
-    }
+        if (!formData.title.trim()) {
+            newErrors.title = "Vui lòng nhập tên truyện";
+        }
 
-    if (!formData.author_id) {
-        newErrors.author_id = "Vui lòng chọn tác giả";
-    }
+        if (!formData.author_id) {
+            newErrors.author_id = "Vui lòng chọn tác giả";
+        }
 
-    if (!formData.artist_id) {
-        newErrors.artist_id = "Vui lòng chọn họa sĩ";
-    }
+        if (!formData.artist_id) {
+            newErrors.artist_id = "Vui lòng chọn họa sĩ";
+        }
 
-    if (!formData.status) {
-        newErrors.status = "Vui lòng chọn trạng thái";
-    }
+        if (!formData.status) {
+            newErrors.status = "Vui lòng chọn trạng thái";
+        }
 
-    if (!formData.category_id.length) {
-        newErrors.category_id = "Vui lòng chọn ít nhất 1 thể loại";
-    }
+        if (!formData.category_id.length) {
+            newErrors.category_id = "Vui lòng chọn ít nhất 1 thể loại";
+        }
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;

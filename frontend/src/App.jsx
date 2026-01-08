@@ -12,6 +12,7 @@ import UserPage from "./pages/User/UserPage.jsx";
 import UpdateUserPage from "./pages/User/UpdateUser/UpdateUserPage.jsx";
 import BookPage from "./pages/Book/BookPage.jsx";
 import CreateBookPage from "./pages/Book/CreateBook/CreateBookPage.jsx";
+import UpdateBookPage from "./pages/Book/UpdateBook/UpdateBookPage.jsx";
 import VolumePage from "./pages/Volume/VolumePage.jsx";
 import CreateVolumePage from "./pages/Volume/CreateVolume/CreateVolumePage.jsx";
 import CategoryPage from "./pages/Category/CategoryPage.jsx";
@@ -60,6 +61,8 @@ const App = () => {
           <Route path="book" element={<BookPage />} />
 
           <Route path="book/create" element={<CreateBookPage />} />
+
+          <Route path="book/update/:slug" element={<UpdateBookPage />} />
 
           <Route path="book/:slug/volume" element={<VolumePage/>} />
 
