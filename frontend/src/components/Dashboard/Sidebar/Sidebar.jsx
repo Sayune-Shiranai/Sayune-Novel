@@ -112,7 +112,7 @@ const Sidebar = () => {
               className="sidebar-link sidebar-title"
               onClick={() => toggleMenu("book")}
             >
-              <i className="fa fa-user"></i>
+              <i class="fa-solid fa-book"></i>
               <span className="ms-2">Quản lý truyện</span>
               <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
             </div>
@@ -144,7 +144,7 @@ const Sidebar = () => {
               className="sidebar-link sidebar-title"
               onClick={() => toggleMenu("author")}
             >
-              <i className="fa fa-list"></i>
+              <i className="fa fa-user"></i>
               <span className="ms-2">Quản lý tác giả</span>
               <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
             </div>
@@ -160,7 +160,7 @@ const Sidebar = () => {
               className="sidebar-link sidebar-title"
               onClick={() => toggleMenu("artist")}
             >
-              <i className="fa fa-list"></i>
+              <i class="fa-solid fa-palette"></i>
               <span className="ms-2">Quản lý họa sĩ</span>
               <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
             </div>
