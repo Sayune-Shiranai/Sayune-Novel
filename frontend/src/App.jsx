@@ -23,6 +23,8 @@ import ArtistPage from "./pages/Artist/ArtistPage.jsx";
 import CreateArtistPage from "./pages/Artist/CreateArtist/CreateArtistPage.jsx";
 import RolePage from "./pages/Role/RolePage.jsx";
 import CreateRolePage from "./pages/Role/CreateRole/CreateRolePage.jsx";
+import BookFollowPage from "./pages/BookFollow/BookFollowPage.jsx";
+import UserFollowBoookPage from "./pages/BookFollow/UserFollowBook/UserFollowBookPage.jsx"
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -84,7 +86,9 @@ const App = () => {
 
           <Route path="role/create" element={<CreateRolePage />} />
 
+          <Route path="bookfollowing" element={<BookFollowPage />} />
 
+          <Route path="bookfollowing/:slug" element={<UserFollowBoookPage />} />
         </Route>
 
       </Routes>

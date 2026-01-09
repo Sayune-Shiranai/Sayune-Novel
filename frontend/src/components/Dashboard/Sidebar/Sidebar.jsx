@@ -123,6 +123,15 @@ const Sidebar = () => {
             </ul>
           </li>
 
+          <li className="sidebar-list">
+            <div
+              className="sidebar-link sidebar-title"
+            >
+              <i class="fa-solid fa-chart-simple"></i>
+              <span className="ms-2"><Link to="/dashboard/bookfollowing">Thống kê</Link></span>
+            </div>
+          </li>
+
           <li className={`sidebar-list ${openMenu === "category" ? "open" : ""}`}>
             <div
               className="sidebar-link sidebar-title"

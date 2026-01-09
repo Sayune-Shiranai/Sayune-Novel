@@ -38,6 +38,7 @@ import ChatboxRoutes from "./routes/dashboard/ChatboxRoutes.js";
 import ForumRoutes from "./routes/dashboard/ForumRoutes.js";
 import NoticesRoutes from "./routes/dashboard/NoticesRoutes.js";
 import ReportRoutes from "./routes/dashboard/ReportRoutes.js";
+import BookFollowingRoutes from "./routes/dashboard/BookFollowingRoutes.js";
 
 //home routes
 import homeRoutes from "./routes/homeRoutes.js";
@@ -79,6 +80,7 @@ app.use("/dashboard/chatbox", ChatboxRoutes) // dashboard/chatbox
 app.use("/dashboard/forum", ForumRoutes) // dashboard/forum
 app.use("/dashboard/notices", NoticesRoutes) // dashboard/notices
 app.use("/dashboard/report", ReportRoutes) // dashboard/report
+app.use("/dashboard/bookfollowing", BookFollowingRoutes) // dashboard/reportbookfollowing
 
 // home routes
 app.use("/", homeRoutes);
