@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { AuthContext } from '../../Middleware/AuthContext'
 import "./BookPage.css";
 import { 
   getPagedBooks,
@@ -16,6 +17,15 @@ export default function BookPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
   const [totalPages, setTotalPages] = useState(1);
+
+  const { user } = useContext(AuthContext);
+
+  const role = user?.role;
+
+  const hasRole = (roles = []) => {
+    if (!role) return false;
+    return roles.includes(role);
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -136,7 +146,11 @@ export default function BookPage() {
                     <th>Tổng chương</th>
                     <th>Người tạo</th>
                     <th>Trạng thái kiểm duyệt</th>
-                    <th width="120">Chức năng</th>
+                    {hasRole(["Admin", "Mod"]) && (
+                      <>
+                        <th width="120">Chức năng</th>
+                      </>
+                    )}
                   </tr>
                 </thead>
                 <tbody>
@@ -191,59 +205,63 @@ export default function BookPage() {
                             <span className="badge bg-danger">Từ chối</span>
                           )}
                         </td>
-                        <td className="text-center">
-                          {book.trangthai === 0 && (
-                            <>
-                              <button
-                                className="btn btn-sm btn-success me-2"
-                                onClick={() => handleApprove(book.id)}
-                              >
-                                ✓
-                              </button>
-                              <button
-                                className="btn btn-sm btn-warning text-dark"
-                                onClick={() => handleReject(book.id)}
-                              >
-                                ✕
-                              </button>
-                            </>
-                          )}
-
-                          {book.trangthai === 2 && (
+                        {hasRole(["Admin", "Mod"]) && (
                           <>
-                            <button
-                              className="btn btn-sm btn-success me-2"
-                              onClick={() => handleApprove(book.id)}
-                              title="Duyệt"
-                            >
-                              ✓
-                            </button>
-                            <button
-                              className="btn btn-sm btn-primary me-2"
-                              onClick={() => handleUpdate(book.slug)}
-                              title="Chỉnh sửa"
-                            >
-                              <FaEdit />
-                            </button>
-                            <button
-                              className="btn btn-sm btn-danger"
-                              onClick={() => handleDelete(book.id)}
-                              title="Xóa"
-                            >
-                              <FaTrash />
-                            </button>
-                          </>
-                          )}
+                            <td className="text-center">
+                              {book.trangthai === 0 && (
+                                <>
+                                  <button
+                                    className="btn btn-sm btn-success me-2"
+                                    onClick={() => handleApprove(book.id)}
+                                  >
+                                    ✓
+                                  </button>
+                                  <button
+                                    className="btn btn-sm btn-warning text-dark"
+                                    onClick={() => handleReject(book.id)}
+                                  >
+                                    ✕
+                                  </button>
+                                </>
+                              )}
 
-                          {book.trangthai === 1 && (
-                            <button
-                              className="btn btn-sm btn-warning text-dark"
-                              onClick={() => handleReject(book.id)}
-                            >
-                              ✕
-                            </button>
-                          )}
-                        </td>
+                              {book.trangthai === 2 && (
+                              <>
+                                <button
+                                  className="btn btn-sm btn-success me-2"
+                                  onClick={() => handleApprove(book.id)}
+                                  title="Duyệt"
+                                >
+                                  ✓
+                                </button>
+                                <button
+                                  className="btn btn-sm btn-primary me-2"
+                                  onClick={() => handleUpdate(book.slug)}
+                                  title="Chỉnh sửa"
+                                >
+                                  <FaEdit />
+                                </button>
+                                <button
+                                  className="btn btn-sm btn-danger"
+                                  onClick={() => handleDelete(book.id)}
+                                  title="Xóa"
+                                >
+                                  <FaTrash />
+                                </button>
+                              </>
+                              )}
+
+                              {book.trangthai === 1 && (
+                                <button
+                                  className="btn btn-sm btn-warning text-dark"
+                                  onClick={() => handleReject(book.id)}
+                                >
+                                  ✕
+                                </button>
+                              )}
+                            </td>
+                          </>
+                        )}
                       </tr>
                     ))
                   )}

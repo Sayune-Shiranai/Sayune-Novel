@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEdit, FaTrash } from "react-icons/fa";
+import { AuthContext } from '../../Middleware/AuthContext'
 import "./ArtistPage.css";
 import { 
   getPagedArtists,
@@ -15,6 +16,15 @@ export default function ArtistPage() {
   const [page, setPage] = useState(1);
   const limit = 10;
   const [totalPages, setTotalPages] = useState(1);
+
+  const { user } = useContext(AuthContext);
+
+  const role = user?.role;
+
+  const hasRole = (roles = []) => {
+    if (!role) return false;
+    return roles.includes(role);
+  };
 
   useEffect(() => {
     let ignore = false;
@@ -120,7 +130,11 @@ export default function ArtistPage() {
                   <tr>
                     <th className="text-center">Id</th>
                     <th>Họa sĩ</th>
-                    <th width="120">Chức năng</th>
+                    {hasRole(["Admin", "Mod"]) && (
+                      <>
+                        <th width="120">Chức năng</th>
+                      </>
+                    )} 
                   </tr>
                 </thead>
                 <tbody>
@@ -135,15 +149,19 @@ export default function ArtistPage() {
                       <tr key={artist.id}>
                         <td className="text-center">{(page - 1) * limit + i + 1}</td>
                         <td>{artist.name}</td>
-                        <td className="text-center">
-                            <button
-                              className="btn btn-sm btn-danger"
-                              onClick={() => handleDelete(artist.id)}
-                              title="Xóa"
-                            >
-                              <FaTrash />
-                            </button>
-                        </td>
+                        {hasRole(["Admin", "Mod"]) && (
+                          <>
+                            <td className="text-center">
+                                <button
+                                  className="btn btn-sm btn-danger"
+                                  onClick={() => handleDelete(artist.id)}
+                                  title="Xóa"
+                                >
+                                  <FaTrash />
+                                </button>
+                            </td>
+                          </>
+                        )}
                       </tr>
                     ))
                   )}

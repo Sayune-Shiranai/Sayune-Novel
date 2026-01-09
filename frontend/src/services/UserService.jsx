@@ -12,7 +12,11 @@ export const getPagedUsers = async ({ page, limit, keyword }) => {
 };
 
 export const getUserById = (id) => {
-  return axios.get(`http://localhost:3000/dashboard/user/${id}`);
+  return axios.get(`http://localhost:3000/dashboard/user/${id}`,
+    { 
+      withCredentials: true
+    }
+  );
 };
 
 export const updateUser = async (id, data) => {
