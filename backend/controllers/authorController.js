@@ -131,3 +131,32 @@ export async function deleteAuthor(req, res) {
     return res.status(500).json({ error: err.message });
   }
 }
+
+// Lấy tất cả book theo author
+export async function getBooksByAuthor(req, res) {
+  try {
+    const { id } = req.params;
+
+    const author = await db.authorModel.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.bookModel,
+          as: "Author_Book"
+        }
+      ]
+    });
+
+    if (!author) {
+      return res.status(404).json({ error: "Author không tồn tại" });
+    }
+
+    res.json({
+      author: author.name,
+      books: author.Author_Book
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

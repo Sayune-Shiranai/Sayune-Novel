@@ -53,6 +53,8 @@ import chatboxRoutes from "./routes/chatboxRoutes.js";
 import forumRoutes from "./routes/forumRoutes.js";
 import noticesRoutes from "./routes/noticesRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
+import authorRoutes from "./routes/authorRoutes.js";
+import artistRoutes from "./routes/artistRoutes.js";
 
 //auth routes
 import registerRoutes from "./routes/registerRoutes.js";
@@ -95,6 +97,8 @@ app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);
 app.use("/notices", noticesRoutes);
 app.use("/report", reportRoutes);
+app.use("/author", authorRoutes);
+app.use("/artist", artistRoutes);
 
 //auth routes
 app.use("/register", registerRoutes);
