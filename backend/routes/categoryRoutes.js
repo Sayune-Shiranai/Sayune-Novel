@@ -1,7 +1,7 @@
 import express from "express";
-import { GetPaged } from "../controllers/categoryController.js";
+import { getBooksByCategory } from "../controllers/categoryController.js";
 
 const router = express.Router();
-router.get("/", GetPaged);
+router.get("/:id", getBooksByCategory);
 
 export default router;

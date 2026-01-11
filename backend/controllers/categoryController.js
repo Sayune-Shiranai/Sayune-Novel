@@ -63,6 +63,36 @@ export async function getAllCategory(req, res) {
   }
 }
 
+// Lấy tất cả book theo category
+export async function getBooksByCategory(req, res) {
+  try {
+    const { id } = req.params;
+
+    const category = await db.categoryModel.findOne({
+      where: { id },
+      include: [
+        {
+          model: db.bookModel,
+          as: "Category_Book",
+          through: { attributes: [] }
+        }
+      ]
+    });
+
+    if (!category) {
+      return res.status(404).json({ error: "Category không tồn tại" });
+    }
+
+    res.json({
+      category: category.category,
+      books: category.Category_Book
+    });
+
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}
+
 // Xoá danh mục
 export async function deleteCategory(req, res) {
   try {
