@@ -134,7 +134,7 @@ const UpdateBookPage = () => {
         <div className="page-title">
             <div className="row">
                 <div className="col-6">
-                    <h4>Thêm Truyện</h4>
+                    <h4>Chỉnh sửa truyện</h4>
                 </div>
             </div>
         </div>

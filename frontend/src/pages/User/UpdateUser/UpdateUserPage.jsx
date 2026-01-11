@@ -60,7 +60,7 @@ const UpdateUserPage = () => {
       <div className="page-title">
           <div className="row">
             <div className="col-6">
-             <h4>Update Member
+             <h4>Chỉnh sửa người dùng
               </h4>
             </div>
           </div>
