@@ -1,0 +1,94 @@
+.carousel-container {
+  position: relative;
+}
+
+.book-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+  transition: all 0.3s ease;
+}
+
+
+.carousel-btn {
+  position: absolute;
+  top: 50%; 
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  font-size: 24px;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s;
+  padding-bottom: 4px;
+}
+
+.carousel-btn:hover {
+  background-color: #e74c3c;
+}
+.prev-btn {
+  left: -20px; 
+}
+
+.next-btn {
+  right: -20px; 
+}
+
+@media (max-width: 768px) {
+  .book-grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .carousel-btn {
+    width: 30px;
+    height: 30px;
+    font-size: 18px;
+    left: -10px;
+    right: -10px;
+  }
+}
+.read-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transition: opacity 0.3s ease; 
+  z-index: 2;
+}
+
+.read-btn {
+  color: white;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid white;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background-color: rgba(255, 255, 255, 0.1); 
+  transform: translateY(10px);
+  transition: transform 0.3s ease;
+}
+
+.book-card:hover .read-overlay {
+  opacity: 1;
+}
+
+
+.book-card:hover .read-btn {
+  transform: translateY(0);
+}
+
+.book-chapter {
+  z-index: 3; 
+}

@@ -8,6 +8,8 @@ import DashboardLayout from "./Layout/Dashboard/DashboardLayout.jsx";
 import { AuthorityRoute } from './Middleware/Routes/AuthorityRoute.jsx'
 
 import HomePage from './pages/Home/HomePage.jsx';
+import UserProfile from"./pages/User/UserProfile/UserProfile.jsx";
+import BookDetail from './pages/Book/BookDetail/BookDetail.jsx'
 import UserPage from "./pages/User/UserPage.jsx";
 import UpdateUserPage from "./pages/User/UpdateUser/UpdateUserPage.jsx";
 import BookPage from "./pages/Book/BookPage.jsx";
@@ -44,6 +46,9 @@ const App = () => {
 
         {/* HOME */}
         <Route path="/" element={<HomePage />} />
+        <Route path="/truyen/:slug" element={<BookDetail />} />
+        <Route path="/profile" element={<UserProfile />} />
+        
 
         {/* DASHBOARD */}
         <Route path="/dashboard" element={

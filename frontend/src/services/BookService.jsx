@@ -69,3 +69,29 @@ export const rejectBook = async (id) => {
     }
   );
 };
+
+export const getNewBooks = async (limit = 10) => {
+  const res = await axios.get(
+    "http://localhost:3000/dashboard/book", 
+    { 
+      params: { 
+        limit, 
+        sort: 'createdAt', 
+        order: 'desc' 
+      } 
+    }
+  );
+  return res.data;
+};
+
+export const getBooksByCategory = async (category_id) => {
+  const res = await axios.get(
+    "http://localhost:3000/dashboard/book",
+    {
+      params: { 
+        category_id
+      }
+    }
+  );
+  return res.data;
+};

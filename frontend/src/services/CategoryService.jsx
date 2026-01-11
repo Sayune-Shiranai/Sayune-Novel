@@ -28,3 +28,9 @@ export const deleteCategory = async (id) => {
     }
   );
 };
+
+export const getAllCategories = async () => {
+  const res = await axios.get("http://localhost:3000/dashboard/category"); //thay api đúng vào
+  return res.data;
+};
+
