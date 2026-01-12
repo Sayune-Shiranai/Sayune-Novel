@@ -2,33 +2,31 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './bookCarousel.css';
 
-
 const BookItem = ({ book }) => {
   const statusText = book.Book_Status ? book.Book_Status.status_name : "Đang cập nhật";
 
   return (
-    <div className="book-card">
+    <div className="home-book-card">
       <Link to={`/truyen/${book.slug}`} style={{color: 'inherit', textDecoration: 'none'}}>
-        <div className="book-cover-wrapper">
+        <div className="home-book-cover-wrapper">
           <img 
             src={book.img || "https://static2.vieon.vn/vieplay-image/poster_v4/2022/04/20/z96eha0f_660x946-demonslayer.jpg"} 
             alt={book.title} 
             onError={(e) => {e.target.src = "https://static2.vieon.vn/vieplay-image/poster_v4/2022/04/20/z96eha0f_660x946-demonslayer.jpg"}}
           />
           
-          <div className="read-overlay">
-            <span className="read-btn">Đọc truyện</span>
+          <div className="home-read-overlay">
+            <span className="home-read-btn">Đọc truyện</span>
           </div>
 
-          <span className="book-chapter">{statusText}</span>
+          <span className="home-book-chapter">{statusText}</span>
         </div>
         
-        <h3 className="book-title">{book.title}</h3>
+        <h3 className="home-book-title">{book.title}</h3>
       </Link>
     </div>
   );
 };
-
 
 const BookCarousel = ({ title, books }) => {
   const [startIndex, setStartIndex] = useState(0);
@@ -45,25 +43,25 @@ const BookCarousel = ({ title, books }) => {
       setStartIndex(startIndex - 1);
     }
   };
+  
   const visibleBooks = books.slice(startIndex, startIndex + itemsPerPage);
 
   return (
-    <section className="book-section">
-      <h2 className="section-title">{title}</h2>
+    <section className="home-book-section">
+      <h2 className="home-section-title">{title}</h2>
       
-      <div className="carousel-container">
+      <div className="home-carousel-container">
         {startIndex > 0 && (
-          <button className="carousel-btn prev-btn" onClick={handlePrev}>‹</button>
+          <button className="home-carousel-btn home-prev-btn" onClick={handlePrev}>‹</button>
         )}
-
-        <div className="book-grid-4">
+        <div className="home-book-grid-4">
           {visibleBooks.map(book => (
             <BookItem key={book.id} book={book} />
           ))}
         </div>
 
         {startIndex + itemsPerPage < books.length && (
-          <button className="carousel-btn next-btn" onClick={handleNext}>›</button>
+          <button className="home-carousel-btn home-next-btn" onClick={handleNext}>›</button>
         )}
       </div>
     </section>

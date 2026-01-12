@@ -1,10 +1,10 @@
-.hover-shadow:hover {
+.bookdetail-hover-shadow:hover {
   background-color: #fff !important;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15) !important;
   color: #e74c3c !important;
   border-color: #e74c3c !important;
 }
 
-.text-truncate {
+.bookdetail-text-truncate {
   max-width: 100%;
 }

@@ -3,9 +3,9 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { getNewBooks, getBooksByCategory } from "../../services/BookService.jsx";
 import { getAllCategories } from "../../services/CategoryService.jsx";
-import { getProfile, logout} from "../../services/AuthService.jsx"
+import {getProfile, logout} from "../../services/UserService.jsx";
 import BookCarousel from "../../components/Home/Book/bookCarousel.jsx";
-import avt from '../../../../media/avt/jindou-hikari.jpg'; 
+import avt from '/home/dunglaplanh/www/dự án/BTNHOM-git/Sayune-Novel/media/avt/jindou-hikari.jpg'; 
 import "./HomePage.css";
 
 const sidebarData = {
