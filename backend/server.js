@@ -85,9 +85,9 @@ app.use("/dashboard/report", ReportRoutes) // dashboard/report
 app.use("/dashboard/bookfollowing", BookFollowingRoutes) // dashboard/reportbookfollowing
 
 // home routes
-app.use("/", verifyToken, homeRoutes);
+app.use("/", homeRoutes);
 app.use("/user", usersRoutes); // /user
-app.use("/profile", verifyToken, profileRoutes); // profile
+app.use("/profile", profileRoutes); // profile
 app.use("/role", roleRoutes);
 app.use("/category", categoryRoutes); // category
 app.use("/book", bookRoutes); // book/
