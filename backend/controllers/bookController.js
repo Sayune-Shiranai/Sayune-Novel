@@ -370,3 +370,69 @@ export async function rejectBook(req, res) {
     res.status(500).json({ success: false, error: err.message });
   }
 }
+
+// Lấy tất cả book (không lấy book có status = 2)
+export async function GetAllBook(req, res) {
+  try {
+    const books = await db.bookModel.findAll({
+      where: {
+        trangthai: {
+          [Op.ne]: 2
+        }
+      },
+      order: [["id", "DESC"]]
+    });
+
+    return res.json({
+      success: true,
+      data: books
+    });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+//Lấy thông tất cả thông tin book và các bảng liên quan
+export async function GetBook(req, res) {
+  try {
+    const { slug } = req.params;
+    const book = await db.bookModel.findAll({
+      where: { slug },
+      include: [
+        {
+          model: db.categoryModel,
+          as: "Book_Category",
+          through: { attributes: [] } 
+        },
+        {
+          model: db.authorModel,
+          as: "Book_Author",
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.artistModel,
+          as: "Book_Artist",
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.StatusModel,
+          as: "Book_Status",
+          attributes: ["id", "name"]
+        },
+        {
+          model: db.volumeModel,
+          as: "Book_Volume",
+          attributes: ["volume_number", "title"],
+          order: [["volume_number", "ASC"]]
+        }
+      ],
+    });
+
+    return res.json({
+      success: true,
+      data: book
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+}

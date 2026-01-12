@@ -82,6 +82,7 @@ export async function createVolume(req, res) {
     if (!book) {
       return res.status(404).json({ error: "Book không tồn tại!" });
     }
+
     let {
       volume_number,
       title,
@@ -213,3 +214,44 @@ export async function rejectVolume(req, res) {
     res.status(500).json({ success: false, error: err.message });
   }
 }
+
+export async function GetVolumeBySlug(req, res) {
+  try {
+    const { slug, volume_number } = req.params;
+
+    const book = await db.bookModel.findOne({
+      where: { slug }
+    });
+
+    if (!book) {
+      return res.status(404).json({ error: "Book không tồn tại!" });
+    }
+
+    const volume = await db.volumeModel.findOne({
+      where: {
+        book_id: book.id,
+        volume_number
+      },
+      include: [
+        {
+          model: db.bookModel,
+          as: "Volume_Book",
+          attributes: ["id", "book_number", "title", "slug"]
+        }
+      ]
+    });
+
+    if (!volume) {
+      return res.status(404).json({ error: "Volume không tồn tại!" });
+    }
+
+    return res.json({
+      book: volume.Volume_Book,
+      volume
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+

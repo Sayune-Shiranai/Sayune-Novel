@@ -1,10 +1,12 @@
 import express from "express";
 import {
-  GetPaged
+  GetAllBook,
+  GetBook
 } from "../controllers/bookController.js";
 
 const router = express.Router();
 
-router.get("/", GetPaged); // GET /book
+router.get("/", GetAllBook); // GET /book
+router.get("/:slug", GetBook); // GET /book/:slug
 
 export default router;

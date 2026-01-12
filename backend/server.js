@@ -85,13 +85,13 @@ app.use("/dashboard/report", ReportRoutes) // dashboard/report
 app.use("/dashboard/bookfollowing", BookFollowingRoutes) // dashboard/reportbookfollowing
 
 // home routes
-app.use("/", homeRoutes);
+app.use("/", verifyToken, homeRoutes);
 app.use("/user", usersRoutes); // /user
-app.use("/profile", profileRoutes); // profile
+app.use("/profile", verifyToken, profileRoutes); // profile
 app.use("/role", roleRoutes);
 app.use("/category", categoryRoutes); // category
 app.use("/book", bookRoutes); // book/
-app.use("/book/:slug", volumeRoutes); // book/:slug
+app.use("/book", volumeRoutes); // book/:slug
 // app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
 app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);
