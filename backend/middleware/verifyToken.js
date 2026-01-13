@@ -70,7 +70,7 @@ export async function verifyToken(req, res, next) {
                   role: User.User_Role.role 
                 },
                 JWT_SECRET,
-                { expiresIn: "1m" }
+                { expiresIn: "15m" }
               );
 
               const newRefreshToken = jwt.sign(

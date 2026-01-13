@@ -30,7 +30,15 @@ export default (sequelize, DataTypes) => {
     });
 
     FollowBookModel.associate = (models) => {
+        FollowBookModel.belongsTo(models.usersModel, {
+        foreignKey: "user_id",
+        as: "Follow_User"
+        });
 
+        FollowBookModel.belongsTo(models.bookModel, {
+        foreignKey: "book_id",
+        as: "Follow_Book"
+        });
     };
 
     return FollowBookModel;

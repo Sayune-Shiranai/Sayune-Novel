@@ -1,5 +1,5 @@
 import db from '../models/index.js';
-import { Op } from "sequelize";
+import { Op, where } from "sequelize";
 
 export async function GetPaged(req, res) {
   try {
@@ -76,6 +76,7 @@ export async function GetAllUserFollowBook(req, res) {
         }
       ]
     });
+
     const users = await db.usersModel.findAll({
       where: userWhere,
       include: [
@@ -100,6 +101,32 @@ export async function GetAllUserFollowBook(req, res) {
       data: users
     });
 
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+// lấy tất cả book đã theo dõi của user
+export async function GetMyFollowedBooks(req, res) {
+  try {
+    const userId = req.user.id;
+
+    const user = await db.usersModel.findOne({
+      where: { id: userId },
+      include: [
+        {
+          model: db.bookModel,
+          as: "User_Follow_Book",
+          through: { attributes: [] }
+        }
+      ]
+    });
+
+    if (!user) {
+      return res.status(404).json({ message: "User không tồn tại" });
+    }
+
+    return res.json(user);
   } catch (err) {
     return res.status(500).json({ error: err.message });
   }

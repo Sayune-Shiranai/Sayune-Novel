@@ -33,7 +33,7 @@ export async function login (req, res) {
           role: user.User_Role.role 
         },
         JWT_SECRET,
-        { expiresIn: "1m" }
+        { expiresIn: "15m" }
       );
 
       const refreshToken = jwt.sign(

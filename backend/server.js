@@ -55,6 +55,7 @@ import noticesRoutes from "./routes/noticesRoutes.js";
 import reportRoutes from "./routes/reportRoutes.js";
 import authorRoutes from "./routes/authorRoutes.js";
 import artistRoutes from "./routes/artistRoutes.js";
+import bookfollowRoutes from './routes/bookfollowRoutes.js'
 
 //auth routes
 import registerRoutes from "./routes/registerRoutes.js";
@@ -90,8 +91,9 @@ app.use("/user", usersRoutes); // /user
 app.use("/profile", profileRoutes); // profile
 app.use("/role", roleRoutes);
 app.use("/category", categoryRoutes); // category
-app.use("/book", bookRoutes); // book/
-app.use("/book", volumeRoutes); // book/:slug
+app.use("/book", bookRoutes); // book/:slug
+app.use("/bookfollowing", bookfollowRoutes); // bookfollowing
+app.use("/book", volumeRoutes); // // /book/:slug/volume-:volume_number
 // app.use("/book/:slug/:slugChapter", volumeCommentRoutes); // book/:slug/chapter-x cần fix
 app.use("/chatbox", chatboxRoutes);
 app.use("/forum", forumRoutes);

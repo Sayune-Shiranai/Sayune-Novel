@@ -436,3 +436,69 @@ export async function GetBook(req, res) {
     res.status(500).json({ error: err.message });
   }
 }
+
+export async function FollowBook(req, res) {
+  try {
+    const user = req.user.id;
+    const { slug } = req.params;
+
+    const book = await db.bookModel.findOne({
+      where: { slug }
+    });
+
+    if (!book) {
+      return res.status(404).json({
+        message: "Sách không tồn tại"
+      });
+    }
+
+    const checkFollow = await db.FollowBookModel.findOne({
+      where: { user_id: user, book_id: book.id}
+    })
+
+    if(checkFollow) {
+      return res.status(400).json({
+        message: "Bạn đã follow sách này rồi"
+      });
+    }
+
+    await db.FollowBookModel.create({
+      user_id: user,
+      book_id: book.id
+    });
+    return res.json({ message: "Follow thành công" });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
+export async function UnfollowBook(req, res) {
+  try {
+    const user = req.user.id;
+    const { slug } = req.params;
+
+    const book = await db.bookModel.findOne({
+      where: { slug }
+    });
+
+    if (!book) {
+      return res.status(404).json({
+        message: "Sách không tồn tại"
+      });
+    }
+
+    const checkUnfollow = await db.FollowBookModel.destroy({
+      where: { user_id: user, book_id: book.id }
+    });
+
+    if (!checkUnfollow) {
+      return res.status(404).json({
+        message: "Bạn chưa follow sách này"
+      });
+    }
+
+    return res.json({ message: "Unfollow thành công" });
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
