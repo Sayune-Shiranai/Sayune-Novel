@@ -1,0 +1,317 @@
+/* .profile-page {
+
+}
+
+.profile-user {
+    padding-bottom: 20px;
+}
+
+.profile-background {
+    position: relative;
+    justify-content: center;
+    height: 348px;
+    margin-top: 60px;
+}
+
+.profile-background::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    object-fit: cover;
+}
+
+.save-edit-img-profile {
+
+}
+
+.profile-background-container {
+    height: 100%;
+    background-color: #ccc;
+    background-image: inherit;
+    background-size: cover;
+    background-position: center;
+    border-radius: 0 0 10px 10px;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.detail-profile-background {
+    border-radius: 0 0 10px 10px;
+    position: relative;
+    z-index: 0;
+    height: auto;
+    top: 0%;
+}
+
+.background-sub {
+    overflow: hidden;
+    position: absolute;
+    pointer-events: none;
+
+}
+
+.background-data {
+    background-image: url('/public_html/assets/img/background-profile/saekano.jpg');
+}
+
+.profile-info {
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: auto;
+    z-index: 0;
+    padding: 0 30px;
+    border-bottom: 1px solid;
+    border-color: #e4e5e7 #dadbdd hsla(214, 4%, 80%, .8);
+}
+
+.profile-container {
+
+}
+
+.avatar-profile {
+    position: relative;
+    height: 120px;
+    width: 172px;
+    border-radius: 50%;
+    background-size: cover;
+
+}
+
+.avatar-profile-user {
+    height: 172px;
+    width: 172px;
+    border-radius: 50%;
+    background: white;
+    top: -72px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    z-index: 1;
+}
+
+.avatar-data {
+    background-image: url('/public_html/assets/img/avt/jindou-hikari.jpg');
+    background-size: cover;
+    border-radius: 50%;
+    width: 164px;
+    height: 164px;
+    border: solid 0.5px rgba(0, 0, 0, 0.3);
+    position: relative;
+
+}
+
+.info-user {
+    padding: 0 20px;
+}
+
+.name-user {
+    margin-top: 20px;
+    font-size: 32px;
+    font-weight: 700;
+    height: inherit;
+}
+
+.container {
+    min-height: 500px;
+    max-width: 1280px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+}
+
+.statistic-profile {
+    padding: 10px 0;
+    background-color: hsla(0, 0%, 100%, .9);
+    border-color: #e4e5e7 #dadbdd hsla(214, 4%, 80%, .8);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 16px;
+}
+
+.title-profile {
+    margin: 0 20px 20px;
+    width: 100%;
+}
+
+.level-profile {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.level-profile strong {
+    height: 20px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.exp-profile {
+    width: 100%;
+    border-radius: 9999px;
+    --tw-bg-opacity: 1;
+    background-color: rgb(229 231 235 / var(--tw-bg-opacity));
+    position: relative;
+    height: 20px;
+}
+
+.detail-exp-profile {
+    --tw-bg-opacity: 1;
+    background-color: rgb(37 99 235 / var(--tw-bg-opacity));
+    width: 50%;
+    height: 100%;
+    border-radius: 9999px;
+    --tw-text-opacity: 1;
+    color: rgb(219 234 254 / var(--tw-text-opacity));
+}
+
+.rate-exp-profile {
+    padding: 2px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.text-exp-profile {
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 16px;
+    text-align: center;
+}
+
+.statistic-value {
+    height: 30px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 700;
+    line-height: 30px;
+}
+
+.statistic-name {
+    height: 21px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 21px;
+}
+
+.sect-body {
+    padding: 15px;
+}
+
+.profile-info-items {
+    padding-bottom: 4px;
+}
+
+.detail-info-items {
+    font-size: 14px;
+}
+
+.profile-showcase {
+    padding-top: 10px;
+    background-color: hsla(0, 0%, 100%, .9);
+    border-color: #e4e5e7 #dadbdd hsla(214, 4%, 80%, .8);
+    border-radius: 4px;
+    border-style: solid;
+    border-width: 1px;
+    margin-bottom: 16px;
+}
+
+.profile-showcase header {
+    border-bottom: 4px solid #111;
+    margin: 0 15px 20px;
+}
+
+.profile-showcase header span{
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.showcase-item {
+    margin-bottom: 20px;
+    display: none;
+}
+
+.series-showcase-item {
+
+}
+
+.showcase-item-img {
+    position: relative;
+}
+
+.showcase-item-img::before {
+    content: "";
+    display: block;
+    padding-top: 143.3333333333%;
+    width: 100%;
+}
+
+.showcase-item-img a{
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    background-position: 50%;
+}
+
+.title-showcase-item {
+    padding: 0 15px 0 30px;
+    position: relative;
+    width: 100%;
+}
+
+.series-info {
+    padding: 10px 10px 10px 0;
+}
+
+.title-series {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+.title-series:hover a {
+    color: var(--text-color-hover);
+    display: block;
+}
+
+.title-series a{
+    text-decoration: none;
+    color: black;
+}
+
+.detail-series {
+    padding-right: 10px;
+    
+}
+
+.chapter-info {
+    display: inline-block;
+    font-size: 14px;
+}
+
+.chapter-info a {
+    color: black;
+    text-decoration: none;
+}
+
+.chapter-info:hover a {
+    color: var(--text-color-hover);
+}
+
+.detail-time-info {
+    display: inline-block;
+    float: right;
+    color: #999;
+    font-size: 13px;
+} */

@@ -4,7 +4,7 @@ import { logout, getProfile } from "../../../services/AuthService";
 import "./Header.css";
 import avt from '../../../../../media/avt/jindou-hikari.jpg'
 
-const Header = () => {
+const Header = ({ collapsed }) => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
 
@@ -33,7 +33,7 @@ const Header = () => {
   };
 
   return (
-    <header className="page-header">
+    <header className={`page-header ${collapsed ? "collapsed" : ""}`}>
       <div className="header-wrapper row m-0 align-items-center">
 
         <div className="left-header col-xxl-5 col-xl-6 col-lg-5 col-md-4 col-sm-3 p-0">
@@ -78,7 +78,7 @@ const Header = () => {
 
               <ul className="profile-dropdown">
                 <li>
-                  <Link to="/coming-soon">
+                  <Link to="/dashboard/profile">
                     <i className="fa fa-user"></i>
                     <span>Tài khoản</span>
                   </Link>

@@ -4,7 +4,7 @@ import "./Sidebar.css";
 import logo from "../../../../../media/logo/logo-dark.png";
 import { AuthContext } from '../../../Middleware/AuthContext'
 
-const Sidebar = () => {
+const Sidebar = ({ collapsed, setCollapsed }) => {
   const [openMenu, setOpenMenu] = useState(null);
   
 
@@ -20,8 +20,6 @@ const Sidebar = () => {
     if (!role) return false;
     return roles.includes(role);
   };
-
-  const [collapsed, setCollapsed] = useState(false);
 
   return (
     <aside className={`sidebar-wrapper ${collapsed ? "collapsed" : ""}`}>
@@ -184,15 +182,15 @@ const Sidebar = () => {
             <h6>Cài đặt</h6>
           </li>
 
-          <li className="sidebar-list">
+          {/* <li className="sidebar-list">
             <Link className="sidebar-link sidebar-title" to="/settings/system">
               <i className="fa fa-cog"></i>
               <span className="ms-2">Cấu hình hệ thống</span>
             </Link>
-          </li>
+          </li> */}
 
           <li className="sidebar-list">
-            <Link className="sidebar-link sidebar-title" to="/settings/profile">
+            <Link className="sidebar-link sidebar-title" to="/dashboard/profile">
               <i className="fa fa-id-card"></i>
               <span className="ms-2">Thông tin tài khoản</span>
             </Link>

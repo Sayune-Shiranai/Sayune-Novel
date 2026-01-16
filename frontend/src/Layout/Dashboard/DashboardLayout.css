@@ -3,3 +3,22 @@
   padding: 100px 12px 60px 12px;
   transition: all 0.3s ease;
 }
+
+.page-wrapper.collapsed .sidebar-wrapper {
+  width: 80px;
+}
+
+
+.page-wrapper.collapsed .page-header {
+  margin-left: 80px;
+}
+
+/* PAGE BODY */
+/* .page-body {
+  margin-left: 265px;
+  transition: margin-left 0.3s ease;
+} */
+
+.page-wrapper.collapsed .page-body {
+  margin-left: 80px;
+}
