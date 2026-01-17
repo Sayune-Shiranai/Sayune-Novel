@@ -4,7 +4,7 @@ import './ProfilePage.css'
 const ProfilePage = () => {
   return (
     <div className="profile-page">
-      <div className="profile container-fluid" style={{ minHeight: "100vh" }}>
+      <div className="profile container-fluid">
         <div className="main">
           <div className="profile-user grid__full-width">
             <div className="profile-background row">
@@ -28,7 +28,7 @@ const ProfilePage = () => {
 
             <div className="profile-info row">
               <div className="detail-profile col-lg-8">
-                <div className="profile-container row">
+                <div className="profile-container d-flex w-100">
                   <div className="avatar-profile">
                     <div className="avatar-profile-user">
                       <div className="avatar-data"></div>
@@ -50,7 +50,7 @@ const ProfilePage = () => {
               <div className="col-12 col-lg-3">
                 <div className="statistic-profile row">
                   <div className="title-profile">
-                    <div className="level-profile row">
+                    <div className="level-profile">
                       <strong>Cấp 1</strong>
                       <strong>Cấp 2</strong>
                     </div>
@@ -84,24 +84,24 @@ const ProfilePage = () => {
                   </div>
                 </div>
 
-                <div className="sect-body statistic-profile">
+                <div className="sect-body statistic-profile row">
                   <div className="profile-info-items">
                     <strong className="info-name">
-                      <i className="fa-solid fa-clock-rotate-left"></i>
+                      <i className="fa-solid fa-clock-rotate-left pe-2"></i>
                       Biệt danh:
                     </strong>
                     <span className="info-value"> Sayune </span>
                   </div>
 
                   <div className="profile-info-items">
-                    <p>
+                    <p className="m-0">
                       'The more hope you hold. The more despair you'll feel'
                     </p>
                   </div>
 
                   <div className="profile-info-items">
                     <strong className="info-name">
-                      <i className="fa-solid fa-calendar"></i>
+                      <i className="fa-solid fa-calendar pe-2"></i>
                       Ngày sinh:
                     </strong>
                     <span className="info-value"> 14/04/2004 </span>
@@ -109,7 +109,7 @@ const ProfilePage = () => {
 
                   <div className="profile-info-items">
                     <strong className="info-name">
-                      <i className="fa-solid fa-star"></i>
+                      <i className="fa-solid fa-star pe-2"></i>
                       Sở thích:
                     </strong>
                     <span className="info-value"> Romcom is the best </span>
@@ -117,7 +117,7 @@ const ProfilePage = () => {
 
                   <div className="profile-info-items">
                     <strong className="info-name">
-                      <i className="fa-solid fa-users"></i>
+                      <i className="fa-solid fa-users pe-2"></i>
                       Tham gia:
                     </strong>
                     <span className="info-value"> 14/04/2004 </span>

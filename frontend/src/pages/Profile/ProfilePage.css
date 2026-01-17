@@ -1,4 +1,4 @@
-/* .profile-page {
+.profile-page {
 
 }
 
@@ -109,7 +109,7 @@
 }
 
 .info-user {
-    padding: 0 20px;
+    padding: 0 10px;
 }
 
 .name-user {
@@ -138,11 +138,12 @@
 }
 
 .title-profile {
-    margin: 0 20px 20px;
+    padding: 10px 0;
     width: 100%;
 }
 
 .level-profile {
+    display: flex;
     justify-content: space-between;
     width: 100%;
 }
@@ -208,6 +209,14 @@
 
 .profile-info-items {
     padding-bottom: 4px;
+}
+
+.info-name {
+
+}
+
+.info-name i{
+
 }
 
 .detail-info-items {
@@ -314,4 +323,4 @@
     float: right;
     color: #999;
     font-size: 13px;
-} */
+}
