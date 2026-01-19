@@ -8,7 +8,13 @@ export async function getProfile(req, res) {
     }
 
     const user = await db.usersModel.findOne({
-      where: { id: req.user.id }
+      where: { id: req.user.id },
+      include: [
+        {
+          model: db.roleModel, 
+          as: "User_Role",
+        },
+      ],
     });
 
     console.log("Profile User:", user)
@@ -17,12 +23,13 @@ export async function getProfile(req, res) {
       return res.status(404).json({ message: "Người dùng không tồn tại!" });
     }
 
+    const userJson = user.toJSON();
+
     return res.json({
       user: {
-        id: user.id,
-        username: user.username,
-        role: req.user.role,
-      }
+        ...userJson,
+        role: userJson.User_Role?.role || null,
+      },
     });
 
   } catch (err) {

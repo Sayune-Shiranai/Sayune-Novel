@@ -110,7 +110,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
               className="sidebar-link sidebar-title"
               onClick={() => toggleMenu("book")}
             >
-              <i class="fa-solid fa-book"></i>
+              <i className="fa-solid fa-book"></i>
               <span className="ms-2">Quản lý truyện</span>
               <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
             </div>
@@ -125,7 +125,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
             <div
               className="sidebar-link sidebar-title"
             >
-              <i class="fa-solid fa-chart-simple"></i>
+              <i className="fa-solid fa-chart-simple"></i>
               <span className="ms-2"><Link to="/dashboard/bookfollowing">Thống kê</Link></span>
             </div>
           </li>
@@ -167,7 +167,7 @@ const Sidebar = ({ collapsed, setCollapsed }) => {
               className="sidebar-link sidebar-title"
               onClick={() => toggleMenu("artist")}
             >
-              <i class="fa-solid fa-palette"></i>
+              <i className="fa-solid fa-palette"></i>
               <span className="ms-2">Quản lý họa sĩ</span>
               <i className="fa fa-angle-down ms-auto sidebar-icon"></i>
             </div>

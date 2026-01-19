@@ -68,7 +68,7 @@ const Header = ({ collapsed }) => {
                   alt="Avatar"
                 />
       
-                <div className="profile-info d-none d-md-block">
+                <div className="header-profile-info d-none d-md-block">
                   <span>{user?.username}</span>
                   <small>{user?.role}</small>
                 </div>

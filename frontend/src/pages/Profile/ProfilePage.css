@@ -45,7 +45,7 @@
     border-radius: 0 0 10px 10px;
     position: relative;
     z-index: 0;
-    height: auto;
+    height: 100%;
     top: 0%;
 }
 
@@ -53,11 +53,17 @@
     overflow: hidden;
     position: absolute;
     pointer-events: none;
-
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
 }
 
-.background-data {
-    background-image: url('/public_html/assets/img/background-profile/saekano.jpg');
+.background-data { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: cover; 
+    display: block; 
 }
 
 .profile-info {
@@ -97,7 +103,7 @@
     z-index: 1;
 }
 
-.avatar-data {
+/* .avatar-data {
     background-image: url('/public_html/assets/img/avt/jindou-hikari.jpg');
     background-size: cover;
     border-radius: 50%;
@@ -106,6 +112,21 @@
     border: solid 0.5px rgba(0, 0, 0, 0.3);
     position: relative;
 
+} */
+
+.avatar-data {
+    width: 164px;
+    height: 164px;
+    border-radius: 50%;
+    overflow: hidden;  
+    border: 0.5px solid rgba(0,0,0,0.3);
+}
+
+.avatar-user {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;     
+    display: block;
 }
 
 .info-user {

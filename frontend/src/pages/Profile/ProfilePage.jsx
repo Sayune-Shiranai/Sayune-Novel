@@ -1,7 +1,25 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './ProfilePage.css'
+import { getProfile } from "../../services/AuthService";
+import avt from '../../../../media/avt/jindou-hikari.jpg'
+import background from '../../../../media/background_images/abstract-white-background-photo.jpg'
 
 const ProfilePage = () => {
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    const Profile = async () => {
+      try {
+        const res = await getProfile();
+        setUser(res.user);
+      } catch (err) {
+        console.error(err);
+        setUser(null);
+      }
+    };
+
+    Profile();
+  }, []);
   return (
     <div className="profile-page">
       <div className="profile container-fluid">
@@ -10,14 +28,17 @@ const ProfilePage = () => {
             <div className="profile-background row">
               <div className="save-edit-img-profile"></div>
 
-              <div className="profile-background-container col-lg-8">
+              <div className="profile-background-container col-lg-8 p-0">
                 <div className="detail-profile-background grid__full-width">
                   <div
                     className="background-sub grid__full-width"
-                    style={{ top: "calc(-100% + 0px)" }}
                   >
                     <img
-                      src="/public_html/assets/img/background-profile/sekai-ka-kanojo-erabenai.png"
+                      src={
+                        user?.img_background
+                          ? `http://localhost:3000${user.img_background}`
+                          : background
+                      }
                       alt=""
                       className="background-data grid__full-width"
                     />
@@ -31,12 +52,22 @@ const ProfilePage = () => {
                 <div className="profile-container d-flex w-100">
                   <div className="avatar-profile">
                     <div className="avatar-profile-user">
-                      <div className="avatar-data"></div>
+                      <div className="avatar-data">
+                        <img
+                          src={
+                            user?.img_avatar
+                              ? `http://localhost:3000${user.img_avatar}`
+                              : avt
+                          }
+                          alt="avatar"
+                          className="avatar-user"
+                        />
+                      </div>
                     </div>
                   </div>
 
                   <div className="info-user">
-                    <div className="name-user">Sayune Shiranai</div>
+                    <div className="name-user">{user?.username}</div>
                   </div>
 
                   <div className="info-another"></div>
@@ -86,11 +117,11 @@ const ProfilePage = () => {
 
                 <div className="sect-body statistic-profile row">
                   <div className="profile-info-items">
-                    <strong className="info-name">
+                    <strong className="info-name pe-2">
                       <i className="fa-solid fa-clock-rotate-left pe-2"></i>
                       Biệt danh:
                     </strong>
-                    <span className="info-value"> Sayune </span>
+                    <span className="info-value">{user?.username}</span>
                   </div>
 
                   <div className="profile-info-items">
@@ -99,28 +130,28 @@ const ProfilePage = () => {
                     </p>
                   </div>
 
-                  <div className="profile-info-items">
-                    <strong className="info-name">
+                  {/* <div className="profile-info-items">
+                    <strong className="info-name pe-2">
                       <i className="fa-solid fa-calendar pe-2"></i>
                       Ngày sinh:
                     </strong>
-                    <span className="info-value"> 14/04/2004 </span>
-                  </div>
+                    <span className="info-value"></span>
+                  </div> */}
 
                   <div className="profile-info-items">
-                    <strong className="info-name">
+                    <strong className="info-name pe-2">
                       <i className="fa-solid fa-star pe-2"></i>
                       Sở thích:
                     </strong>
-                    <span className="info-value"> Romcom is the best </span>
+                    <span className="info-value"></span>
                   </div>
 
                   <div className="profile-info-items">
-                    <strong className="info-name">
+                    <strong className="info-name pe-2">
                       <i className="fa-solid fa-users pe-2"></i>
                       Tham gia:
                     </strong>
-                    <span className="info-value"> 14/04/2004 </span>
+                    <span className="info-value"></span>
                   </div>
                 </div>
               </div>
