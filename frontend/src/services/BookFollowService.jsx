@@ -22,3 +22,13 @@ export const GetAllUserFollowBook = async ({ page, limit, keyword, slug }) => {
   );
   return res.data;
 }
+
+export const GetMyFollowedBooks = async () => {
+  const res = await axios.get(
+    "http://localhost:3000/bookfollowing",
+    { 
+      withCredentials: true 
+    }
+  );
+  return res.data;
+}

@@ -6,6 +6,6 @@ import {
 
 const router = express.Router();
 
-router.get("/", GetMyFollowedBooks)
+router.get("/", verifyToken, GetMyFollowedBooks)
 
 export default router;
