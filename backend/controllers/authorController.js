@@ -139,6 +139,9 @@ export async function getBooksByAuthor(req, res) {
 
     const author = await db.authorModel.findOne({
       where: { id },
+      trangthai: {
+        [Op.ne]: 2
+      },
       include: [
         {
           model: db.bookModel,

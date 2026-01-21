@@ -437,6 +437,36 @@ export async function GetBook(req, res) {
   }
 }
 
+export async function GetBookCreateByUser(req, res) {
+  try {
+    const user = req.user?.id;
+
+    if (!user) {
+      return res.status(401).json({
+        message: "Chưa đăng nhập"
+      });
+    }
+
+    const books = await db.bookModel.findAll({
+      where: {
+        user_id: user,
+        trangthai: {
+          [Op.ne]: 2
+        }
+      },
+      order: [["createdAt", "DESC"]]
+    });
+
+    return res.status(200).json({
+      message: "Lấy danh sách truyện của user thành công",
+      data: books
+    });
+
+  } catch (err) {
+    return res.status(500).json({ error: err.message });
+  }
+}
+
 export async function FollowBook(req, res) {
   try {
     const user = req.user.id;

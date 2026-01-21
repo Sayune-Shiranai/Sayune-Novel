@@ -2,6 +2,7 @@ import express from "express";
 import { verifyToken } from "../middleware/verifyToken.js"; 
 import {
   GetAllBook,
+  GetBookCreateByUser,
   GetBook,
   FollowBook,
   UnfollowBook
@@ -10,6 +11,7 @@ import {
 const router = express.Router();
 
 router.get("/", GetAllBook); // GET /book
+router.get("/user", verifyToken, GetBookCreateByUser); // GET /book/user
 router.get("/:slug", GetBook); // GET /book/:slug
 router.post("/:slug/follow", verifyToken, FollowBook); // GET /book/:slug/follow
 router.delete("/:slug/unfollow", verifyToken, UnfollowBook); // GET /book/:slug/follow

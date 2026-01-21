@@ -70,6 +70,9 @@ export async function getBooksByCategory(req, res) {
 
     const category = await db.categoryModel.findOne({
       where: { id },
+      trangthai: {
+        [Op.ne]: 2
+      },
       include: [
         {
           model: db.bookModel,

@@ -266,7 +266,7 @@
 
 .showcase-item {
     margin-bottom: 20px;
-    display: none;
+    /* display: none; */
 }
 
 .series-showcase-item {
@@ -306,7 +306,6 @@
 }
 
 .title-series {
-    font-size: 16px;
     font-weight: 700;
 }
 

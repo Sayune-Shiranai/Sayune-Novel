@@ -95,3 +95,13 @@ export const getBooksByCategory = async (category_id) => {
   );
   return res.data;
 };
+
+export const GetBookCreateByUser = async () => {
+  const res = await axios.get(
+    "http://localhost:3000/book/user",
+    {
+      withCredentials: true
+    }
+  );
+  return res.data;
+};

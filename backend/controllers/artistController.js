@@ -133,13 +133,16 @@ export async function deleteArtist(req, res) {
   }
 }
 
-// Lấy tất cả book theo author
+// Lấy tất cả book theo artist
 export async function getBooksByArtist(req, res) {
   try {
     const { id } = req.params;
 
     const artist = await db.artistModel.findOne({
       where: { id },
+      trangthai: {
+        [Op.ne]: 2
+      },
       include: [
         {
           model: db.bookModel,

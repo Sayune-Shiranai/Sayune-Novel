@@ -21,7 +21,12 @@ export async function login (req, res) {
     }, });
 
   if (user) {
-      //example bcrypt.compare("123456", "$2b$10$gSY0P4HkHnNR3qDnPKhLVeFbf...vSVK/UZb4qB0E6") 
+    if (user.trangthai !== 1) {
+      return res.status(403).json({
+        message: "Tài khoản đã bị khóa!"
+      });
+    }
+    //example bcrypt.compare("123456", "$2b$10$gSY0P4HkHnNR3qDnPKhLVeFbf...vSVK/UZb4qB0E6") 
     //bcrypt sẽ hash lại "123456" theo cùng cơ chế salt và so sánh với chuỗi hash trong DB.
     const checkPassword = await bcrypt.compare(password, user.password);
     if (checkPassword) {
