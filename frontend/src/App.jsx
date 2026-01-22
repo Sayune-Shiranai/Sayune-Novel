@@ -28,6 +28,7 @@ import CreateRolePage from "./pages/Role/CreateRole/CreateRolePage.jsx";
 import ProfilePage from "./pages/Profile/ProfilePage.jsx";
 import BookFollowPage from "./pages/BookFollow/BookFollowPage.jsx";
 import UserFollowBoookPage from "./pages/BookFollow/UserFollowBook/UserFollowBookPage.jsx"
+import FollowedBookPage from "./pages/FollowedBook/FollowedBook.jsx";
 // import BookCreatePage from "./pages/Book/CreateBook.jsx";
 
 import "./App.css";
@@ -95,6 +96,8 @@ const App = () => {
           <Route path="bookfollowing/:slug" element={<UserFollowBoookPage />} />
 
           <Route path="profile" element={<ProfilePage />} />
+          
+          <Route path="/tusach" element={<FollowedBookPage />} />
         </Route>
 
       </Routes>

@@ -232,6 +232,17 @@
 .home-widget-content {
   padding: 15px;
 }
+.home-widget-link {
+  color: inherit;
+  text-decoration: none; 
+  transition: color 0.3s ease;
+}
+
+.home-widget-link:hover {
+  color: #e74c3c;
+  text-decoration: underline;
+  cursor: pointer;
+}
 
 .home-empty-state {
   color: #888;
@@ -489,4 +500,15 @@
 .home-profile-dropdown li button:hover {
   color: #006666;
   background-color: #f8f9fa;
+}
+.home-widget-link {
+  color: inherit;
+  text-decoration: none; 
+  transition: color 0.3s ease;
+}
+
+.home-widget-link:hover {
+  color: #e74c3c;
+  text-decoration: underline;
+  cursor: pointer;
 }

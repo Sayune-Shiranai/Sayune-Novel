@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { getNewBooks, getBooksByCategory } from "../../services/BookService.jsx";
 import { getAllCategories } from "../../services/CategoryService.jsx";
 import { getProfile, logout} from "../../services/AuthService.jsx"
+import {getFollowBookbyUser} from "../../services/FollowBookService.jsx";
 import BookCarousel from "../../components/Home/Book/bookCarousel.jsx";
 import avt from '../../../../media/avt/jindou-hikari.jpg'; 
 import "./HomePage.css";
@@ -36,6 +37,7 @@ const Home = () => {
   const [categories, setCategories] = useState([]);
   const [mysteryBooks, setMysteryBooks] = useState([]);
   const [romanceBooks, setRomanceBooks] = useState([]);
+  const [followedBooks, setFollowedBooks] = useState([]);
   
   const [isCategoryOpen, setCategoryOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
@@ -61,6 +63,21 @@ const Home = () => {
       }};
     fetchUserProfile();
   }, []);
+
+  useEffect(() => {
+    const fetchFollowedBooks = async () => {
+      if (user) {
+        try { 
+          const followed = await getFollowBookbyUser(user.id);
+          setFollowedBooks(followed || []); 
+        }
+        catch (err) {
+          console.error("Lỗi lấy sách theo dõi:", err);
+        }
+      };
+    fetchFollowedBooks();
+  }}, [user]);
+
   useEffect(() => {
     const fetchAllData = async () => {
       setIsLoading(true);
@@ -242,11 +259,15 @@ const Home = () => {
           </div>
 
           <div className="home-sidebar-widget">
-            <h3 className="home-widget-title"> Tủ sách của bạn</h3>
+            <h3 className="home-widget-title">
+              <Link to="/tusach" className="home-widget-link"> 
+              Tủ sách của tôi 
+              </Link>
+            </h3> 
             <div className="home-widget-content">
               {user ? (
                 <ul className="home-followed-list">
-                  {sidebarData.followedBooks.map(book => (
+                  {followedBooks.map(book => (
                     <li key={book.id} className="home-followed-item">
                       <span className="home-followed-title">{book.title}</span>
                       <span className="home-followed-chap">C.{book.chapter}</span>
