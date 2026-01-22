@@ -49,7 +49,8 @@ const App = () => {
         {/* HOME */}
         <Route path="/" element={<HomePage />} />
         <Route path="/truyen/:slug" element={<BookDetail />} />
-        <Route path="/profile" element={<UserProfile />} />
+        <Route path="/profile" element={<UserProfile />} />        
+        <Route path="/tusach" element={<FollowedBookPage />} />
         
 
         {/* DASHBOARD */}
@@ -96,8 +97,6 @@ const App = () => {
           <Route path="bookfollowing/:slug" element={<UserFollowBoookPage />} />
 
           <Route path="profile" element={<ProfilePage />} />
-          
-          <Route path="/tusach" element={<FollowedBookPage />} />
         </Route>
 
       </Routes>

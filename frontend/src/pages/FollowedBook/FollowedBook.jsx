@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import BookItem from "../../components/Home/Book/BookItem.jsx";
+import BookItem from "../../components/BookItem/BookItem.jsx";
 
  import { getFollowBookbyUser } from "../../services/FollowBookService.jsx";
  import { getProfile } from "../../services/AuthService.jsx";
@@ -10,7 +10,7 @@ const FollowedBookPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-//   // --- MOCK DATA ĐỂ TEST GIAO DIỆN ---
+  // --- MOCK DATA ĐỂ TEST GIAO DIỆN ---
 //   const MOCK_DATA = [
 //     {
 //       id: 1,
@@ -46,25 +46,25 @@ const FollowedBookPage = () => {
 //     }
 //   ];
 
-//   useEffect(() => {
-//     // Giả lập gọi API với độ trễ 1 giây
-//     const timer = setTimeout(() => {
-//       setLoading(true);
+  useEffect(() => {
+    // Giả lập gọi API với độ trễ 1 giây
+    const timer = setTimeout(() => {
+      setLoading(true);
       
-//       // Trường hợp 1: Có dữ liệu (Bỏ comment dòng dưới để test list sách)
-//       setBooks(MOCK_DATA); 
+      // Trường hợp 1: Có dữ liệu (Bỏ comment dòng dưới để test list sách)
+      setBooks(MOCK_DATA); 
 
-//       // Trường hợp 2: Rỗng (Bỏ comment dòng dưới để test giao diện trống)
-//       // setBooks([]); 
+      // Trường hợp 2: Rỗng (Bỏ comment dòng dưới để test giao diện trống)
+      // setBooks([]); 
 
-//       // Trường hợp 3: Lỗi (Bỏ comment dòng dưới để test giao diện lỗi)
-//       // setError("Lỗi kết nối server giả định");
+      // Trường hợp 3: Lỗi (Bỏ comment dòng dưới để test giao diện lỗi)
+      // setError("Lỗi kết nối server giả định");
 
-//       setLoading(false);
-//     }, 1000);
+      setLoading(false);
+    }, 1000);
 
-//     return () => clearTimeout(timer);
-//   }, []);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const fetchData = async () => {
