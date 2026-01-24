@@ -13,7 +13,7 @@ function getUploadPath(req) {
   }
 
   // --- Upload ảnh Book ---
-  if (!slug) {
+  if (req.file?.fieldname === "img") {
     return `media/books_images`;
   }
 
