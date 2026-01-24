@@ -245,7 +245,7 @@ export async function updateBook(req, res) {
       );
     }
 
-    let imgPath = req.file;
+    let imgPath = book.img;
 
     if (req.file) {
       const oldImgPath = path.join(process.cwd(), book.img);

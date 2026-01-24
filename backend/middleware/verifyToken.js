@@ -34,7 +34,7 @@ export async function verifyToken(req, res, next) {
             JWT_SECRET
           );
           req.user = CheckRefreshToken;
-          console.log(CheckRefreshToken);
+          // console.log(CheckRefreshToken);
           const userData = await lock.acquire(`refresh_lock_${CheckRefreshToken.id}`, async () => {
             console.log("Xác thực refresh token thành công!")
 
@@ -56,12 +56,12 @@ export async function verifyToken(req, res, next) {
               };
             }
             
-            console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
-            console.log("Giá trị của User.refreshToken:", User.refreshToken);
+            // console.log("Giá trị của cookie.refreshToken:", req.cookies.refreshToken);
+            // console.log("Giá trị của User.refreshToken:", User.refreshToken);
 
             if (User && User.refreshToken === req.cookies.refreshToken) {
-              console.log("Giá trị của User.username:", User.username);
-              console.log("Giá trị của User.role:", User.User_Role.role);
+              // console.log("Giá trị của User.username:", User.username);
+              // console.log("Giá trị của User.role:", User.User_Role.role);
 
               const newAccessToken = jwt.sign(
                 { 
@@ -124,7 +124,7 @@ export async function verifyToken(req, res, next) {
 
           req.user = userData;
 
-          console.log("Giá trị của currentUrl:", currentUrl);
+          // console.log("Giá trị của currentUrl:", currentUrl);
           console.log("Xác thực user thành công!")
           return next();
         } catch (err) {

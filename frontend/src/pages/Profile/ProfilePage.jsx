@@ -168,48 +168,49 @@ const ProfilePage = () => {
                     <span>Truyện đã đăng</span>
                   </header>
 
-                  <div className="container-fluid d-flex px-3">
-                    {books.length === 0 ? (
-                      <p className="text-center">Chưa có truyện nào</p>
-                    ) : (
-                      books.map((book) => (
-                        <div className="col-12 col-lg-6" key={book.id}>
-                          <div className="showcase-item">
-                            <div className="row">
-                              <div className="series-showcase-item col-lg-4">
-                                <div className="showcase-item-img">
-                                  <a
-                                    href={`/book/${book.slug}`}
-                                    style={{
-                                      backgroundImage: `url(http://localhost:3000${book.img})`,
-                                    }}
-                                  ></a>
-                                </div>
-                              </div>
-
-                              <div className="title-showcase-item col-lg-8">
-                                <div className="series-info">
-                                  <div className="title-series">
-                                    <a href={`/book/${book.slug}`}>
-                                      {book.title}
-                                    </a>
+                  <div className="container-fluid px-3">
+                    <div className="row">
+                      {books.length === 0 ? (
+                        <p className="text-center">Chưa có truyện nào</p>
+                      ) : (
+                        books.map((book) => (
+                          <div className="col-12 col-lg-6" key={book.id}>
+                            <div className="showcase-item">
+                              <div className="row">
+                                <div className="series-showcase-item col-lg-4">
+                                  <div className="showcase-item-img">
+                                    <a
+                                      href={`/book/${book.slug}`}
+                                      style={{
+                                        backgroundImage: `url(http://localhost:3000${book.img})`,
+                                      }}
+                                    ></a>
                                   </div>
                                 </div>
 
-                                <div className="detail-series">
-                                  <div className="detail-time-info">
-                                    <time className="time-info">
-                                      {new Date(book.createdAt).toLocaleDateString("vi-VN")}
-                                    </time>
+                                <div className="title-showcase-item col-lg-8">
+                                  <div className="series-info">
+                                    <div className="title-series">
+                                      <a href={`/book/${book.slug}`}>
+                                        {book.title}
+                                      </a>
+                                    </div>
+                                  </div>
+
+                                  <div className="detail-series">
+                                    <div className="detail-time-info">
+                                      <time className="time-info">
+                                        {new Date(book.createdAt).toLocaleDateString("vi-VN")}
+                                      </time>
+                                    </div>
                                   </div>
                                 </div>
                               </div>
                             </div>
                           </div>
-                        </div>
-                      ))
-                    )}
-
+                        ))
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>

@@ -298,7 +298,7 @@
 .title-showcase-item {
     padding: 0 15px 0 30px;
     position: relative;
-    width: 100%;
+    /* width: 100%; */
 }
 
 .series-info {
