@@ -29,3 +29,14 @@ export const deleteVolume = async (slug, id) => {
     }
   );
 };
+
+export const GetVolumeBySlug = async ({ slug }) => {
+  const res = await axios.get(
+    `http://localhost:3000/book/${slug}/volume-${volume_number}`,
+    { 
+      params: { page, limit, keyword },
+      withCredentials: true
+    }
+  );
+  return res.data;
+}

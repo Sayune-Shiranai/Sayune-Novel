@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { getBookBySlug } from '../../../services/BookService';
+import { GetBook } from '../../../services/BookService'; 
 import { getProfile } from '../../../services/AuthService';
 import { getPagedVolumes } from '../../../services/VolumeService';
+import { FollowBook } from '../../../services/BookService';
+import { UnfollowBook } from '../../../services/BookService';
+
 import './BookDetail.css';
 
 const BookDetail = () => {
@@ -30,7 +33,7 @@ const BookDetail = () => {
                     console.log("User not logged in or error fetching profile");
                 }
 
-                const response = await getBookBySlug(slug);
+                const response = await GetBook(slug);
                 setBook(response.data);
 
             } catch (error) {
@@ -86,7 +89,7 @@ const BookDetail = () => {
             <div 
             className="position-absolute w-100 h-100"
             style={{ 
-                backgroundImage: `url(${book.img})`, 
+                backgroundImage: `url(http://localhost:3000${book.img})`, 
                 backgroundSize: 'cover', 
                 backgroundPosition: 'center', 
                 filter: 'blur(20px) brightness(0.4)',
@@ -99,7 +102,7 @@ const BookDetail = () => {
                 
                 <div className="col-md-3 text-center">
                 <img 
-                    src={book.img} 
+                    src={`http://localhost:3000${book.img}`}
                     alt={book.title} 
                     className="img-fluid rounded-3 shadow-lg border border-secondary"
                     style={{ maxHeight: '350px', objectFit: 'cover' }}

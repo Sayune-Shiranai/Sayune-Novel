@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import BookItem from "../../components/BookItem/BookItem.jsx";
 
- import { getFollowBookbyUser } from "../../services/FollowBookService.jsx";
+ import { GetMyFollowedBooks } from "../../services/BookFollowService.jsx";
  import { getProfile } from "../../services/AuthService.jsx";
 
 const FollowedBookPage = () => {

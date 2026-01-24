@@ -70,20 +70,6 @@ export const rejectBook = async (id) => {
   );
 };
 
-export const getNewBooks = async (limit = 10) => {
-  const res = await axios.get(
-    "http://localhost:3000/dashboard/book", 
-    { 
-      params: { 
-        limit, 
-        sort: 'createdAt', 
-        order: 'desc' 
-      } 
-    }
-  );
-  return res.data;
-};
-
 export const getBooksByCategory = async (category_id) => {
   const res = await axios.get(
     "http://localhost:3000/dashboard/book",
@@ -96,9 +82,50 @@ export const getBooksByCategory = async (category_id) => {
   return res.data;
 };
 
+export const GetAllBook = async () => {
+  const res = await axios.get(
+    "http://localhost:3000/book",
+    {
+      withCredentials: true
+    }
+  );
+  return res.data;
+};
+
+
 export const GetBookCreateByUser = async () => {
   const res = await axios.get(
     "http://localhost:3000/book/user",
+    {
+      withCredentials: true
+    }
+  );
+  return res.data;
+};
+
+export const GetBook = async ( slug ) => {
+  const res = await axios.get(
+    `http://localhost:3000/book/${slug}`,
+    {
+      withCredentials: true
+    }
+  );
+  return res.data;
+};
+
+export const FollowBook = async ( slug ) => {
+  const res = await axios.get(
+    `http://localhost:3000/book/${slug}/follow`,
+    {
+      withCredentials: true
+    }
+  );
+  return res.data;
+};
+
+export const UnfollowBook = async ( slug ) => {
+  const res = await axios.get(
+    `http://localhost:3000/book/${slug}/unfollow`,
     {
       withCredentials: true
     }

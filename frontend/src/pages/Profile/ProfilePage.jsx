@@ -13,12 +13,13 @@ const ProfilePage = () => {
     const fetchData = async () => {
       try {
         const profileRes = await getProfile();
+        console.log("Profile Response:", profileRes);
         setUser(profileRes.user);
 
         const bookRes = await GetBookCreateByUser();
         setBooks(bookRes.data);
       } catch (err) {
-        console.error(err);
+        console.error("Profile Error:", err.message);
       }
     };
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
 
-import { getNewBooks, getBooksByCategory } from "../../services/BookService.jsx";
+import { getBooksByCategory } from "../../services/BookService.jsx";
 import { getAllCategories } from "../../services/CategoryService.jsx";
 import { getProfile, logout} from "../../services/AuthService.jsx"
 import {getFollowBookbyUser} from "../../services/FollowBookService.jsx";
