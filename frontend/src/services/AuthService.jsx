@@ -35,8 +35,10 @@ export const getProfile = async () => {
       { withCredentials: true }
     );
 
+    console.log("Profile API Response:", res.data);
     return res.data;
-  } catch {
-    throw new Error("Chưa đăng nhập");
+  } catch (error) {
+    console.error("Profile API Error:", error.response?.data || error.message);
+    throw new Error(error.response?.data?.message || "Chưa đăng nhập");
   }
 };
