@@ -251,7 +251,6 @@ export async function updateBook(req, res) {
       const oldImgPath = path.join(process.cwd(), book.img);
       console.log("oldImg:", oldImgPath);
 
-      // không xoá ảnh mặc định
       if (
         fs.existsSync(oldImgPath) &&
         book.img !== "/media/books_images/nocover.jpg"
