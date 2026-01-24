@@ -10,7 +10,7 @@ import './BookDetail.css';
 
 const BookDetail = () => {
     const { slug } = useParams();
-    const [book, setBook] = useState(null);
+    const [book, setBook] = useState();
     const [volumes, setVolumes] = useState([]);
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -34,7 +34,7 @@ const BookDetail = () => {
                 }
 
                 const response = await GetBook(slug);
-                setBook(response.data);
+                setBook(response.data[0]);
 
             } catch (error) {
                 console.error("Error fetching book details:", error);
@@ -135,7 +135,7 @@ const BookDetail = () => {
                 </div>
                 </div>
             </div>
-            </div>
+        </div>
         </div>
 
         <div className="container mt-n5 position-relative" style={{ top: '-30px', zIndex: 2 }}>
