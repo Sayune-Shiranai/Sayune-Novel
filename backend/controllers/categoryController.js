@@ -151,7 +151,6 @@ export async function createCategory(req, res) {
   try {
     const { category, description } = req.body;
 
-    // Kiểm tra thiếu dữ liệu
     if (!category) {
       return res.status(400).json({
         success: false,
@@ -175,7 +174,7 @@ export async function createCategory(req, res) {
     const newCategory = await db.categoryModel.create({
       category,
       description: description || "",
-      trangthai: 0 // trạng thái mặc định (0 = chờ duyệt)
+      trangthai: 0
     });
 
     return res.json({
